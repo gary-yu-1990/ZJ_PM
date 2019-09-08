@@ -1,16 +1,21 @@
 <template>
-  <el-menu :default-active="activeIndex" class="nav_menu" mode="horizontal">
+  <el-menu router :default-active="activeIndex" class="nav_menu" mode="horizontal">
     <li id="head">
       <span id="head_logo"></span>
     </li>
     <li id="projectname">匠心项目管理系统</li>
-    <el-menu-item index="1">我的任务</el-menu-item>
-    <el-menu-item index="2">项目管理</el-menu-item>
-    <el-menu-item index="3">进度报表</el-menu-item>
-    <el-menu-item index="4">知识库</el-menu-item>
-    <li id="info">
+    <el-menu-item index="/MyTask">我的任务</el-menu-item>
+    <el-menu-item index="/ProjectManager">项目管理</el-menu-item>
+    <el-menu-item index="/Report">进度报表</el-menu-item>
+    <el-menu-item index="/KnowledgeBase">知识库</el-menu-item>
+    <el-menu-item index="/BaseInfo">基础设置</el-menu-item>
+    <li class="info">
     <el-avatar icon="el-icon-user-solid"></el-avatar>
     </li>
+     <li class="info_label">登录</li>
+    <li class="info_label">|</li>
+    <li class="info_label">注册</li>
+  
   </el-menu>
 </template>
 
@@ -33,8 +38,16 @@ export default {
   margin-inline-end: 0px;
   padding-inline-start: 40px;
 }
-#info {
+
+.info {
+  display: block;
   margin-top: 10px;
+  float: right;
+}
+.info_label {
+  margin-top: 20px;
+  margin-right: 10px;
+  display: block;
   float: right;
 }
 

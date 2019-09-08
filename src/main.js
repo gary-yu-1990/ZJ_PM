@@ -8,7 +8,6 @@ import 'element-ui/lib/theme-chalk/index.css'
 import 'font-awesome/css/font-awesome.css'
 import api from './api/index.js'
 
-
 Vue.prototype.$api = api
 
 Vue.use(ElementUI)

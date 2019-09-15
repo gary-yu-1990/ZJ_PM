@@ -1,7 +1,8 @@
   <template>
+  <el-container>
     <el-table
       :data="tableData"
-      style="width: 100%">
+     >
       <el-table-column
         prop="date"
         label="日期"
@@ -17,6 +18,7 @@
         label="地址">
       </el-table-column>
     </el-table>
+    </el-container>
   </template>
 
   <script>
@@ -65,3 +67,11 @@
       }
     }
   </script>
+
+
+  <style scoped >
+  
+.el-container{
+    background-color: red;
+}
+</style>

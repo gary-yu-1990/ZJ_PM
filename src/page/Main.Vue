@@ -1,7 +1,7 @@
 <template>
   <div class="index-wrap">
     <el-container id="el-container">
-      <el-header height="50px">
+      <el-header>
         <navMenu></navMenu>
       </el-header>
       <el-main>
@@ -26,7 +26,16 @@ export default {
 
 <style scoped >
 .el-header {
-  padding: 0 20px 0 10px;
+  height: 60px;
+  /*background: #BBE8F2;*/ 
+}
+.el-main{
+  background:rgb(245, 237, 237); 
+  width: 100%; 
+  position: absolute;
+  top: 60px ; 
+  left: 0 ;
+  bottom: 0; 
 }
 
 

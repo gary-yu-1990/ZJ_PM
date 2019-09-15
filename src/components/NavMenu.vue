@@ -6,9 +6,10 @@
     <li id="projectname">匠心项目管理系统</li>
     <el-menu-item index="/MyTask">我的任务</el-menu-item>
     <el-menu-item index="/ProjectManager">项目管理</el-menu-item>
-    <el-menu-item index="/Report">进度报表</el-menu-item>
+    <el-menu-item index="/ProjectReport">进度报表</el-menu-item>
+     <el-menu-item index="/ProjectBaseData">基础数据</el-menu-item>
     <el-menu-item index="/KnowledgeBase">知识库</el-menu-item>
-    <el-menu-item index="/BaseInfo">基础设置</el-menu-item>
+    <el-menu-item index="/SystemSet">基础设置</el-menu-item>
     <li class="info">
     <el-avatar icon="el-icon-user-solid"></el-avatar>
     </li>

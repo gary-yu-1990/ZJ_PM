@@ -1,13 +1,14 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Main from '@/page/Main'
-import Report from '@/page/Report'
+import ProjectReport from '@/page/ProjectReport'
 import ProjectManager from '@/page/ProjectManager'
+import ProjectBaseData from '@/page/ProjectBaseData'
 import MyTask from '@/page/MyTask'
 import KnowledgeBase from '@/page/KnowledgeBase'
-import BaseInfo from '@/page/BaseInfo'
-import PersonInfo from '@/page/BaseInfoPages/PersonInfo'
-import BaseSet from '@/page/BaseInfoPages/BaseSet'
+import SystemSet from '@/page/SystemSet'
+import PersonInfo from '@/page/SystemSetPages/PersonInfo'
+import BaseSet from '@/page/SystemSetPages/BaseSet'
 
 Vue.use(Router)
 
@@ -30,10 +31,19 @@ export default new Router({
       meta: {
         keepAlive: true
       }
-    }, {
-      path: '/Report',
-      name: 'Report',
-      component: Report,
+    },
+    {
+      path: '/ProjectBaseData',
+      name: 'ProjectBaseData',
+      component: ProjectBaseData,
+      meta: {
+        keepAlive: true
+      }
+    },
+    {
+      path: '/ProjectReport',
+      name: 'ProjectReport',
+      component: ProjectReport,
       meta: {
         keepAlive: true
       }
@@ -45,18 +55,18 @@ export default new Router({
         keepAlive: true
       }
     }, {
-      path: '/BaseInfo',
-      name: 'BaseInfo',
-      component: BaseInfo,
+      path: '/SystemSet',
+      name: 'SystemSet',
+      component: SystemSet,
       children: [{
-        path: '/BaseInfo/PersonInfo',
+        path: '/SystemSetPages/PersonInfo',
         name: 'PersonInfo',
         component: PersonInfo,
         meta: {
           keepAlive: true
         }
       }, {
-        path: '/BaseInfo/BaseSet',
+        path: '/SystemSetPages/BaseSet',
         name: 'BaseSet',
         component: BaseSet,
         meta: {
@@ -66,6 +76,7 @@ export default new Router({
       meta: {
         keepAlive: true
       }
-    }]
+    }
+    ]
   }]
 })

@@ -1,13 +1,13 @@
     <template>
-        <div>
+       <el-container>
             <h2>基础设置</h2>
-        </div>
+     </el-container>
     </template>
 
 
 <style scoped >
   
-.div{
+.el-container{
     background-color: aquamarine;
 }
 </style>

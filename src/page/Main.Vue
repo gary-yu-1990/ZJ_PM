@@ -30,7 +30,7 @@ export default {
   /*background: #BBE8F2;*/ 
 }
 .el-main{
-  background:rgb(245, 237, 237); 
+  /*background:rgb(245, 237, 237);*/
   width: 100%; 
   position: absolute;
   top: 60px ; 

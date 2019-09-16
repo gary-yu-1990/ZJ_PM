@@ -4,16 +4,19 @@
       <span id="head_logo"></span>
     </li>
     <li id="projectname">匠心项目管理系统</li>
-    <el-menu-item index="/MyTask">我的任务</el-menu-item>
+    <el-menu-item index="/MyTask">工作台</el-menu-item>
     <el-menu-item index="/ProjectManager">项目管理</el-menu-item>
-    <el-menu-item index="/ProjectReport">进度报表</el-menu-item>
-     <el-menu-item index="/ProjectBaseData">基础数据</el-menu-item>
-    <el-menu-item index="/KnowledgeBase">知识库</el-menu-item>
+    <el-menu-item index="/SystemSet">任务管理</el-menu-item>
+    <!--<el-menu-item index="/SystemSet">项目监控</el-menu-item>-->
+    <el-menu-item index="/SystemSet">项目绩效</el-menu-item>
+    <el-menu-item index="/ProjectReport">项目统计</el-menu-item>
+    <el-menu-item index="/ProjectBaseData">基础数据</el-menu-item>
+    <el-menu-item index="/KnowledgeBase">知识管理</el-menu-item>
     <el-menu-item index="/SystemSet">基础设置</el-menu-item>
     <li class="info">
     <el-avatar icon="el-icon-user-solid"></el-avatar>
     </li>
-     <li class="info_label">登录</li>
+    <li class="info_label">登录</li>
     <li class="info_label">|</li>
     <li class="info_label">注册</li>
   
@@ -73,7 +76,7 @@ export default {
   margin-top: 13px;
   display: block;
   float: left;
-  margin-right: 400px;
+  margin-right: 200px;
   font-size: 20px;
 }
 </style>

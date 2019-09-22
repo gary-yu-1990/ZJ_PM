@@ -4,11 +4,16 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import ElementUI from 'element-ui'
+// import {get, post, patch, put } from './api/http'
 import 'element-ui/lib/theme-chalk/index.css'
 import 'font-awesome/css/font-awesome.css'
-import api from './api/index.js'
 
-Vue.prototype.$api = api
+// Vue.prototype.$api = api
+// Vue.prototype.$axios = Axios
+// Vue.prototype.$get = get
+// Vue.prototype.$post = post
+// Vue.prototype.$patch = patch
+// Vue.prototype.$put = put
 
 Vue.use(ElementUI)
 

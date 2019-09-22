@@ -9,6 +9,7 @@ import KnowledgeBase from '@/page/KnowledgeBase'
 import SystemSet from '@/page/SystemSet'
 import PersonInfo from '@/page/SystemSetPages/PersonInfo'
 import BaseSet from '@/page/SystemSetPages/BaseSet'
+import TaskManager from '@/page/TaskManager'
 
 Vue.use(Router)
 
@@ -40,6 +41,15 @@ export default new Router({
         keepAlive: true
       }
     },
+    {
+      path: '/TaskManager',
+      name: 'TaskManager',
+      component: TaskManager,
+      meta: {
+        keepAlive: true
+      }
+    },
+
     {
       path: '/ProjectReport',
       name: 'ProjectReport',

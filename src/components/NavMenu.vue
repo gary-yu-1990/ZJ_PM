@@ -6,7 +6,7 @@
     <li id="projectname">匠心项目管理系统</li>
     <el-menu-item index="/MyTask">工作台</el-menu-item>
     <el-menu-item index="/ProjectManager">项目管理</el-menu-item>
-    <el-menu-item index="/SystemSet">任务管理</el-menu-item>
+    <el-menu-item index="/TaskManager">任务管理</el-menu-item>
     <!--<el-menu-item index="/SystemSet">项目监控</el-menu-item>-->
     <el-menu-item index="/SystemSet">项目绩效</el-menu-item>
     <el-menu-item index="/ProjectReport">项目统计</el-menu-item>

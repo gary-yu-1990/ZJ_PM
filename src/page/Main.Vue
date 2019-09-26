@@ -14,6 +14,7 @@
     <el-menu-item index="/ProjectBaseData">基础数据</el-menu-item>
     <!-- <el-menu-item index="/KnowledgeBase">知识管理</el-menu-item> -->
     <el-menu-item index="/SystemSet">基础设置</el-menu-item>
+     <el-menu-item index="/TeamManager">团队管理</el-menu-item>
     <li class="info"><el-avatar icon="el-icon-user-solid"></el-avatar></li> 
     <li class="info" >登录</li>
     <li class="info">|</li>

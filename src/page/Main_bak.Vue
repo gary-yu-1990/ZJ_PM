@@ -1,0 +1,209 @@
+<template>
+  <el-container class="main-container" >
+  <el-header style="height:60px">
+   <div class="headTitle">
+     <span>
+       <img src="../assets/zjlogo.png" alt="" style="height:50px">
+     </span>
+     <span style="font-size:25px">知匠项目管理系统</span>
+   </div>
+   <div class="headMenu">
+    <el-menu router :default-active="activeIndex" class="nav_menu" mode="horizontal" style="height:60px">
+    <el-menu-item index="/ProjectManager">项目管理</el-menu-item>
+    <el-menu-item index="/TaskManager">任务管理</el-menu-item>
+    <!--<el-menu-item index="/SystemSet">项目监控</el-menu-item>-->
+    <el-menu-item index="/SystemSet">项目绩效</el-menu-item>
+    <el-menu-item index="/ProjectReport">项目统计</el-menu-item>
+    <el-menu-item index="/ProjectBaseData">基础数据</el-menu-item>
+    <!-- <el-menu-item index="/KnowledgeBase">知识管理</el-menu-item> -->
+    <el-menu-item index="/SystemSet">基础设置</el-menu-item>
+  </el-menu>
+   </div>
+   <el-avatar icon="el-icon-user-solid"></el-avatar>
+   <div class="headInfo"> 
+        <span class="lable" >登录</span>
+        <span class="lable">|</span>
+        <span class="lable">注册</span>
+   </div>
+  </el-header>
+  <el-main>
+         <keep-alive>
+              <router-view />
+            </keep-alive>
+  </el-main>
+</el-container>
+</template>
+
+<script>
+import navMenu from "../components/NavMenu";
+export default {
+  name: "main",
+  components: {
+    navMenu
+  }
+};
+</script>
+<style scoped >
+
+@media (min-width: 1920px) {
+  .main-container {
+    /* background-color: aquamarine; */
+    width: 1600px;
+    margin: 0 auto;
+  }
+}
+@media (max-width: 1920px) {
+  .main-container {
+    /* background-color: aquamarine; */
+    width: 1600px;
+    margin: 0 auto;
+  }
+}
+@media (max-width: 1680px) {
+  .main-container {
+    /* background-color: aquamarine; */
+    width: 1500px;
+    margin: 0 auto;
+  }
+}
+@media (max-width: 1440px) {
+  .main-container {
+    /* background-color: aquamarine; */
+    width: 1400px;
+    margin: 0 auto;
+  }
+}
+@media (max-width: 1366px) {
+  .main-container {
+    /* background-color: aquamarine; */
+    width: 1347px;
+    margin: 0 auto;
+  }
+}
+@media (max-width: 1280px) {
+  .main-container {
+    /* background-color: aquamarine; */
+    width: 1260px;
+    margin: 0 auto;
+  }
+} /*>=1280的设备*/
+@media (max-width: 1100px) {
+  .main-container {
+    /* background-color: aquamarine; */
+    width: 1080px;
+    margin: 0 auto;
+  }
+} /*>=1100的设备*/
+@media (max-width: 1024px) {
+  .main-container {
+    /* background-color: aquamarine; */
+    width: 1000px;
+    margin: 0 auto;
+  }
+} /*>=1024的设备*/
+
+ .el-header {
+    background-color:white;
+    color: #333;
+    padding: 0;
+    border-bottom:2px solid #E9EEF3
+  }
+
+ .el-header li {
+  float: left;
+} 
+  
+  .el-main {
+    background-color: #E9EEF3;
+    color: #333;
+    text-align: center;
+        padding: 0;
+  }
+  .headTitle{
+    display: block;
+    float: left;
+    /* padding-right: 400px; */
+    margin-right: 100px;
+    text-align: center；
+  }
+  .headMenu{
+    display: block;
+    float: left;
+    padding: 0px;
+        text-align: center；
+  }
+  .headInfo{
+    display: block;
+    float: right;
+    padding:2px;
+    text-align: center；
+  }
+
+ .headInfo span{
+     display: table-cell;
+     vertical-align:middle;
+     height:60px;
+     padding-left: 5px;
+     padding-right: 5px;
+     text-align: center;
+  }
+  .el-avatar{
+    margin-top: 10px;
+    display: block;
+    float: right;
+  }
+  
+
+
+
+.headTitle span{
+     display: table-cell;
+     vertical-align:middle;
+     height:60px;
+     padding: 2;
+     text-align: center;
+  }
+  
+ 
+ 
+
+
+  .head-content{
+  padding: 0;
+  margin: 0;
+}
+
+
+.info {
+  display: block;
+  margin-top: 10px;
+  float: right;
+}
+.nav_menu{
+  width: 100%;
+}
+
+.info_label {
+  margin-top: 20px;
+  margin-right: 10px;
+  display: block;
+  float: right;
+}
+
+#head {
+  display: block;
+  float: left;
+}
+#head_logo {
+  background-image: url("../assets/logo.png") no-repeat;
+}
+
+#projectname {
+  margin-top: 13px;
+  display: block;
+  float: left;
+  margin-right: 200px;
+  font-size: 20px;
+}
+</style>
+

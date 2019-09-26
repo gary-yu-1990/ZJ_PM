@@ -6,7 +6,7 @@
      <el-menu-item index="/SystemSetPages/BaseSet">导航二 </el-menu-item>
      <el-menu-item index="/SystemSetPages/PersonInfo">导航三 </el-menu-item>
      <el-menu-item index="/SystemSetPages/BaseSet">导航四 </el-menu-item></el-menu>
-   </el-aside>
+    </el-aside>
     <el-main>
            <router-view></router-view>
     </el-main>
@@ -17,7 +17,7 @@
 
 <style scoped >
 
-
+/* 
 .el-aside{
   background: rgb(187, 166, 166); 
   width: 300px; 
@@ -38,7 +38,7 @@
 }
 .el-menu{
   text-align:center;
-}
+} */
 
 
 </style>

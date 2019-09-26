@@ -1,62 +1,65 @@
 <template>
-   <div class="container">
-    <div class="right-container">
-      <ul class="gantt-messages">
-        <li class="gantt-message" v-for="message in messages">{{message}}</li>
-      </ul>
-    </div>
-    <gantt class="left-container" :tasks="tasks" @task-updated="logTaskUpdate" @link-updated="logLinkUpdate"></gantt>
+  <div class="contains">
+     <div class="taskgantview" style="height:500px;">
+       <treegantt :list.sync="treeDataSource" @actionFunc="actionFunc" @deleteFunc="deleteFunc" @handlerExpand="handlerExpand" @orderByFunc="orderByFunc"></treegantt>
+       </div>  
+     <div class="taskDetailInfo" style="">
+     <el-tabs type="border-card" style="height:130px;">
+     <el-tab-pane label="用户管理">用户管理</el-tab-pane>
+     <el-tab-pane label="配置管理">配置管理</el-tab-pane>
+     <el-tab-pane label="角色管理">角色管理</el-tab-pane>
+     <el-tab-pane label="定时任务补偿">定时任务补偿</el-tab-pane>
+     </el-tabs>
+    </div>  
+     <!-- <div id="taskgantview">
+        <treegantt :list.sync="treeDataSource" @actionFunc="actionFunc" @deleteFunc="deleteFunc" @handlerExpand="handlerExpand" @orderByFunc="orderByFunc"></treegantt>
+     </div> -->
+     <!-- <div id="taskDetailInfo" style="background-color: #E9EEF3;">
+       <h1>不好</h1>
+     </div> -->
   </div>
 </template>
-
 <script>
-import Gantt from '../components/Gantt.vue';
-
+import dataJson from '@/store/data.json'
+import treegantt from '@/components/tree-gantt/tree-gantt.vue'
 export default {
-  name: 'ProjectManager',
-  components: {Gantt},
-  data () {
+  data() {
     return {
-      tasks: {
-        data: [
-          {id: 1, text: 'Task #1', start_date: '15-04-2017', duration: 3, progress: 0.6},
-          {id: 2, text: 'Task #2', start_date: '18-04-2017', duration: 3, progress: 0.4}
-        ],
-        links: [
-          {id: 1, source: 1, target: 2, type: '0'}
-        ]
-      },
-       messages: []
+      treeDataSource: dataJson,
     }
   },
-    methods: {  
-    addMessage (message) {
-      this.messages.unshift(message)
-      if(this.messages.length > 40) {
-        this.messages.pop()
-      }
+  components: {
+   treegantt
+  },
+  methods: {
+    orderByFunc(val) {
+      alert('排序')
+      alert(val)
     },
-
-    logTaskUpdate (id, mode, task) {
-      let text = (task && task.text ? ' (${task.text})': '')
-      let message = 'Task ${mode}: ${id} ${text}'
-      this.addMessage(message)
+    actionFunc(m) {
+      alert('编辑')
     },
-
-    logLinkUpdate (id, mode, link) {
-      let message = 'Link ${mode}: ${id}'
-      if(link){
-        message += ' ( source: ${link.source}, target: ${link.target} )'
-      }
-      this.addMessage(message)
+    deleteFunc(m) {
+      alert('删除')
+    },
+    handlerExpand(m) {
+      console.log('展开/收缩')
+      m.isExpand = !m.isExpand
     }
   }
 }
 </script>
 
-
-<style scoped >
-  .left-container {
-    height: 600px;
-  }
+<style>
+.contains {
+    width: 100%;
+}
+.taskgantview{
+  background-color: #E9EEF3
+}
+.taskDetailInfo{
+  background-color: fuchsia;
+  height: 150px;
+  /* clear: left; */
+}
 </style>

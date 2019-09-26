@@ -1,0 +1,200 @@
+[{
+        "Id": 1,
+        "ObjectName": "技术",
+        "BelongTo": 26,
+        "StartTime": "2018-07-24",
+        "EndtTime": "2018-08-29",
+        "ResponsibleName": "刘备",
+        "children": [{
+                "Id": 2,
+                "ObjectName": "后端开发",
+                "BelongTo": 24,
+                "StartTime": "2018-07-24",
+                "ResponsibleName": "关羽",
+                "EndtTime": "2018-08-01",
+                "children": [{
+                        "Id": 3,
+                        "ObjectName": "java",
+                        "BelongTo": 24,
+                        "StartTime": "2018-08-24",
+                        "ResponsibleName": "典韦",
+                        "EndtTime": "2018-10-01",
+                        "children": []
+                    },
+                    {
+                        "Id": 4,
+                        "ObjectName": "数据挖掘",
+                        "BelongTo": 24,
+                        "StartTime": "2018-07-24",
+                        "ResponsibleName": "吕布",
+                        "EndtTime": "2018-08-29",
+                        "children": []
+                    },
+                    {
+                        "Id": 5,
+                        "ObjectName": "C#",
+                        "BelongTo": 24,
+                        "StartTime": "2018-07-29",
+                        "ResponsibleName": "马可波罗",
+                        "EndtTime": "2018-10-29",
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "Id": 6,
+                "ObjectName": "前端开发",
+                "BelongTo": 24,
+                "StartTime": "2018-07-24",
+                "ResponsibleName": "赵云",
+                "EndtTime": "2018-07-29",
+                "children": [{
+                        "Id": 7,
+                        "ObjectName": "web前端",
+                        "BelongTo": 24,
+                        "StartTime": "2018-07-24",
+                        "ResponsibleName": "武则天",
+                        "EndtTime": "2018-07-29",
+                        "children": [{
+                                "Id": 8,
+                                "ObjectName": "初级web前端",
+                                "BelongTo": 24,
+                                "StartTime": "2018-07-24",
+                                "ResponsibleName": "王昭君",
+                                "EndtTime": "2018-07-29",
+                                "children": []
+                            },
+                            {
+                                "Id": 9,
+                                "ObjectName": "中级web前端",
+                                "BelongTo": 24,
+                                "StartTime": "2018-07-24",
+                                "ResponsibleName": "王昭君",
+                                "EndtTime": "2018-07-29",
+                                "children": []
+                            },
+                            {
+                                "Id": 10,
+                                "ObjectName": "高级web前端",
+                                "BelongTo": 24,
+                                "StartTime": "2018-07-24",
+                                "ResponsibleName": "王昭君",
+                                "EndtTime": "2018-07-29",
+                                "children": []
+                            }
+                        ]
+                    },
+                    {
+                        "Id": 11,
+                        "ObjectName": "html5",
+                        "BelongTo": 24,
+                        "StartTime": "2018-07-24",
+                        "ResponsibleName": "小乔",
+                        "EndtTime": "2018-07-29",
+                        "children": []
+                    },
+                    {
+                        "Id": 12,
+                        "ObjectName": "javascript",
+                        "BelongTo": 24,
+                        "StartTime": "2018-07-24",
+                        "ResponsibleName": "女娲",
+                        "EndtTime": "2018-07-29",
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "Id": 13,
+                "ObjectName": "测试",
+                "BelongTo": 24,
+                "StartTime": "2018-07-24",
+                "ResponsibleName": "张飞",
+                "EndtTime": "2018-07-29",
+                "children": [{
+                        "Id": 14,
+                        "ObjectName": "测试工程师",
+                        "BelongTo": 24,
+                        "StartTime": "2018-07-24",
+                        "ResponsibleName": "大乔",
+                        "EndtTime": "2018-07-29",
+                        "children": []
+                    },
+                    {
+                        "Id": 15,
+                        "ObjectName": "自动化测试",
+                        "BelongTo": 24,
+                        "StartTime": "2018-07-24",
+                        "ResponsibleName": "蔡文姬",
+                        "EndtTime": "2018-07-29",
+                        "children": []
+                    },
+                    {
+                        "Id": 16,
+                        "ObjectName": "功能测试",
+                        "BelongTo": 24,
+                        "StartTime": "2018-07-24",
+                        "ResponsibleName": "妲己",
+                        "EndtTime": "2018-07-29",
+                        "children": []
+                    },
+                    {
+                        "Id": 17,
+                        "ObjectName": "性能测试",
+                        "BelongTo": 24,
+                        "StartTime": "2018-07-24",
+                        "ResponsibleName": "刘婵",
+                        "EndtTime": "2018-07-29",
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "Id": 18,
+                "ObjectName": "运维",
+                "BelongTo": 24,
+                "StartTime": "2018-07-24",
+                "ResponsibleName": "诸葛亮",
+                "EndtTime": "2018-07-29",
+                "children": [{
+                        "Id": 19,
+                        "ObjectName": "运维工程师",
+                        "BelongTo": 24,
+                        "StartTime": "2018-07-24",
+                        "ResponsibleName": "后羿",
+                        "EndtTime": "2018-07-29",
+                        "children": []
+                    },
+                    {
+                        "Id": 20,
+                        "ObjectName": "运维开发工程师",
+                        "BelongTo": 24,
+                        "StartTime": "2018-07-24",
+                        "ResponsibleName": "鲁班",
+                        "EndtTime": "2018-07-29",
+                        "children": []
+                    },
+                    {
+                        "Id": 21,
+                        "ObjectName": "系统工程师",
+                        "BelongTo": 24,
+                        "StartTime": "2018-07-24",
+                        "ResponsibleName": "黄忠",
+                        "EndtTime": "2018-07-29",
+                        "children": []
+                    },
+                    {
+                        "Id": 22,
+                        "ObjectName": "网络安全",
+                        "BelongTo": 24,
+                        "StartTime": "2018-07-24",
+                        "ResponsibleName": "孙尚香",
+                        "EndtTime": "2018-07-29",
+                        "children": []
+                    }
+                ]
+            }
+        ]
+    }
+
+]

@@ -11,7 +11,11 @@ export default {
 </script>
 
 <style>
-body{ padding: 0; margin: 0; }
+body{ 
+    padding: 0;
+    margin: 0;
+    /* background:#c1e4ec;  */
+    }
 #app {
   font-family: "PingFang SC","Helvetica Neue",Helvetica,"PingFang SC",
     "Hiragino Sans GB","Microsoft YaHei",

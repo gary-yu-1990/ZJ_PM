@@ -4,7 +4,6 @@ import Main from '@/page/Main'
 import ProjectReport from '@/page/ProjectReport'
 import ProjectManager from '@/page/ProjectManager'
 import ProjectBaseData from '@/page/ProjectBaseData'
-import MyTask from '@/page/MyTask'
 import KnowledgeBase from '@/page/KnowledgeBase'
 import SystemSet from '@/page/SystemSet'
 import PersonInfo from '@/page/SystemSetPages/PersonInfo'
@@ -19,13 +18,6 @@ export default new Router({
     name: 'Main',
     component: Main,
     children: [{
-      path: '/MyTask',
-      name: 'MyTask',
-      component: MyTask,
-      meta: {
-        keepAlive: true
-      }
-    }, {
       path: '/ProjectManager',
       name: 'ProjectManager',
       component: ProjectManager,

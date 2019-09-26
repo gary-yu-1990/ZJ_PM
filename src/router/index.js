@@ -9,6 +9,9 @@ import SystemSet from '@/page/SystemSet'
 import PersonInfo from '@/page/SystemSetPages/PersonInfo'
 import BaseSet from '@/page/SystemSetPages/BaseSet'
 import TaskManager from '@/page/TaskManager'
+import TeamManager from '@/page/TeamManager'
+import MemberInfo from '@/page/TeamPages/MemberInfo'
+import TeamInfo from '@/page/TeamPages/TeamInfo'
 import Login from '@/page/Login'
 import BasicSet from '@/page/BasicSet'
 import PasswordSet from '@/page/SystemSetPages/PasswordSet'
@@ -83,6 +86,28 @@ export default new Router({
       path: '/KnowledgeBase',
       name: 'KnowledgeBase',
       component: KnowledgeBase,
+      meta: {
+        keepAlive: true
+      }
+    }, {
+      path: '/TeamManager',
+      name: 'TeamManager',
+      component: TeamManager,
+      children: [{
+        path: '/TeamPages/MemberInfo',
+        name: 'MemberInfo',
+        component: MemberInfo,
+        meta: {
+          keepAlive: true
+        }
+      }, {
+        path: '/TeamPages/TeamInfo',
+        name: 'TeamInfo',
+        component: TeamInfo,
+        meta: {
+          keepAlive: true
+        }
+      }],
       meta: {
         keepAlive: true
       }

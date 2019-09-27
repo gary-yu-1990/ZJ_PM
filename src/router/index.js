@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Main from '@/page/Main'
-import ProjectReport from '@/page/ProjectReport'
+
 import ProjectManager from '@/page/ProjectManager'
 import ProjectBaseData from '@/page/ProjectBaseData'
 import KnowledgeBase from '@/page/KnowledgeBase'
@@ -67,15 +67,6 @@ export default new Router({
       path: '/TaskManager',
       name: 'TaskManager',
       component: TaskManager,
-      meta: {
-        keepAlive: true
-      }
-    },
-
-    {
-      path: '/ProjectReport',
-      name: 'ProjectReport',
-      component: ProjectReport,
       meta: {
         keepAlive: true
       }

@@ -24,17 +24,16 @@
   </el-header>
   <el-main>
       <keep-alive>
-            <router-view></router-view>
+        <router-view></router-view>
       </keep-alive>
-  </el-main>
-</el-container>
+    </el-main>
+  </el-container>
 </template>
 
 <script>
 </script>
 
 <style scoped >
-
 @media (min-width: 1920px) {
   .main-container {
     /* background-color: aquamarine; */
@@ -92,41 +91,40 @@
   }
 } /*>=1024的设备*/
 
- .el-header {
-    background-color:white;
-    color: #333;
-    padding: 0;
-    border-bottom:2px solid #E9EEF3
-  }
-   .el-menu li {
-      display: list-item;
-      text-align: -webkit-match-parent;
-     float: left;
-   } 
-   
-   .el-menu .info{
-     height: 60px;
-    line-height: 60px;
-    margin: 0px 10px;
-       float: right;
-   }
-   .el-menu .sysName{
-       height: 60px;
-       line-height: 60px;
-       margin: 0;
-       padding-right: 100px;
-   }
-    .el-menu .el-avatar{
-      margin-left: 20p;
-      text-align: center;
-      margin-top: 10px;
-    }
-  .el-main {
-    /* background-color: #E9EEF3;
+.el-header {
+  background-color: white;
+  color: #333;
+  padding: 0;
+  border-bottom: 2px solid #e9eef3;
+}
+.el-menu li {
+  display: list-item;
+  text-align: -webkit-match-parent;
+  float: left;
+}
+
+.el-menu .info {
+  height: 60px;
+  line-height: 60px;
+  margin: 0px 10px;
+  float: right;
+}
+.el-menu .sysName {
+  height: 60px;
+  line-height: 60px;
+  margin: 0;
+  padding-right: 100px;
+}
+.el-menu .el-avatar {
+  margin-left: 20p;
+  text-align: center;
+  margin-top: 10px;
+}
+.el-main {
+  /* background-color: #E9EEF3;
     color: #333;
     text-align: center; */
-    padding: 0;
-  }
- 
+  padding: 0px;
+}
 </style>
 

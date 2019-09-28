@@ -1,16 +1,36 @@
-    <template>
-  <div>
-    <div class="info">
-      <p>账号:</p>
-      <el-input style="width:327px;" placeholder="请输入账号" v-model="cid"></el-input>
+
+
+<template>
+  <div class="loginBody">
+    <div class="loginMain">
+      <!-- 登录框头部--图标 -->
+      <div class="mainLogoWrap">
+        <img class="mainLogo" width="100%" src="../assets/zjlogo.png" alt />
+      </div>
+      <div class="mainInfo">
+        <h1>知匠项目管理系统</h1>
+        <div class="loginBar"></div>
+        <div class="info">
+          <p>账号:</p>
+          <el-input style="width:300px;" placeholder="请输入账号" v-model="cid">
+            <img slot="prefix" src="../assets/img/cid.png" width="22" alt />
+          </el-input>
+        </div>
+        <div class="info">
+          <p>密码:</p>
+          <el-input type="password" style="width:300px;" placeholder="请输入密码" v-model="password">
+            <img slot="prefix" src="../assets/img/password.png" width="22" alt />
+          </el-input>
+        </div>
+        <div class="submit" @click="loginSubmit">登录</div>
+      </div>
     </div>
-    <div class="info">
-      <p>密码:</p>
-      <el-input type="password" style="width:327px;" placeholder="请输入密码" v-model="password"></el-input>
+    <div class="loginTitle">
+     <p>-佛山知匠科技有限公司-</p>
     </div>
-    <div class="submit" @click="log">登录</div>
   </div>
 </template>
+
 
     <script>
 import Cookies from "js-cookie";
@@ -27,7 +47,7 @@ export default {
   },
   mounted() {},
   methods: {
-    log() {
+    loginSubmit() {
       if (this.cid === "" || this.password === "") {
         alert("不能为空");
       } else if (this.cid !== "admin" && this.password !== "123") {
@@ -43,10 +63,13 @@ export default {
 </script>
 
 <style scoped>
+
 .info {
-  margin-top: 1.3em;
   text-align: center;
   font-size: 1em;
+  
+  margin: 0px ! important;
+  padding: 0;
 }
 .submit {
   user-select: none;
@@ -61,4 +84,89 @@ export default {
   border-radius: 5px;
   cursor: pointer;
 }
+.loginBody {
+  min-width: 1000px;
+  min-height: 700px;
+  width: 100%;
+  height: 100%;
+  background: url("../assets/img/loginBg.png");
+  background-size: cover;
+}
+.loginTitle {
+  width: 16.9%;
+  position: fixed;
+  bottom: 3.5%;
+  right: 2%;
+}
+ .loginTitle p {
+   size: 20;
+  }
+.loginMain {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 27em;
+  height: 30em;
+  background-color: #fff;
+  box-shadow: 4px 2px 20px 1px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+  font-size: 15px;
+}
+.mainLogoWrap {
+  width: 6.5em;
+  position: relative;
+  margin: 0 auto;
+}
+.mainLogo {
+  position: relative;
+  top: -3.25em;
+}
+.mainInfo {
+  position: relative;
+  top: -3em;
+  background-color: #ffffff;
+}
+.mainInfo h1 {
+  text-align: center;
+  font-size: 1.65em;
+  color: #333;
+  font-weight: 400;
+}
+.loginBar {
+  width: 19em;
+  height: 3px;
+  border-radius: 50%;
+  background-color: #6084e7;
+  margin: 20px auto 0;
+}
+.info {
+  margin-top: 1.3em;
+  text-align: center;
+  font-size: 1em;
+}
+.info p {
+  padding: 0px 0 10px 50px;
+  text-align: left;
+  margin: 10px;
+}
+.info img {
+  margin: 8px 0;
+}
+.submit {
+  user-select: none;
+  margin: 3.2rem,3rem,3rem,1rem;
+  width: 300px;
+  height: 40px;
+  line-height: 40px;
+  font-size: 20px;
+  text-align: center;
+  background-color: #6084e7;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+}
+</style>
+
+
 </style>

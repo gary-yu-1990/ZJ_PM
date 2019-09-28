@@ -55,7 +55,7 @@ export default {
     width: 100%;
 }
 .taskgantview{
-  background-color: #E9EEF3
+  /* background-color: #E9EEF3 */
 }
 .taskDetailInfo{
   background-color: fuchsia;

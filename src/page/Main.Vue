@@ -1,34 +1,28 @@
 <template>
-  <el-container class="main-container">
-    <el-header style="height:60px">
-      <el-menu
-        router
-        :default-active="activeIndex"
-        class="nav_menu"
-        mode="horizontal"
-        style="height:60px"
-      >
-        <li>
-          <img src="../assets/zjlogo.png" alt style="height:50px" />
-        </li>
-        <li class="sysName" style="font-size:25px">知匠项目管理系统</li>
-        <el-menu-item index="/ProjectManager">项目管理</el-menu-item>
-        <el-menu-item index="/TaskManager">任务管理</el-menu-item>
-        <!--<el-menu-item index="/SystemSet">项目监控</el-menu-item>-->
-        <!-- <el-menu-item index="/SystemSet">项目绩效</el-menu-item> -->
-        <el-menu-item index="/ProjectReport">项目统计</el-menu-item>
-        <el-menu-item index="/ProjectBaseData">基础数据</el-menu-item>
-        <!-- <el-menu-item index="/KnowledgeBase">知识管理</el-menu-item> -->
-        <el-menu-item index="/SystemSetPages/PersonInfo">基础设置</el-menu-item>
-        <li class="info">
-          <el-avatar icon="el-icon-user-solid"></el-avatar>
-        </li>
-        <li class="info">登录</li>
-        <li class="info">|</li>
-        <li class="info">注册</li>
-      </el-menu>
-    </el-header>
-    <el-main>
+  <el-container class="main-container" >
+  <el-header style="height:60px">
+     <el-menu router :default-active="activeIndex" class="nav_menu" mode="horizontal" style="height:60px">
+     <li>
+       <img src="../assets/zjlogo.png" alt="" style="height:50px">
+     </li>
+     <li class="sysName" style="font-size:25px">知匠项目管理系统</li>
+    <el-menu-item index="/ProjectManager">项目管理</el-menu-item>
+    <el-menu-item index="/TaskManager">任务管理</el-menu-item>
+    <!--<el-menu-item index="/SystemSet">项目监控</el-menu-item>-->
+    <!-- <el-menu-item index="/SystemSet">项目绩效</el-menu-item> -->
+    <el-menu-item index="/ProjectReport">项目统计</el-menu-item>
+    <el-menu-item index="/ProjectBaseData">基础数据</el-menu-item>
+    <!-- <el-menu-item index="/KnowledgeBase">知识管理</el-menu-item> -->
+    <el-menu-item index="/SystemSet">基础设置</el-menu-item>
+     <el-menu-item index="/TeamManager">团队管理</el-menu-item>
+    <el-menu-item index="/SystemSetPages/PersonInfo">基础设置</el-menu-item>
+    <li class="info"><el-avatar icon="el-icon-user-solid"></el-avatar></li> 
+    <li class="info" >登录</li>
+    <li class="info">|</li>
+    <li class="info">注册</li>
+     </el-menu>
+  </el-header>
+  <el-main>
       <keep-alive>
         <router-view></router-view>
       </keep-alive>

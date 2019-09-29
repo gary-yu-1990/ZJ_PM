@@ -86,7 +86,7 @@ export default {
 }
 .loginBody {
   min-width: 1000px;
-  min-height: 700px;
+  min-height: 800px;
   width: 100%;
   height: 100%;
   background: url("../assets/img/loginBg.png");

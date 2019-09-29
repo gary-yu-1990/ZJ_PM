@@ -26,7 +26,14 @@
       </el-button>
     </el-header>
     <el-main>
-      <el-table :data="tableData" height="550px" padding="0px" border>
+      <el-table 
+      :data="tableData" 
+      height="670px" 
+      padding="0px"  
+      ref="multipleTable"      
+      tooltip-effect="dark"
+      @selection-change="handleSelectionChange">
+       <el-table-column type="selection" width="55"></el-table-column>
         <el-table-column prop="name" label="姓名" width="150"></el-table-column>
         <el-table-column prop="userName" label="用户名" width="150"></el-table-column>
         <el-table-column prop="department" label="部门" width="150"></el-table-column>
@@ -48,43 +55,11 @@
           </template>
         </el-table-column>
       </el-table>
+       <div style="margin-top: 20px;margin-left:900px;">
+       
+        <el-button @click="toggleSelection()">取消选择</el-button>
+      </div>
     </el-main>
-    <el-footer>
-      <el-tabs type="border-card">
-        <el-tab-pane label="项目定义">
-          <el-p>项目名称</el-p>
-          <div>
-            <el-input
-              placeholder="项目名称"
-              type="textarea"
-              maxlength="10"
-              v-model="textarea"
-              show-word-limit
-              autosize
-              style="width:200px;"
-            ></el-input>
-          </div>
-          <el-p>项目类型</el-p>
-          <div>
-            <el-input
-              placeholder="项目名称"
-              type="textarea"
-              maxlength="10"
-              v-model="textarea"
-              show-word-limit
-              autosize
-              style="width:200px;"
-            ></el-input>
-          </div>
-        </el-tab-pane>
-
-        <el-tab-pane label="项目评审">项目评审</el-tab-pane>
-        <el-tab-pane label="项目计划">项目计划</el-tab-pane>
-        <el-tab-pane label="项目评价">项目评价</el-tab-pane>
-        <el-tab-pane label="项目组织">项目组织</el-tab-pane>
-        <el-tab-pane label="项目资料">项目资料</el-tab-pane>
-      </el-tabs>
-    </el-footer>
   </el-container>
 </template>
 
@@ -93,6 +68,18 @@ export default {
   methods: {
     goBack() {
       console.log("go back");
+    },
+    toggleSelection(rows) {
+      if (rows) {
+        rows.forEach(row => {
+          this.$refs.multipleTable.toggleRowSelection(row);
+        });
+      } else {
+        this.$refs.multipleTable.clearSelection();
+      }
+    },
+    handleSelectionChange(val) {
+      this.multipleSelection = val;
     }
   },
   data() {
@@ -104,7 +91,56 @@ export default {
       permission: "管理员"
     };
     return {
-      tableData: Array(50).fill(item),
+      //tableData: Array(50).fill(item),
+      tableData: [{ userName: "wxh",
+      password: "123",
+      department: "工程部",
+      name: "王小虎",
+      permission: "管理员"},{ userName: "wxh",
+      password: "123",
+      department: "工程部",
+      name: "王小虎",
+      permission: "管理员"},{ userName: "wxh",
+      password: "123",
+      department: "工程部",
+      name: "王小虎",
+      permission: "管理员"},{ userName: "wxh",
+      password: "123",
+      department: "工程部",
+      name: "王小虎",
+      permission: "管理员"},{ userName: "wxh",
+      password: "123",
+      department: "工程部",
+      name: "王小虎",
+      permission: "管理员"},{ userName: "wxh",
+      password: "123",
+      department: "工程部",
+      name: "王小虎",
+      permission: "管理员"},{ userName: "wxh",
+      password: "123",
+      department: "工程部",
+      name: "王小虎",
+      permission: "管理员"},{ userName: "wxh",
+      password: "123",
+      department: "工程部",
+      name: "王小虎",
+      permission: "管理员"},{ userName: "wxh",
+      password: "123",
+      department: "工程部",
+      name: "王小虎",
+      permission: "管理员"},{ userName: "wxh",
+      password: "123",
+      department: "工程部",
+      name: "王小虎",
+      permission: "管理员"},{ userName: "wxh",
+      password: "123",
+      department: "工程部",
+      name: "王小虎",
+      permission: "管理员"},{ userName: "wxh",
+      password: "123",
+      department: "工程部",
+      name: "王小虎",
+      permission: "管理员"},],
       options: [
         {
           value: "选项1",
@@ -169,6 +205,7 @@ export default {
 
 .el-table {
   padding: 0px;
+
 }
 .el-footer {
   padding: 0px;

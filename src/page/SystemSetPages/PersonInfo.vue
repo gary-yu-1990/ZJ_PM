@@ -29,19 +29,24 @@
     </el-header>
 
     <el-main>
-      <el-table :data="tableData" border height="550px">
+      <el-table
+        ref="multipleTable"
+        :data="tableData"
+        height="670px"
+        tooltip-effect="dark"
+        @selection-change="handleSelectionChange"
+      >
+        <el-table-column type="selection" width="55"></el-table-column>
         <el-table-column prop="name" label="姓名" width="150"></el-table-column>
         <el-table-column prop="userName" label="用户名" width="150"></el-table-column>
-        <el-table-column prop="password" label="密码" width="150">
-          <div>
-            <el-input placeholder="123" type="text" v-model="text"></el-input>
-          </div>
-        </el-table-column>
+        <el-table-column prop="password" label="密码" width="150"></el-table-column>
         <el-table-column prop="department" label="部门" width="150"></el-table-column>
-        <el-table-column prop="address" label="地址"></el-table-column>
+        <el-table-column prop="address" label="地址" show-overflow-tooltip></el-table-column>
       </el-table>
+      <div style="margin-top: 20px;margin-left:900px;">
+        <el-button @click="toggleSelection()">取消选择</el-button>
+      </div>
     </el-main>
-   
   </el-container>
 </template>
 
@@ -56,12 +61,120 @@ export default {
       address: "上海市普陀区金沙江路 1518 弄"
     };
     return {
-      tableData: Array(5).fill(item),
-      input: "",
+      //tableData: Array(5).fill(item),
+      tableData: [
+        {
+          userName: "wxh",
+          password: "123",
+          department: "工程部",
+          name: "主次梁",
+          address: "上海市普陀区金沙江路 1518 弄"
+        },
+        {
+          userName: "wxh",
+          password: "123",
+          department: "工程部",
+          name: "王小二",
+          address: "上海市普陀区金沙江路 1518 弄"
+        },
+        {
+          userName: "wxh",
+          password: "123",
+          department: "工程部",
+          name: "张小兵",
+          address: "上海市普陀区金沙江路 1518 弄"
+        },
+        {
+          userName: "wxh",
+          password: "123",
+          department: "工程部",
+          name: "朱松平",
+          address: "上海市普陀区金沙江路 1518 弄"
+        },
+        {
+          userName: "wxh",
+          password: "123",
+          department: "工程部",
+          name: "周围解",
+          address: "上海市普陀区金沙江路 1518 弄"
+        },
+        {
+          userName: "wxh",
+          password: "123",
+          department: "工程部",
+          name: "李伟杰",
+          address: "上海市普陀区金沙江路 1518 弄"
+        },
+        {
+          userName: "wxh",
+          password: "123",
+          department: "工程部",
+          name: "王小虎",
+          address: "上海市普陀区金沙江路 1518 弄"
+        },
+        {
+          userName: "wxh",
+          password: "123",
+          department: "工程部",
+          name: "王小虎",
+          address: "上海市普陀区金沙江路 1518 弄"
+        },
+        {
+          userName: "wxh",
+          password: "123",
+          department: "工程部",
+          name: "王小虎",
+          address: "上海市普陀区金沙江路 1518 弄"
+        },
+        {
+          userName: "wxh",
+          password: "123",
+          department: "工程部",
+          name: "王小虎",
+          address: "上海市普陀区金沙江路 1518 弄"
+        },
+        {
+          userName: "wxh",
+          password: "123",
+          department: "工程部",
+          name: "王小虎",
+          address: "上海市普陀区金沙江路 1518 弄"
+        },
+        {
+          userName: "wxh",
+          password: "123",
+          department: "工程部",
+          name: "王小虎",
+          address: "上海市普陀区金沙江路 1518 弄"
+        },
+        {
+          userName: "wxh",
+          password: "123",
+          department: "工程部",
+          name: "王小虎",
+          address: "上海市普陀区金沙江路 1518 弄"
+        }
+      ],
+
       input1: "",
       textarea: "",
-      text: ""
+      text: "",
+      multipleSelection: []
     };
+  },
+  methods: {
+    toggleSelection(rows) {
+      if (rows) {
+        rows.forEach(row => {
+          this.$refs.multipleTable.toggleRowSelection(row);
+        });
+      } else {
+        this.$refs.multipleTable.clearSelection();
+      }
+    },
+    handleSelectionChange(val) {
+      this.multipleSelection = val;
+    }
   }
 };
 </script>
@@ -99,22 +212,19 @@ export default {
 
 .el-table {
   padding: 0px;
-  height: 550px;
+  height: 600px;
 }
 .el-footer {
   padding: 0px;
   height: 160px;
   width: 100%;
-
   bottom: 0px;
   position: fixed;
   background-color: rgb(255, 255, 255);
   color: #333;
   text-align: left;
   margin-right: 150px;
-
   font-size: 20px;
-
   position: fixed;
   overflow: auto;
 }
@@ -122,8 +232,7 @@ export default {
   width: 100%;
   padding: 0px;
   bottom: 0px;
-  height: 210px;
-
+  height: 550px;
   position: fixed;
 }
 </style>

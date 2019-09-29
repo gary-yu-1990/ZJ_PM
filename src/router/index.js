@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Main from '@/page/Main'
 
 import ProjectManager from '@/page/ProjectManager'
+import ProjectReport from '@/page/ProjectReport'
 import ProjectBaseData from '@/page/ProjectBaseData'
 import KnowledgeBase from '@/page/KnowledgeBase'
 import SystemSet from '@/page/SystemSet'
@@ -54,6 +55,13 @@ export default new Router({
       path: '/ProjectManager',
       name: 'ProjectManager',
       component: ProjectManager,
+      meta: {
+        keepAlive: true
+      }
+    },{
+      path: '/ProjectReport',
+      name: 'ProjectReport',
+      component: ProjectReport,
       meta: {
         keepAlive: true
       }

@@ -2,10 +2,17 @@
   <el-container>
     <el-header height="60px" style="text-align: left; font-size: 20px">
       <i class="text_class">
-        <el-button type="primary">
-          <i class="el-icon-circle-plus-outline"></i>
+        <el-dropdown>
+          <el-button type="primary">
+            <i class="el-icon-circle-plus-outline"></i>
             增加成员
-        </el-button>
+          </el-button>
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item>通过邮箱邀请</el-dropdown-item>
+            <el-dropdown-item>下载批量导入成员模板</el-dropdown-item>
+            <el-dropdown-item>山川文件批量导入成员</el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
       </i>
       <li
         style="color:blue; margin-top:10px ;margin-right: 10px;  display: block; float: right;  font-size: 20px"
@@ -43,22 +50,25 @@
 <style scoped>
 .el-container {
   position: absolute;
-  top: 20px;
-  left: 0px;
-  right: 20px;
-  height: 500px;
+  top: 2px;
+  left: 10px;
+
+  height: 600px;
+  align-self: auto;
 }
 
 .el-header {
   background-color: rgb(212, 212, 212);
+  align-self: auto;
 }
 
 .el-table {
   position: absolute;
-  top: 60px;
+  top: 62px;
   left: 0px;
-  right: 10px;
+  right: 0px;
   bottom: 5px;
+  align-self: auto;
 }
 
 .text_class {
@@ -80,7 +90,7 @@ export default {
       emailed: "132454@qq.com"
     };
     return {
-      tableData: Array(30).fill(item)
+      tableData: Array(8).fill(item)
     };
   },
   methods: {

@@ -1,5 +1,4 @@
 <template>
-
   <el-container>
     <el-header>
       <i class="el-icon-setting" margin-right="15px">用户密码</i>
@@ -104,38 +103,41 @@ export default {
         age: [{ validator: checkAge, trigger: "blur" }]
       },
 
-      gridData: [{
-          date: '2016-05-02',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        }, {
-          date: '2016-05-04',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        }, {
-          date: '2016-05-01',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        }, {
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        }],
-        dialogTableVisible: false,
-        dialogFormVisible: false,
-        form: {
-          name: '',
-          region: '',
-          date1: '',
-          date2: '',
-          delivery: false,
-          type: [],
-          resource: '',
-          desc: ''
+      gridData: [
+        {
+          date: "2016-05-02",
+          name: "王小虎",
+          address: "上海市普陀区金沙江路 1518 弄"
         },
-        formLabelWidth: '120px'
-
-
+        {
+          date: "2016-05-04",
+          name: "王小虎",
+          address: "上海市普陀区金沙江路 1518 弄"
+        },
+        {
+          date: "2016-05-01",
+          name: "王小虎",
+          address: "上海市普陀区金沙江路 1518 弄"
+        },
+        {
+          date: "2016-05-03",
+          name: "王小虎",
+          address: "上海市普陀区金沙江路 1518 弄"
+        }
+      ],
+      dialogTableVisible: false,
+      dialogFormVisible: false,
+      form: {
+        name: "",
+        region: "",
+        date1: "",
+        date2: "",
+        delivery: false,
+        type: [],
+        resource: "",
+        desc: ""
+      },
+      formLabelWidth: "120px"
     };
   },
   methods: {
@@ -158,13 +160,14 @@ export default {
 
 
 <style scoped>
-
 .el-header,
 .el-footer {
   background-color: #b3c0d1;
   color: #333;
   text-align: center;
   line-height: 60px;
+  width: 400px;
+  height: 500px;
 }
 
 .el-main {
@@ -172,6 +175,8 @@ export default {
   color: #333;
   text-align: center;
   line-height: 40px;
+  width: 400px;
+  height: 500px;
 }
 
 body > .el-container {

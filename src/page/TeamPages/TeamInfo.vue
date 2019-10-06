@@ -32,25 +32,28 @@
   </el-container>
 </template>
 
-<style  scoped>
+<style scoped>
 .el-container {
-  background-color: aquamarine;
   position: absolute;
-  top: 20px;
-  left: 0px;
-  right: 20px;
-  height: 500px;
+  top: 2px;
+  left: 10px;
+ 
+  height: 600px;
+  align-self: auto;
 }
+
 .el-header {
   background-color: rgb(212, 212, 212);
+  align-self: auto;
 }
 
 .el-table {
   position: absolute;
-  top: 60px;
+  top: 62px;
   left: 0px;
-  right: 10px;
+  right: 0px;
   bottom: 5px;
+  align-self: auto;
 }
 
 .text_class {
@@ -61,6 +64,7 @@
 }
 </style>
 
+
 <script>
 export default {
   data() {
@@ -70,7 +74,7 @@ export default {
       emailed: "132454@qq.com"
     };
     return {
-      tableData: Array(20).fill(item)
+      tableData: Array(8).fill(item)
     };
   }
 };

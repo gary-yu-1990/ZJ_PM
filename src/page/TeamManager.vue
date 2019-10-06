@@ -51,30 +51,35 @@
 <style scoped>
 
 .el-container{
-  position: absolute;
-  top: 67px;
+  position: relative;
+  top: 2px;
   left: 0px;
   right: 0px;
   bottom: 0px;
   background-color: #eeeff8;
-  height: 600px;
+  height: 800px;
+  align-self: auto;
 }
 .el-aside {
   background: rgb(255, 255, 255);
   
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  bottom: 5px; 
+  position: relative;
+  top: 2px;
+  left: 2px;
+  bottom: 1px; 
+  height: 795px;
+  align-self: auto;
 }
 
 .el-main {
   
-  position: absolute;
+  position: relative;
   top: 0px;
-  left: 240px;
-  right: 5px;
-  bottom: 5px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  height: 795px;
+  align-self: auto;
 }
 .el-menu {
   text-align: left;

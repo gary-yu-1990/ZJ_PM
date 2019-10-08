@@ -1,24 +1,26 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Main from '@/page/Main'
-
-import ProjectManager from '@/page/ProjectManager'
-import ProjectReport from '@/page/ProjectReport'
-import ProjectBaseData from '@/page/ProjectBaseData'
-import KnowledgeBase from '@/page/KnowledgeBase'
-import SystemSet from '@/page/SystemSet'
-import PersonInfo from '@/page/SystemSetPages/PersonInfo'
-import BaseSet from '@/page/SystemSetPages/BaseSet'
-import TaskManager from '@/page/TaskManager'
-import TeamManager from '@/page/TeamManager'
-import MemberInfo from '@/page/TeamPages/MemberInfo'
-import TeamInfo from '@/page/TeamPages/TeamInfo'
 import Login from '@/page/Login'
-import BasicSet from '@/page/BasicSet'
-import PasswordSet from '@/page/SystemSetPages/PasswordSet'
-import TotalSet from '@/page/SystemSetPages/TotalSet'
-import PersonalSet from '@/page/SystemSetPages/PersonalSet'
-import Base from '@/page/SystemSetPages/Base'
+
+// 基础数据
+import BasicData from '@/page/BasicData'
+import PersonDept from '@/page/BaseDataPages/PersonDept/PersonDeptPage'
+import PersonInfo from '@/page/BaseDataPages/PersonInfo/PersonInfoPage'
+import Team from '@/page/BaseDataPages/Team/TeamPage'
+import Template from '@/page/BaseDataPages/Template/TemplatePage'
+import TemplateClass from '@/page/BaseDataPages/TemplateClass/TemplateClassPage'
+
+// 系统设置
+import SystemSet from '@/page/SystemSet'
+import AccountInfo from '@/page/SystemSetPages/AccountInfo'
+
+// 任务管理
+import TaskManager from '@/page/TaskManager'
+// 项目管理
+import ProjectManager from '@/page/ProjectManager'
+import ProjectInfo from '@/page/ProjectManagerPages/ProjectInfo'
+import ProjectTask from '@/page/ProjectManagerPages/ProjectTask'
 
 Vue.use(Router)
 
@@ -48,7 +50,7 @@ export default new Router({
     }
   },
   {
-    path: '/',
+    path: '/Main',
     name: 'Main',
     component: Main,
     children: [{
@@ -57,19 +59,20 @@ export default new Router({
       component: ProjectManager,
       meta: {
         keepAlive: true
-      }
-    },{
-      path: '/ProjectReport',
-      name: 'ProjectReport',
-      component: ProjectReport,
-      meta: {
-        keepAlive: true
-      }
+      },
+      children: [{
+        path: '/ProjectManagerPages/ProjectTask',
+        name: 'ProjectTask',
+        component: ProjectTask,
+        meta: {
+          keepAlive: true
+        }
+      }]
     },
     {
-      path: '/ProjectBaseData',
-      name: 'ProjectBaseData',
-      component: ProjectBaseData,
+      path: '/ProjectManagerPages/ProjectInfo',
+      name: 'ProjectInfo',
+      component: ProjectInfo,
       meta: {
         keepAlive: true
       }
@@ -81,95 +84,70 @@ export default new Router({
       meta: {
         keepAlive: true
       }
-    }, {
-      path: '/KnowledgeBase',
-      name: 'KnowledgeBase',
-      component: KnowledgeBase,
+    },
+    {
+      path: '/BasicData',
+      name: 'BasicData',
+      component: BasicData,
       meta: {
         keepAlive: true
-      }
-    }, {
-      path: '/TeamManager',
-      name: 'TeamManager',
-      component: TeamManager,
+      },
       children: [{
-        path: '/TeamPages/MemberInfo',
-        name: 'MemberInfo',
-        component: MemberInfo,
+        path: '/BaseDataPages/PersonDept/PersonDeptPage',
+        name: 'PersonDept',
+        component: PersonDept,
         meta: {
           keepAlive: true
         }
       }, {
-        path: '/TeamPages/TeamInfo',
-        name: 'TeamInfo',
-        component: TeamInfo,
-        meta: {
-          keepAlive: true
-        }
-      }],
-      meta: {
-        keepAlive: true
-      }
-    }, {
-      path: '/SystemSet',
-      name: 'SystemSet',
-      component: SystemSet,
-      children: [{
-        path: '/SystemSetPages/PersonInfo',
+        path: '/BaseDataPages/PersonInfo/PersonInfoPage',
         name: 'PersonInfo',
         component: PersonInfo,
         meta: {
           keepAlive: true
         }
-      }, {
-        path: '/SystemSetPages/BaseSet',
-        name: 'BaseSet',
-        component: BaseSet,
-        meta: {
-          keepAlive: true
-        }
-      }, {
-        path: '/SystemSetPages/PasswordSet',
-        name: 'PasswordSet',
-        component: PasswordSet,
-        meta: {
-          keepAlive: true
-        }
-      }, {
-        path: '/SystemSetPages/TotalSet',
-        name: 'TotalSet',
-        component: TotalSet,
-        meta: {
-          keepAlive: true
-        }
       },
       {
-        path: '/Pages/BasicSet',
-        name: 'BasicSet',
-        component: BasicSet,
+        path: '/BaseDataPages/Team/TeamPage',
+        name: 'Team',
+        component: Team,
         meta: {
           keepAlive: true
         }
       }, {
-        path: '/SystemSetPages/PersonalSet',
-        name: 'PersonalSet',
-        component: PersonalSet,
+        path: '/BaseDataPages/Template/TemplatePage',
+        name: 'Template',
+        component: Template,
         meta: {
           keepAlive: true
-        },
-        children: [{
-          path: '/SystemSetPages/Base',
-          name: 'Base',
-          component: Base,
-          meta: {
-            keepAlive: true
-          }
-        }]
-      }],
+        }
+      }, {
+        path: '/BaseDataPages/TemplateClass/TemplateClassPage',
+        name: 'TemplateClass',
+        component: TemplateClass,
+        meta: {
+          keepAlive: true
+        }
+      }
+      ]
+    },
+    {
+      path: '/SystemSet',
+      name: 'SystemSet',
+      component: SystemSet,
       meta: {
         keepAlive: true
-      }
+      },
+      children: [{
+        path: '/SystemSetPages/AccountInfo',
+        name: 'AccountInfo',
+        component: AccountInfo,
+        meta: {
+          keepAlive: true
+        }
+      }]
     }
     ]
-  }]
+  }
+  ]
 })

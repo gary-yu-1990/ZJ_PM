@@ -54,7 +54,7 @@ export default {
         alert("帐户名或密码不正确");
       } else {
         this.$router.push({
-          path: "/ProjectManager"
+          path: "/Main"
         }); //利用路由跳转页面，path为你定义的路由配置中要跳转页面的path
       }
     }

@@ -1,129 +1,155 @@
 <template>
-  <el-container class="main-container" >
-  <el-header style="height:60px">
-     <el-menu router :default-active="activeIndex" class="nav_menu" mode="horizontal" style="height:60px">
-     <li>
-       <img src="../assets/zjlogo.png" alt="" style="height:50px">
-     </li>
-     <li class="sysName" style="font-size:25px">知匠项目管理系统</li>
-    <el-menu-item index="/ProjectManager">项目管理</el-menu-item>
-    <el-menu-item index="/TaskManager">任务管理</el-menu-item>
-    <!--<el-menu-item index="/SystemSet">项目监控</el-menu-item>-->
-    <!-- <el-menu-item index="/SystemSet">项目绩效</el-menu-item> -->
-    <el-menu-item index="/ProjectReport">项目统计</el-menu-item>
-    <el-menu-item index="/ProjectBaseData">基础数据</el-menu-item>
-    <!-- <el-menu-item index="/KnowledgeBase">知识管理</el-menu-item> -->  
-     <el-menu-item index="/TeamManager">团队管理</el-menu-item>
-    <el-menu-item index="/SystemSetPages/PersonInfo">基础设置</el-menu-item>
-    <li class="info"><el-avatar icon="el-icon-user-solid"></el-avatar></li> 
-    <li class="info" >登录</li>
-    <li class="info">|</li>
-    <li class="info">注册</li>
-     </el-menu>
-  </el-header>
-  <el-main>
-      <keep-alive>
-        <router-view></router-view>
-      </keep-alive>
-    </el-main>
-  </el-container>
+  <div class="wrapper">
+    <div class="headerWrapper">
+      <el-container class="main-container">
+        <el-header style="height:62px">
+          <ul class="logo">
+            <li>
+              <div class="imgbox">
+                <img src="../assets/zjlogo.png" style="height:100%" />
+              </div>
+            </li>
+            <li>
+              <span class>知匠项目管理系统</span>
+            </li>
+          </ul>
+          <ul class="nav">
+            <el-menu
+              router
+              :default-active="activeIndex"
+              class="el-menu-demo"
+              mode="horizontal"
+              @select="handleSelect"
+            >
+              <el-submenu index="1">
+                <template slot="title">项目管理</template>
+                <el-menu-item index="/ProjectManagerPages/ProjectInfo">项目信息</el-menu-item>
+                <el-menu-item index="/ProjectManagerPages/ProjectTask">项目任务</el-menu-item>
+              </el-submenu>
+              <el-submenu index="2">
+                <template slot="title">任务管理</template>
+                <el-menu-item index="/TaskManager">进度汇报</el-menu-item>
+              </el-submenu>
+              <el-menu-item index="/BasicData" >基础信息</el-menu-item>
+              <el-menu-item index="/SystemSet" >系统设置</el-menu-item>
+            </el-menu>
+          </ul>
+          <ul class="info">
+            <li>
+              <span class="excitbutton">退出</span>
+            </li>
+            <li>
+              <el-avatar icon="el-icon-user-solid" style="vertical-align:middle;"></el-avatar>
+            </li>
+          </ul>
+        </el-header>
+      </el-container>
+    </div>
+    <div class="mainWrapper">
+      <el-container class="main-container">
+        <keep-alive>
+          <router-view />
+        </keep-alive>
+      </el-container>
+    </div>
+  </div>
 </template>
-
 <script>
 </script>
 
 <style scoped >
-@media (min-width: 1920px) {
-  .main-container {
-    /* background-color: aquamarine; */
-    width: 1600px;
-    margin: 0 auto;
-  }
+.main-container {
+  width: 1500px;
+  margin: 0 auto;
+  height: 100%;
 }
-@media (max-width: 1920px) {
-  .main-container {
-    /* background-color: aquamarine; */
-    width: 1600px;
-    margin: 0 auto;
-  }
-}
-@media (max-width: 1680px) {
-  .main-container {
-    /* background-color: aquamarine; */
-    width: 1500px;
-    margin: 0 auto;
-  }
-}
-@media (max-width: 1440px) {
-  .main-container {
-    /* background-color: aquamarine; */
-    width: 1400px;
-    margin: 0 auto;
-  }
-}
-@media (max-width: 1366px) {
-  .main-container {
-    /* background-color: aquamarine; */
-    width: 1347px;
-    margin: 0 auto;
-  }
-}
-@media (max-width: 1280px) {
-  .main-container {
-    /* background-color: aquamarine; */
-    width: 1260px;
-    margin: 0 auto;
-  }
-} /*>=1280的设备*/
-@media (max-width: 1100px) {
-  .main-container {
-    /* background-color: aquamarine; */
-    width: 1080px;
-    margin: 0 auto;
-  }
-} /*>=1100的设备*/
-@media (max-width: 1024px) {
-  .main-container {
-    /* background-color: aquamarine; */
-    width: 1000px;
-    margin: 0 auto;
-  }
-} /*>=1024的设备*/
 
 .el-header {
-  background-color: white;
+  /* background-color: rgb(231, 160, 160); */
   color: #333;
   padding: 0;
   border-bottom: 2px solid #e9eef3;
-}
-.el-menu li {
-  display: list-item;
-  text-align: -webkit-match-parent;
-  float: left;
+  text-align: center;
 }
 
-.el-menu .info {
-  height: 60px;
+.el-header li {
   line-height: 60px;
-  margin: 0px 10px;
+  float: left;
+  list-style-type: none;
+}
+.el-header ul {
+  display: inline-block;
+  padding-inline-start: 0px;
+}
+
+.el-header ul:nth-child(1) {
+  /* background-color: rgb(231, 160, 160); */
+  font-size: 20px;
+  margin: 0 10px;
+}
+.el-header ul:nth-child(2) {
+  /* background-color: rgb(231, 160, 160); */
+  font-size: 20px;
+  margin: 0 10px;
+}
+.el-header ul:nth-child(3) {
+  /* background-color: rgb(231, 160, 160); */
+  font-size: 20px;
+  margin: 0 10px;
+}
+.el-header .logo {
+  float: left;
+}
+.el-header .info {
   float: right;
 }
-.el-menu .sysName {
-  height: 60px;
-  line-height: 60px;
-  margin: 0;
-  padding-right: 100px;
+.nav li {
+  padding-left: 10px;
+  padding-right: 10px;
 }
-.el-menu .el-avatar {
-  margin-left: 20p;
+.nav li:hover {
+  cursor: pointer;
+  /* background: #86b450; */
+}
+
+.info li {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.logo li {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.imgbox {
   text-align: center;
-  margin-top: 10px;
+  width: 70px;
+  height: 58px;
+  vertical-align: middle;
 }
-.el-main {
-  /* background-color: #E9EEF3;
-    color: #333;
-    text-align: center; */
-  padding: 0px;
+
+.wrapper {
+  height: 100%;
+}
+
+.headerWrapper {
+  /* position: fixed;  */
+  width: 100%;
+  left: 0;
+  top: 0;
+  z-index: 1500;
+  height: 62px;
+}
+
+.mainWrapper {
+  width: 100%;
+  height: calc(100% - 62px);
+  z-index: 1300;
+}
+.el-menu .el-menu-item{
+  padding: 0 20px;
+}
+.el-menu {
+  margin: 0;
 }
 </style>
 

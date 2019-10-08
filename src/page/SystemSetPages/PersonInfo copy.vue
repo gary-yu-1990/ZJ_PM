@@ -182,8 +182,8 @@ export default {
 
 <style scoped >
 .el-container {
-  padding: 0;
-  margin: 0;
+   height: 100%;
+   width: 100%;
 }
 .el-header {
   width: 100%;

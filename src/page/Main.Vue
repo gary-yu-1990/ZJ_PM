@@ -58,11 +58,6 @@
 </script>
 
 <style scoped >
-.main-container {
-  width: 1500px;
-  margin: 0 auto;
-  height: 100%;
-}
 
 .el-header {
   /* background-color: rgb(231, 160, 160); */

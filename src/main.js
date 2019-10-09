@@ -7,6 +7,7 @@ import ElementUI from 'element-ui'
 // import {get, post, patch, put } from './api/http'
 import 'element-ui/lib/theme-chalk/index.css'
 import 'font-awesome/css/font-awesome.css'
+import './assets/css/base.css'
 
 // Vue.prototype.$api = api
 // Vue.prototype.$axios = Axios

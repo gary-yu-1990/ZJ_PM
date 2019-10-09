@@ -72,8 +72,10 @@ export default {
       };
       GenerateCode(obj)
         .then(res => {
-          if (res.data.stopped == 1) {
-          }
+             this.$alert(`传值成功`, "提示", {
+            type: "warning",
+            confirmButtonText: "好的"
+          });
         })
         .catch(err => {
           this.$alert(`${err.msg}`, "提示", {

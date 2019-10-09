@@ -1,7 +1,7 @@
 import Axios from 'axios'
 // import Cookies from 'js-cookie'
 
-var baseUrl = 'http://localhost:49438/' // 本地开发使时使用的地址
+var baseUrl = 'https://localhost:44326' // 本地开发使时使用的地址
 
 // 定义静态变量
 const DECODE = {

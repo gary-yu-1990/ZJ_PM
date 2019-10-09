@@ -32,6 +32,7 @@
               </el-submenu>
               <el-menu-item index="/BasicData" >基础信息</el-menu-item>
               <el-menu-item index="/SystemSet" >系统设置</el-menu-item>
+              <el-menu-item index="/developSet" >开发工具</el-menu-item>
             </el-menu>
           </ul>
           <ul class="info">

@@ -43,17 +43,19 @@
           @selection-change="handleSelectionChange"
         >
           <el-table-column type="selection" width="55"></el-table-column>
-          <el-table-column label="日期" width="120">
+         
+          <el-table-column prop="ProjectCode" label="项目编码" width="120"></el-table-column>
+          <el-table-column prop="ProjectName" label="项目名称" show-overflow-tooltip></el-table-column>
+          <el-table-column prop="ProjectNote" label="项目说明" show-overflow-tooltip></el-table-column>
+          <el-table-column prop="EPS_ID" label="所属部门" show-overflow-tooltip></el-table-column>
+          <!-- <el-table-column label="日期" width="120">
             <template slot-scope="scope">{{ scope.row.date }}</template>
-          </el-table-column>
-          <el-table-column prop="name" label="项目编码" width="120"></el-table-column>
-          <el-table-column prop="address" label="项目名称" show-overflow-tooltip></el-table-column>
-          <el-table-column prop="address" label="所属部门" show-overflow-tooltip></el-table-column>
-          <el-table-column prop="address" label="项目要求" show-overflow-tooltip></el-table-column>
-          <el-table-column prop="address" label="创建人" show-overflow-tooltip></el-table-column>
-          <el-table-column prop="address" label="创建时间" show-overflow-tooltip></el-table-column>
-          <el-table-column prop="address" label="项目经理" show-overflow-tooltip></el-table-column>
-          <el-table-column prop="address" label="项目状态" show-overflow-tooltip></el-table-column>
+          </el-table-column> -->
+          <el-table-column prop="ProjectPlanStart" label="计划开始时间" show-overflow-tooltip></el-table-column>
+          <el-table-column prop="ProjectPlanFinish" label="计划结束时间" show-overflow-tooltip></el-table-column>
+          <el-table-column prop="ProjectStatus" label="项目状态" show-overflow-tooltip></el-table-column>
+          <el-table-column prop="CreatPerson" label="创建人" show-overflow-tooltip></el-table-column>
+          <el-table-column prop="CreateTime" label="创建时间" show-overflow-tooltip></el-table-column>
         </el-table>
       </div>
       <div class="tbar" style="margin:0 25%;">

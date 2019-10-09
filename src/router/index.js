@@ -22,6 +22,10 @@ import ProjectManager from '@/page/ProjectManager'
 import ProjectInfo from '@/page/ProjectManagerPages/ProjectInfo'
 import ProjectTask from '@/page/ProjectManagerPages/ProjectTask'
 
+// 开发工具
+
+import developSet from '@/page/developSet'
+
 Vue.use(Router)
 
 export default new Router({
@@ -146,6 +150,14 @@ export default new Router({
           keepAlive: true
         }
       }]
+    },
+    {
+      path: '/developSet',
+      name: 'developSet',
+      component: developSet,
+      meta: {
+        keepAlive: true
+      }
     }
     ]
   }

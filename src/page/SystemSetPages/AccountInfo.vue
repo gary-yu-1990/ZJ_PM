@@ -195,10 +195,11 @@ export default {
   display: flex;
   flex-direction: column;
   border: 2px solid #eee;
+  overflow: hidden;
 }
 
 .contentPanel .content {
-  overflow: auto;
+ overflow: hidden;
   flex: 1;
 }
 .contentPanel .tbar {

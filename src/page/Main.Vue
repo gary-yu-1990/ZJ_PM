@@ -37,7 +37,7 @@
           <ul class="info">
             <li>
               <span class="exitbutton" @click="logout">
-                <el-button size="mini" round>退出</el-button>
+                <el-button type="text">退出</el-button>
               </span>
             </li>
             <li>

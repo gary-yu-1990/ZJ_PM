@@ -30,13 +30,15 @@
                 <template slot="title">任务管理</template>
                 <el-menu-item index="/TaskManager">进度汇报</el-menu-item>
               </el-submenu>
-              <el-menu-item index="/BasicData" >基础信息</el-menu-item>
-              <el-menu-item index="/SystemSet" >系统设置</el-menu-item>
+              <el-menu-item index="/BasicData">基础信息</el-menu-item>
+              <el-menu-item index="/SystemSet">系统设置</el-menu-item>
             </el-menu>
           </ul>
           <ul class="info">
             <li>
-              <span class="excitbutton">退出</span>
+              <span class="exitbutton" @click="logout">
+                <el-button type="text">退出</el-button>
+              </span>
             </li>
             <li>
               <el-avatar icon="el-icon-user-solid" style="vertical-align:middle;"></el-avatar>
@@ -55,10 +57,19 @@
   </div>
 </template>
 <script>
+export default {
+  name: "logout",
+  methods: {
+    logout() {
+      this.$router.push({
+        path: "/"
+      }); //利用路由跳转页面，path为你定义的路由配置中要跳转页面的path
+    }
+  }
+};
 </script>
 
 <style scoped >
-
 .el-header {
   /* background-color: rgb(231, 160, 160); */
   color: #333;
@@ -140,7 +151,7 @@
   height: calc(100% - 62px);
   z-index: 1300;
 }
-.el-menu .el-menu-item{
+.el-menu .el-menu-item {
   padding: 0 20px;
 }
 .el-menu {

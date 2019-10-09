@@ -85,8 +85,7 @@ export default {
   cursor: pointer;
 }
 .loginBody {
-  min-width: 1000px;
-  min-height: 800px;
+ 
   width: 100%;
   height: 100%;
   background: url("../assets/img/loginBg.png");
@@ -100,6 +99,7 @@ export default {
 }
  .loginTitle p {
    size: 20;
+   color: #fff;
   }
 .loginMain {
   position: fixed;

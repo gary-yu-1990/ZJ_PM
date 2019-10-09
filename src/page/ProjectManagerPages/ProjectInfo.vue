@@ -187,6 +187,7 @@ export default {
   height: 100%;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
   /* background-color: rgb(231, 160, 160); */
 }
 .filterPanel {
@@ -203,10 +204,11 @@ export default {
   display: flex;
   flex-direction: column;
   border: 2px solid #eee;
+  overflow: hidden;
 }
 
 .contentPanel .content {
-  overflow: auto;
+overflow: hidden;
   flex: 1;
 }
 .contentPanel .tbar {

@@ -1,5 +1,6 @@
 <template>
   <div class="pagePanel">
+
     <div class="filterPanel">
       <el-date-picker
         type="date"
@@ -26,10 +27,12 @@
         ></el-option>
       </el-select>
     </div>
+
     <div class="buttonPanel">
       <el-button size="medium" @click="newOne" type="primary">新建</el-button>
       <el-button size="medium" type="success" @click="searchBankList()">查询</el-button>
     </div>
+    
     <div class="contentPanel">
       <div class="content">
         <el-table

@@ -37,7 +37,9 @@
           </ul>
           <ul class="info">
             <li>
-              <span class="excitbutton">退出</span>
+              <span class="exitbutton" @click="logout">
+                <el-button type="text">退出</el-button>
+              </span>
             </li>
             <li>
               <el-avatar icon="el-icon-user-solid" style="vertical-align:middle;"></el-avatar>
@@ -56,10 +58,19 @@
   </div>
 </template>
 <script>
+export default {
+  name: "logout",
+  methods: {
+    logout() {
+      this.$router.push({
+        path: "/"
+      }); //利用路由跳转页面，path为你定义的路由配置中要跳转页面的path
+    }
+  }
+};
 </script>
 
 <style scoped >
-
 .el-header {
   /* background-color: rgb(231, 160, 160); */
   color: #333;
@@ -141,7 +152,7 @@
   height: calc(100% - 62px);
   z-index: 1300;
 }
-.el-menu .el-menu-item{
+.el-menu .el-menu-item {
   padding: 0 20px;
 }
 .el-menu {

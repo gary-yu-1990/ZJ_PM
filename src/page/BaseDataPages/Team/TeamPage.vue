@@ -1,16 +1,9 @@
 <template>
   <div class="pagePanel">
     <div class="buttonPanel">
-      <el-dropdown>
-        <el-button size="medium" @click="newOne" type="primary">新建</el-button>
-        <el-button size="medium" type="success" @click="searchBankList()">查询</el-button>
-        <el-button size="medium" type="warning" >删除</el-button>
-        <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item>通过邮箱邀请</el-dropdown-item>
-          <el-dropdown-item>下载批量导入成员模板</el-dropdown-item>
-          <el-dropdown-item>山川文件批量导入成员</el-dropdown-item>
-        </el-dropdown-menu>
-      </el-dropdown>
+      <el-button size="medium" @click="newOne" type="primary">新建</el-button>
+      <el-button size="medium" type="success" @click="searchBankList()">查询</el-button>
+      <el-button size="medium" type="warning">删除</el-button>
     </div>
 
     <div class="contentPanel">

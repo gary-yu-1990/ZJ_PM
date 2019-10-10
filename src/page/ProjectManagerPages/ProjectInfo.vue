@@ -56,8 +56,9 @@
           <el-table-column prop="ProjectStatus" label="项目状态" show-overflow-tooltip></el-table-column>
           <el-table-column prop="CreatPerson" label="创建人" show-overflow-tooltip></el-table-column>
           <el-table-column prop="CreateTime" label="创建时间" show-overflow-tooltip></el-table-column>
-          <el-table-column label="操作">
+          <el-table-column label="操作" width="300">
             <template slot-scope="scope">
+              <el-button size="mini" @click="handleTask(scope.$index, scope.row)">详情</el-button>
               <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
               <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
             </template>
@@ -144,7 +145,6 @@
         </el-row>
         <el-form-item style="margin-left: 240px;">
           <el-button type="primary" @click="submitForm()">保存</el-button>
-          <el-button @click="resetForm('ruleForm')">重置</el-button>
         </el-form-item>
       </el-form>
     </el-dialog>
@@ -207,6 +207,11 @@ export default {
             type: "warning"
           });
         });
+    },
+    handleTask(index, row) {
+       this.$router.push({
+          path: "/ProjectManagerPages/ProjectTask"
+        }); //利用路由跳转页面，path为你定义的路由配置中要跳转页面的path
     },
     handleEdit(index, row) {
       this.handType = "edit"

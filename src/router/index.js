@@ -58,20 +58,12 @@ export default new Router({
     name: 'Main',
     component: Main,
     children: [{
-      path: '/ProjectManager',
-      name: 'ProjectManager',
-      component: ProjectManager,
+      path: '/ProjectManagerPages/ProjectTask',
+      name: 'ProjectTask',
+      component: ProjectTask,
       meta: {
         keepAlive: true
-      },
-      children: [{
-        path: '/ProjectManagerPages/ProjectTask',
-        name: 'ProjectTask',
-        component: ProjectTask,
-        meta: {
-          keepAlive: true
-        }
-      }]
+      }
     },
     {
       path: '/ProjectManagerPages/ProjectInfo',

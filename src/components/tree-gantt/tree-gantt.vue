@@ -1,39 +1,32 @@
 <template>
   <div ref="ganttfef" class="tree-gantt">
     <div class="taskPanel">
-        <div class="task-head">
-          <table>
-            <tr>
-              <td class="td1">职位名称</td>
-              <td class="td2">负责人</td>
-              <td class="td3">开始时间</td>
-              <td class="td5">持续天数</td>
-              <td class="td6">操作</td>
-            </tr>
-          </table>
-        </div>
-        <div class="task-body">
-          <table v-if="treeDataSource.length>0">
-            <tbody>
-              <tr>
-                <td>
-                  <tree-item
-                    v-for="(model,i) in treeDataSource"
-                    :key="'root_node_'+i"
-                    :root="0"
-                    :num="i"
-                    @actionFunc="actionFunc"
-                    @deleteFunc="deleteFunc"
-                    @handlerExpand="handlerExpand"
-                    :nodes="treeDataSource.length"
-                    :trees.sync="treeDataSource"
-                    :model.sync="model"
-                  ></tree-item>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+         <el-table
+    :data="treeDataSource"
+    style="width: 100%"
+    row-key="Id"
+    :expand-row-keys="expands"
+    border
+    lazy
+    :load="load"
+    :tree-props="{children: 'children', hasChildren: 'hasChildren'}"
+     @expand-change="OnExpandChange"
+    >
+    <el-table-column
+      prop="ObjectName"
+      label="任务名称"
+      width="180">
+    </el-table-column>
+    <el-table-column
+      prop="StartTime"
+      label="开始时间"
+      width="180">
+    </el-table-column>
+    <el-table-column
+      prop="结束时间"
+      label="EndtTime">
+    </el-table-column>
+  </el-table>
     </div>
     <div class="ganttPanel"></div>
   </div>
@@ -47,7 +40,8 @@ export default {
   data() {
     return {
       treeDataSource: [],
-      ganttDataSource: []
+      ganttDataSource: [],
+      expands:[],
     };
   },
   watch: {
@@ -81,12 +75,15 @@ export default {
         });
       };
       reduceDataFunc(tempData, 1);
-
       console.log("处理后的:", tempData);
-      this.treeDataSource = tempData;
+      this.treeDataSource =tempData;
 
       //1、检查数据中为展开的想
       //初始化甘特图数据
+    },
+
+    OnExpandChange(row,expanded){
+
     },
     getMore() {
       alert("滚动到底部加载更多");
@@ -104,13 +101,12 @@ export default {
       this.$emit("deleteFunc", m);
     },
     // 展开
-    handlerExpand(m) {
-      this.$emit("handlerExpand", m);
+     OnExpandChange(m,expanded){
       this.ganttDataSource = [];
       //获取最新的gantt 任务集合
       let reduceGanttDataFunc = (fatherdata, data, level, ganttDataSource) => {
         data.map((m, i) => {
-          if (m.isExpand) {
+          if (expanded) {
             //true
             var obj = {};
             obj["p_start"] = m.StartTime;
@@ -204,7 +200,7 @@ export default {
       return elem;
     };
     removeWhitespace(this.$refs.ganttfef);
-    
+
     //dom更新后延迟执行。
     const vm = this;
     vm.$nextTick(() => {
@@ -223,39 +219,40 @@ export default {
       obj["progress"] = 20;
       this.ganttDataSource.push(obj);
     }
-    
+
     //初始化甘特图
     var gantt_chart = new Gantt(".ganttPanel", this.ganttDataSource, {
-     view_mode: 'Day',
-    language: 'en'
+      view_mode: "Day",
+      language: "en"
     });
-    vm.gantt_object=gantt_chart;
+    vm.gantt_object = gantt_chart;
 
     //处理甘特图两边同步的问题。
-    var l=document.querySelector('.taskPanel');
-    var r=document.querySelector('.gantt-container');
-    var flage=true;
-    l.addEventListener('mouseover',function (e) {
-      flage=false
-      l.addEventListener('scroll',function (e) {
-        if(!flage)
-        {
-        var scale=(l.scrollHeight-l.clientHeight)/(r.scrollHeight-r.clientHeight);
-          r.scrollTop=l.scrollTop
+    var l = document.querySelector(".taskPanel");
+    var r = document.querySelector(".gantt-container");
+    var flage = true;
+    l.addEventListener("mouseover", function(e) {
+      flage = false;
+      l.addEventListener("scroll", function(e) {
+        if (!flage) {
+          var scale =
+            (l.scrollHeight - l.clientHeight) /
+            (r.scrollHeight - r.clientHeight);
+          r.scrollTop = l.scrollTop;
         }
-      })
-    })
-      r.addEventListener('mouseover',function (e) {
-      flage=false
-      r.addEventListener('scroll',function (e) {
-        if(!flage)
-        {
-            var scale=(l.scrollHeight-l.clientHeight)/(r.scrollHeight-r.clientHeight);
-          l.scrollTop=r.scrollTop
+      });
+    });
+    r.addEventListener("mouseover", function(e) {
+      flage = false;
+      r.addEventListener("scroll", function(e) {
+        if (!flage) {
+          var scale =
+            (l.scrollHeight - l.clientHeight) /
+            (r.scrollHeight - r.clientHeight);
+          l.scrollTop = r.scrollTop;
         }
-      })
-
-    })
+      });
+    });
   }
 };
 </script >
@@ -265,162 +262,139 @@ export default {
   width: 100%;
   height: 100%;
 }
+
+
 .taskPanel {
+  border: 2px solid #eee;
+  box-sizing: border-box;
   width: 50%;
   height: 100%;
   overflow: auto;
   display: inline-block;
   padding: 0;
   margin: 0;
-  position: relative;
-  
-  table {
-    width: 100%;
-    text-align: center;
-    border-collapse: collapse; //表格合并属性
-    border-spacing: 0;
-    td {
-      word-break: break-all; //自动换行处理办法
-      word-wrap: break-word;
-      font-size: 12px;
-      border-bottom: 1px solid #e8e8e8;
-    }
-  }
-
-   .td-border {
-    border-bottom: 1px solid #e8e8e8;
-    .leve {
-      // 屏蔽双击不能选择文本样式
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -o-user-select: none;
-      user-select: none;
-      &:hover {
-        background-color: #f7f9ff;
-      }
-    }
-  }
-  th,td {
-    font-weight: 400;
-    text-align: left;
-  }
 
   .line-height {
     height: 36px;
     line-height: 35px;
   }
+   
+   th, td {
+    font-weight: 400;
+    text-align: left;
+   }
 
   .td1 {
-      width: 260px;
-      padding-left: 30px;
-    }
+    width: 260px;
+    padding-left: 30px;
+  }
   .td2 {
-      width: 100px;
-    }
+    width: 100px;
+  }
   .td3 {
-      width: 120px;
-    }
+    width: 120px;
+  }
   .td4 {
-      width: 220px;
-    }
+    width: 220px;
+  }
   .td5 {
-      width: 100px;
-    }
+    width: 100px;
+  }
   .td6 {
-      width: 140px;
-    }
-  
-  .task-head {
-      .line-height;
-      height: 60px;
-      line-height: 60px;
-      position: relative; //相对定位
-      td {
-        color: rgba(0, 0, 0, 0.45);
-        border-bottom: 2px solid #e8e8e8;
-      }
-      .td1 {
-        width: 250px;
-      }
-    }
+    width: 140px;
+  }
 
-     .task-body {
-        top: 40px;
-        td {
-          .line-height;
-           color: rgba(0, 0, 0, 0.85);
-          font-size: 14px;
-          .line {
-            display: inline-block;
-            width: 1px;
-            background: rgba(0, 0, 0, 0.09);
-            margin: 0 11px;
-            height: 14px;
-          }
-        }
-        .td-title {
-          position: relative;
-          a {
-            display: block;
-          }
-          .tree-close,
-          .tree-open {
-            position: absolute;
-            width: 0;
-            height: 0;
-            border-color: #999;
-            border-style: solid;
-            cursor: pointer;
-            border-width: 5px;
-            z-index: 2;
-          }
-          .tree-close {
-            left: -12px;
-            top: 14px;
-            border-color: transparent transparent transparent #aaaaaa;
-          }
-          .tree-open {
-            left: -17px;
-            top: 17px;
-            border-color: #aaaaaa transparent transparent;
-          }
-        }
+  .task-head {
+    height: 60px;
+    line-height: 60px;
+    border-bottom: 2px solid #e8e8e8;
+  }
+
+  .task-body {
+    td {
+      .line-height;
+      color: rgba(0, 0, 0, 0.85);
+      font-size: 14px;
+    }
+    
+    .td-title {
+      position: relative;
+      a {
+        display: block;
       }
-      .leve-1 .td1 {
-        padding-left: 30px;
+      .tree-close,
+      .tree-open {
+        position: absolute;
+        width: 0;
+        height: 0;
+        border-color: #999;
+        border-style: solid;
+        cursor: pointer;
+        border-width: 5px;
+        z-index: 2;
       }
-      .leve-2 .td1 {
-        padding-left: 46px;
+      .tree-close {
+        left: -12px;
+        top: 14px;
+        border-color: transparent transparent transparent #aaaaaa;
       }
-      .leve-3 .td1 {
-        padding-left: 62px;
+      .tree-open {
+        left: -17px;
+        top: 17px;
+        border-color: #aaaaaa transparent transparent;
       }
-      .leve-4 .td1 {
-        padding-left: 78px;
-      }
-      .leve-5 .td1 {
-        padding-left: 90px;
-      }
-      .leve-6 .td1 {
-        padding-left: 106px;
-      }
-      .leve-7 .td1 {
-        padding-left: 122px;
-      }
-      .leve-8 .td1 {
-        padding-left: 138px;
-      }
-      .leve-9 .td1 {
-        padding-left: 154px;
-      }
+    }
+  }
+  .leve-1 .td1 {
+    padding-left: 30px;
+  }
+  .leve-2 .td1 {
+    padding-left: 46px;
+  }
+  .leve-3 .td1 {
+    padding-left: 62px;
+  }
+  .leve-4 .td1 {
+    padding-left: 78px;
+  }
+  .leve-5 .td1 {
+    padding-left: 90px;
+  }
+  .leve-6 .td1 {
+    padding-left: 106px;
+  }
+  .leve-7 .td1 {
+    padding-left: 122px;
+  }
+  .leve-8 .td1 {
+    padding-left: 138px;
+  }
+  .leve-9 .td1 {
+    padding-left: 154px;
+  }
 }
+
+.taskPanel table {
+  width: 100%;
+  text-align: center;
+  border-collapse: collapse; //表格合并属性
+  border-spacing: 0;
+  td {
+    word-break: break-all; //自动换行处理办法
+    word-wrap: break-word;
+    font-size: 12px;
+    border-bottom: 1px solid #e8e8e8;
+  }
+}
+
 .ganttPanel {
   width: 50%;
   height: 100%;
   display: inline-block;
   padding: 0;
   margin: 0;
-  background-color: rgb(190, 111, 160);
+  border: 2px solid #eee;
+  box-sizing: border-box;
 }
 </style>
 

@@ -301,6 +301,5 @@ export default {
   overflow: hidden;
   flex: 1;
 }
-.contentPanel .tbar {
-}
+
 </style>

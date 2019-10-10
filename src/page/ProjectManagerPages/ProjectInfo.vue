@@ -27,10 +27,9 @@
       </el-select>
     </div>
     <div class="buttonPanel">
-      <el-button size="medium" @click="newOne" type="primary">新建</el-button>
-      <el-button size="medium" @click="editeOne" type="primary">编辑</el-button>
-      <el-button size="medium" @click="deleteSelectd" type="primary">删除</el-button>
-      <el-button size="medium" type="success" @click="SearchProjectList()">查询</el-button>
+      <el-button size="medium" @click="Add" type="primary">新建</el-button>
+      <el-button size="medium" @click="Delete" type="primary">批量删除</el-button>
+      <el-button size="medium" type="success" @click="Search">查询</el-button>
     </div>
     <div class="contentPanel">
       <div class="content">
@@ -41,6 +40,7 @@
           tooltip-effect="dark"
           style="width: 100%;"
           @selection-change="handleSelectionChange"
+          @
         >
           <el-table-column type="selection" width="55"></el-table-column>
 
@@ -56,6 +56,12 @@
           <el-table-column prop="ProjectStatus" label="项目状态" show-overflow-tooltip></el-table-column>
           <el-table-column prop="CreatPerson" label="创建人" show-overflow-tooltip></el-table-column>
           <el-table-column prop="CreateTime" label="创建时间" show-overflow-tooltip></el-table-column>
+          <el-table-column label="操作">
+            <template slot-scope="scope">
+              <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+              <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+            </template>
+          </el-table-column>
         </el-table>
       </div>
       <div class="tbar" style="margin:0 25%;">
@@ -146,14 +152,14 @@
 </template>
 
 <script>
-import { SearchProjects } from "@/api/ProjectInfoApi";
-import { NewProjects } from "@/api/ProjectInfoApi";
+import { NewProjects, DeleteLists, SearchProjects,UpdateProject } from "@/api/ProjectInfoApi";
 export default {
   data() {
     return {
       projectListData: [],
       multipleSelection: [],
       isAddShow: false,
+      handType: "add",
       form: {
         ProjectCode: "",
         ProjectName: "",
@@ -169,8 +175,8 @@ export default {
   },
 
   methods: {
-    SearchProjectsMethod(){
-       SearchProjects()
+    SearchProjectsMethod() {
+      SearchProjects()
         .then(res => {
           this.projectListData = res.data;
         })
@@ -180,44 +186,82 @@ export default {
           });
         });
     },
-    toggleSelection(rows) {
-      if (rows) {
-        rows.forEach(row => {
-          this.$refs.multipleTable.toggleRowSelection(row);
-        });
-      } else {
-        this.$refs.multipleTable.clearSelection();
-      }
-    },
     handleSelectionChange(val) {
       this.multipleSelection = val;
     },
-    newOne() {
+    Add() {
+      this.handType = "add"
       this.isAddShow = true;
     },
-    onSubmit() {
-      console.log("submit!");
+    Search() {
+      this.SearchProjectsMethod();
     },
-    SearchProjectList() {
-          this.SearchProjectsMethod();
-    },
-    
-    submitForm() {
-      NewProjects(this.form)
+    Delete() {
+      DeleteLists(this.multipleSelection)
         .then(res => {
-          this.$alert(`保存成功`, "提示", {
-            type: "warning",
-            confirmButtonText: "好的"
-          });
-           this.isAddShow = false;
-           this.SearchProjectsMethod();
+          this.SearchProjectsMethod();
         })
         .catch(err => {
           this.$alert(`${err.msg}`, "提示", {
-            type: "warning",
-            confirmButtonText: "好的"
+            type: "warning"
           });
         });
+    },
+    handleEdit(index, row) {
+      this.handType = "edit"
+      this.form = row;
+      this.isAddShow = true;
+    },
+    handleDelete(index, row) {
+      var deleteArry = [];
+      deleteArry.push(row);
+      DeleteLists(deleteArry)
+        .then(res => {
+          this.SearchProjectsMethod();
+        })
+        .catch(err => {
+          this.$alert(`${err.msg}`, "提示", {
+            type: "warning"
+          });
+        });
+    },
+    submitForm() {
+      //判断是新增还是编辑更新
+      if (this.handType === "add") {
+        NewProjects(this.form)
+          .then(res => {
+            this.$alert(`保存成功`, "提示", {
+              type: "warning",
+              confirmButtonText: "好的"
+            });
+            this.isAddShow = false;
+            this.SearchProjectsMethod();
+          })
+          .catch(err => {
+            this.$alert(`${err.msg}`, "提示", {
+              type: "warning",
+              confirmButtonText: "好的"
+            });
+          });
+      }
+      if(this.handType === "edit")
+      {
+        UpdateProject(this.form)
+          .then(res => {
+            this.$alert(`更新成功`, "提示", {
+              type: "warning",
+              confirmButtonText: "好的"
+            });
+            this.isAddShow = false;
+            this.SearchProjectsMethod();
+          })
+          .catch(err => {
+            this.$alert(`${err.msg}`, "提示", {
+              type: "warning",
+              confirmButtonText: "好的"
+            });
+          });
+      }
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();

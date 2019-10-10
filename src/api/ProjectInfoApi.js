@@ -17,3 +17,19 @@ export function NewProjects (data, config = {}) {
     return Promise.reject(err)
   })
 }
+
+export function DeleteLists (data, config = {}) {
+  return post('/PM_Projects/DeleteProjects', data, config).then((res) => {
+    return Promise.resolve(res)
+  }).catch((err) => {
+    return Promise.reject(err)
+  })
+}
+
+export function UpdateProject (data, config = {}) {
+  return post('/PM_Projects/UpdateProject', data, config).then((res) => {
+    return Promise.resolve(res)
+  }).catch((err) => {
+    return Promise.reject(err)
+  })
+}

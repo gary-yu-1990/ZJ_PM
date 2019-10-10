@@ -46,7 +46,7 @@
           <el-table-column prop="UserName" label="用户名" width="150"></el-table-column>
           <el-table-column prop="EmployeeCode" label="工号" width="150"></el-table-column>
           <el-table-column prop="UserSex" label="性别" width="150"></el-table-column>
-            <el-table-column label="操作">
+          <el-table-column label="操作">
             <template slot-scope="scope">
               <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
               <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
@@ -110,8 +110,12 @@
 </template>
 
 <script>
-import { SearchUsers } from "@/api/UsersInfoApi";
-import { NewUsers } from "@/api/UsersInfoApi";
+import {
+  NewUsers,
+  DeleteLists,
+  SearchUsers,
+  UpdateUser
+} from "@/api/UsersInfoApi";
 export default {
   data() {
     return {

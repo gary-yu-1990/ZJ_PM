@@ -19,15 +19,15 @@ export function NewUsers (data, config = {}) {
 }
 
 export function DeleteLists (data, config = {}) {
-  return post('/PM_Projects/DeleteProjects', data, config).then((res) => {
+  return post('/PM_Users/DeleteUsers', data, config).then((res) => {
     return Promise.resolve(res)
   }).catch((err) => {
     return Promise.reject(err)
   })
 }
 
-export function UpdateProject (data, config = {}) {
-  return post('/PM_Projects/UpdateProject', data, config).then((res) => {
+export function UpdateUser (data, config = {}) {
+  return post('/PM_Users/UpdateUser', data, config).then((res) => {
     return Promise.resolve(res)
   }).catch((err) => {
     return Promise.reject(err)

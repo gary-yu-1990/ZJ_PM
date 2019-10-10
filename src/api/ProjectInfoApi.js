@@ -9,3 +9,11 @@ export function SearchProjects (data, config = {}) {
     return Promise.reject(err)
   })
 }
+
+export function NewProjects (data, config = {}) {
+  return post('/PM_Projects/InsertNewProject', data, config).then((res) => {
+    return Promise.resolve(res)
+  }).catch((err) => {
+    return Promise.reject(err)
+  })
+}

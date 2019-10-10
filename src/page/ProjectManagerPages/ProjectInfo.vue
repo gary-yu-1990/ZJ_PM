@@ -69,38 +69,85 @@
       </div>
     </div>
 
-    <el-dialog title="新建项目" :visible.sync="isAddShow" :close-on-click-modal="false" width="75%">
+    <el-dialog title="新建项目" :visible.sync="isAddShow" :close-on-click-modal="false" width="50%">
       <el-form ref="form" :model="form" label-width="80px">
         <el-row>
-          <el-col span="7">
+          <el-col span="11">
             <el-form-item label="项目编号">
-              <el-input v-model="form.name"></el-input>
+              <el-input v-model="form.ProjectCode"></el-input>
             </el-form-item>
           </el-col>
-          <el-col span="7">
+          <el-col span="11">
             <el-form-item label="项目名称">
-              <el-input v-model="form.name"></el-input>
-            </el-form-item>
-          </el-col>
-           <el-col span="7">
-            <el-form-item label="所属部门">
-              <el-input v-model="form.name"></el-input>
+              <el-input v-model="form.ProjectName"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
-
+          <el-col span="11">
+            <el-form-item label="所属部门">
+              <el-input v-model="form.EPS_ID"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col span="11">
+            <el-form-item label="项目状态">
+              <el-input v-model="form.ProjectStatus"></el-input>
+            </el-form-item>
+          </el-col>
         </el-row>
-          
+        <el-row>
+          <el-col span="11">
+            <el-form-item prop="ProjectPlanStart" label="开始时间">
+              <el-date-picker
+                type="date"
+                placeholder="选择日期"
+                v-model="form.ProjectPlanStart"
+                style="width: 100%;"
+              ></el-date-picker>
+            </el-form-item>
+          </el-col>
+          <el-col span="11">
+            <el-form-item prop="ProjectPlanFinish" label="结束时间">
+              <el-date-picker
+                type="date"
+                placeholder="选择日期"
+                v-model="form.ProjectPlanFinish"
+                style="width: 100%;"
+              ></el-date-picker>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col span="11">
+            <el-form-item label="创建人">
+              <el-input v-model="form.CreatPerson"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col span="11">
+            <el-form-item label="创建时间">
+              <el-input v-model="form.CreateTime"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col span="11">
+            <el-form-item label="项目说明" prop="ProjectNote">
+              <el-input type="textarea" v-model="form.ProjectNote"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-form-item style="margin-left: 240px;">
+          <el-button type="primary" @click="submitForm()">保存</el-button>
+          <el-button @click="resetForm('ruleForm')">重置</el-button>
+        </el-form-item>
       </el-form>
     </el-dialog>
   </div>
 </template>
 
 <script>
-import {
-  SearchProjects,
-} from "@/api/ProjectInfoApi";
+import { SearchProjects } from "@/api/ProjectInfoApi";
+import { NewProjects } from "@/api/ProjectInfoApi";
 export default {
   data() {
     return {
@@ -108,19 +155,31 @@ export default {
       multipleSelection: [],
       isAddShow: false,
       form: {
-        name: "",
-        region: "",
-        date1: "",
-        date2: "",
-        delivery: false,
-        type: [],
-        resource: "",
-        desc: ""
+        ProjectCode: "",
+        ProjectName: "",
+        EPS_ID: "",
+        ProjectStatus: "",
+        ProjectPlanStart: "",
+        ProjectPlanFinish: "",
+        CreatPerson: "土豆土豆",
+        CreateTime: "",
+        ProjectNote: ""
       }
     };
   },
 
   methods: {
+    SearchProjectsMethod(){
+       SearchProjects()
+        .then(res => {
+          this.projectListData = res.data;
+        })
+        .catch(err => {
+          this.$alert(`${err.msg}`, "提示", {
+            type: "warning"
+          });
+        });
+    },
     toggleSelection(rows) {
       if (rows) {
         rows.forEach(row => {
@@ -139,17 +198,29 @@ export default {
     onSubmit() {
       console.log("submit!");
     },
-    SearchProjectList(){
-
-      SearchProjects()
+    SearchProjectList() {
+          this.SearchProjectsMethod();
+    },
+    
+    submitForm() {
+      NewProjects(this.form)
         .then(res => {
-            this.projectListData=res.data;
+          this.$alert(`保存成功`, "提示", {
+            type: "warning",
+            confirmButtonText: "好的"
+          });
+           this.isAddShow = false;
+           this.SearchProjectsMethod();
         })
         .catch(err => {
           this.$alert(`${err.msg}`, "提示", {
             type: "warning",
+            confirmButtonText: "好的"
           });
         });
+    },
+    resetForm(formName) {
+      this.$refs[formName].resetFields();
     }
   }
 };

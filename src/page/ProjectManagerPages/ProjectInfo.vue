@@ -190,7 +190,8 @@ export default {
       this.multipleSelection = val;
     },
     Add() {
-      this.handType = "add"
+      this.form = {};
+      this.handType = "add";
       this.isAddShow = true;
     },
     Search() {

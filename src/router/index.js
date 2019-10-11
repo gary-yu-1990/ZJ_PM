@@ -14,6 +14,7 @@ import TemplateClass from '@/page/BaseDataPages/TemplateClass/TemplateClassPage'
 // 系统设置
 import SystemSet from '@/page/SystemSet'
 import AccountInfo from '@/page/SystemSetPages/AccountInfo'
+import RoleSet from '@/page/SystemSetPages/RoleSet'
 
 // 任务管理
 import TaskManager from '@/page/TaskManager'
@@ -138,6 +139,13 @@ export default new Router({
         path: '/SystemSetPages/AccountInfo',
         name: 'AccountInfo',
         component: AccountInfo,
+        meta: {
+          keepAlive: true
+        }
+      }, {
+        path: '/SystemSetPages/RoleSet',
+        name: 'RoleSet',
+        component: RoleSet,
         meta: {
           keepAlive: true
         }

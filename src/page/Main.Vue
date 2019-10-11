@@ -19,7 +19,6 @@
               :default-active="activeIndex"
               class="el-menu-demo"
               mode="horizontal"
-              @select="handleSelect"
             >
               <el-submenu index="1">
                 <template slot="title">项目管理</template>
@@ -59,6 +58,11 @@
 </template>
 <script>
 export default {
+  data() {
+    return {
+      activeIndex:1
+    };
+  },
   name: "logout",
   methods: {
     logout() {

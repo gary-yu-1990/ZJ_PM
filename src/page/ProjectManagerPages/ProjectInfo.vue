@@ -1,6 +1,6 @@
 <template>
   <div class="pagePanel">
-    <div class="filterPanel">
+    <!-- <div class="filterPanel">
       <el-date-picker
         type="date"
         format="yyyy-MM-dd"
@@ -25,7 +25,7 @@
           :value="item.value"
         ></el-option>
       </el-select>
-    </div>
+    </div>-->
     <div class="buttonPanel">
       <el-button size="medium" @click="Add" type="primary">新建</el-button>
       <el-button size="medium" @click="Delete" type="primary">批量删除</el-button>
@@ -67,10 +67,12 @@
       </div>
       <div class="tbar" style="margin:0 25%;">
         <el-pagination
+          @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
-          :current-page.sync="currentPage"
+          :current-page="currentPage"
+          :page-sizes="[5, 10, 15, 20]"
           :page-size="limit"
-          layout="prev, pager, next, jumper"
+          layout="total, sizes, prev, pager, next, jumper"
           :total="count"
         ></el-pagination>
       </div>
@@ -152,12 +154,21 @@
 </template>
 
 <script>
-import { NewProjects, DeleteLists, SearchProjects,UpdateProject } from "@/api/ProjectInfoApi";
+import {
+  NewProjects,
+  DeleteLists,
+  SearchProjects,
+  UpdateProject,
+  getCurrentPageData,
+} from "@/api/ProjectInfoApi";
 export default {
   data() {
     return {
       projectListData: [],
       multipleSelection: [],
+      limit: 10,
+      count: 0,
+      currentPage: 1,
       isAddShow: false,
       handType: "add",
       form: {
@@ -195,7 +206,7 @@ export default {
       this.isAddShow = true;
     },
     Search() {
-      this.SearchProjectsMethod();
+      this.getPagesData();
     },
     Delete() {
       DeleteLists(this.multipleSelection)
@@ -209,12 +220,12 @@ export default {
         });
     },
     handleTask(index, row) {
-       this.$router.push({
-          path: "/ProjectManagerPages/ProjectTask"
-        }); //利用路由跳转页面，path为你定义的路由配置中要跳转页面的path
+      this.$router.push({
+        path: "/ProjectManagerPages/ProjectTask"
+      }); //利用路由跳转页面，path为你定义的路由配置中要跳转页面的path
     },
     handleEdit(index, row) {
-      this.handType = "edit"
+      this.handType = "edit";
       this.form = row;
       this.isAddShow = true;
     },
@@ -250,8 +261,7 @@ export default {
             });
           });
       }
-      if(this.handType === "edit")
-      {
+      if (this.handType === "edit") {
         UpdateProject(this.form)
           .then(res => {
             this.$alert(`更新成功`, "提示", {
@@ -271,7 +281,29 @@ export default {
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
+    },
+    handleSizeChange(val){
+          this.limit = val;
+          this.currentPage = 1;
+          this.getPagesData();
+    },
+    handleCurrentChange(val){
+           this.currentPage = val;
+           this.getPagesData();
+    },
+    getPagesData(){
+       let data = {
+        limit: this.limit,
+        page: this.currentPage,
+      };
+      //新后台
+      getCurrentPageData(data).then(res => {
+        this.count = res.count;
+        this.projectListData = [];
+        this.projectListData = res.data;
+      });
     }
+    
   }
 };
 </script>
@@ -306,5 +338,4 @@ export default {
   overflow: hidden;
   flex: 1;
 }
-
 </style>

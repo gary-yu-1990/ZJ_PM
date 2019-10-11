@@ -211,7 +211,7 @@ export default {
     Delete() {
       DeleteLists(this.multipleSelection)
         .then(res => {
-          this.SearchProjectsMethod();
+            this.getPagesData();
         })
         .catch(err => {
           this.$alert(`${err.msg}`, "提示", {
@@ -247,12 +247,13 @@ export default {
       if (this.handType === "add") {
         NewProjects(this.form)
           .then(res => {
-            this.$alert(`保存成功`, "提示", {
-              type: "warning",
-              confirmButtonText: "好的"
-            });
+                 this.$message({
+                   message:'保存成功',
+                   duration:1000,
+                   type: 'success'
+                   });
             this.isAddShow = false;
-            this.SearchProjectsMethod();
+           this.getPagesData();
           })
           .catch(err => {
             this.$alert(`${err.msg}`, "提示", {
@@ -266,7 +267,6 @@ export default {
           .then(res => {
             this.$alert(`更新成功`, "提示", {
               type: "warning",
-              confirmButtonText: "好的"
             });
             this.isAddShow = false;
             this.SearchProjectsMethod();

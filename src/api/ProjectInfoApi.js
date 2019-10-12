@@ -33,3 +33,11 @@ export function UpdateProject (data, config = {}) {
     return Promise.reject(err)
   })
 }
+
+export function getCurrentPageData (data, config = {}) {
+  return get('/PM_Projects/getCurrentPageData', data, config).then((res) => {
+    return Promise.resolve(res)
+  }).catch((err) => {
+    return Promise.reject(err)
+  })
+}

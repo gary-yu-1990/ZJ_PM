@@ -1,6 +1,6 @@
 <template>
   <div class="pagePanel">
-    <div class="filterPanel">
+    <!-- <div class="filterPanel">
       <el-date-picker
         type="date"
         format="yyyy-MM-dd"
@@ -25,7 +25,7 @@
           :value="item.value"
         ></el-option>
       </el-select>
-    </div>
+    </div>-->
     <div class="buttonPanel">
       <el-button size="medium" @click="Add" type="primary">新建</el-button>
       <el-button size="medium" @click="Delete" type="primary">批量删除</el-button>
@@ -67,10 +67,12 @@
       </div>
       <div class="tbar" style="margin:0 25%;">
         <el-pagination
+          @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
-          :current-page.sync="currentPage"
+          :current-page="currentPage"
+          :page-sizes="[5, 10, 15, 20]"
           :page-size="limit"
-          layout="prev, pager, next, jumper"
+          layout="total, sizes, prev, pager, next, jumper"
           :total="count"
         ></el-pagination>
       </div>
@@ -79,31 +81,31 @@
     <el-dialog title="新建项目" :visible.sync="isAddShow" :close-on-click-modal="false" width="50%">
       <el-form ref="form" :model="form" label-width="80px">
         <el-row>
-          <el-col span="11">
+          <el-col :span="11">
             <el-form-item label="项目编号">
               <el-input v-model="form.ProjectCode"></el-input>
             </el-form-item>
           </el-col>
-          <el-col span="11">
+          <el-col :span="11">
             <el-form-item label="项目名称">
               <el-input v-model="form.ProjectName"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
-          <el-col span="11">
+          <el-col :span="11">
             <el-form-item label="所属部门">
               <el-input v-model="form.EPS_ID"></el-input>
             </el-form-item>
           </el-col>
-          <el-col span="11">
+          <el-col :span="11">
             <el-form-item label="项目状态">
               <el-input v-model="form.ProjectStatus"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
-          <el-col span="11">
+          <el-col :span="11">
             <el-form-item prop="ProjectPlanStart" label="开始时间">
               <el-date-picker
                 type="date"
@@ -113,7 +115,7 @@
               ></el-date-picker>
             </el-form-item>
           </el-col>
-          <el-col span="11">
+          <el-col :span="11">
             <el-form-item prop="ProjectPlanFinish" label="结束时间">
               <el-date-picker
                 type="date"
@@ -125,19 +127,19 @@
           </el-col>
         </el-row>
         <el-row>
-          <el-col span="11">
+          <el-col :span="11">
             <el-form-item label="创建人">
               <el-input v-model="form.CreatPerson"></el-input>
             </el-form-item>
           </el-col>
-          <el-col span="11">
+          <el-col :span="11">
             <el-form-item label="创建时间">
               <el-input v-model="form.CreateTime"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
-          <el-col span="11">
+          <el-col :span="11">
             <el-form-item label="项目说明" prop="ProjectNote">
               <el-input type="textarea" v-model="form.ProjectNote"></el-input>
             </el-form-item>
@@ -152,12 +154,21 @@
 </template>
 
 <script>
-import { NewProjects, DeleteLists, SearchProjects,UpdateProject } from "@/api/ProjectInfoApi";
+import {
+  NewProjects,
+  DeleteLists,
+  SearchProjects,
+  UpdateProject,
+  getCurrentPageData,
+} from "@/api/ProjectInfoApi";
 export default {
   data() {
     return {
       projectListData: [],
       multipleSelection: [],
+      limit: 10,
+      count: 0,
+      currentPage: 1,
       isAddShow: false,
       handType: "add",
       form: {
@@ -195,12 +206,12 @@ export default {
       this.isAddShow = true;
     },
     Search() {
-      this.SearchProjectsMethod();
+      this.getPagesData();
     },
     Delete() {
       DeleteLists(this.multipleSelection)
         .then(res => {
-          this.SearchProjectsMethod();
+            this.getPagesData();
         })
         .catch(err => {
           this.$alert(`${err.msg}`, "提示", {
@@ -209,12 +220,12 @@ export default {
         });
     },
     handleTask(index, row) {
-       this.$router.push({
-          path: "/ProjectManagerPages/ProjectTask"
-        }); //利用路由跳转页面，path为你定义的路由配置中要跳转页面的path
+      this.$router.push({
+        path: "/ProjectManagerPages/ProjectTask"
+      }); //利用路由跳转页面，path为你定义的路由配置中要跳转页面的path
     },
     handleEdit(index, row) {
-      this.handType = "edit"
+      this.handType = "edit";
       this.form = row;
       this.isAddShow = true;
     },
@@ -236,12 +247,12 @@ export default {
       if (this.handType === "add") {
         NewProjects(this.form)
           .then(res => {
-            this.$alert(`保存成功`, "提示", {
-              type: "warning",
-              confirmButtonText: "好的"
-            });
+                 this.$message({
+                   message:'保存成功',
+                   duration:3000,
+                   });
             this.isAddShow = false;
-            this.SearchProjectsMethod();
+           this.getPagesData();
           })
           .catch(err => {
             this.$alert(`${err.msg}`, "提示", {
@@ -250,13 +261,11 @@ export default {
             });
           });
       }
-      if(this.handType === "edit")
-      {
+      if (this.handType === "edit") {
         UpdateProject(this.form)
           .then(res => {
             this.$alert(`更新成功`, "提示", {
               type: "warning",
-              confirmButtonText: "好的"
             });
             this.isAddShow = false;
             this.SearchProjectsMethod();
@@ -271,7 +280,29 @@ export default {
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
+    },
+    handleSizeChange(val){
+          this.limit = val;
+          this.currentPage = 1;
+          this.getPagesData();
+    },
+    handleCurrentChange(val){
+           this.currentPage = val;
+           this.getPagesData();
+    },
+    getPagesData(){
+       let data = {
+        limit: this.limit,
+        page: this.currentPage,
+      };
+      //新后台
+      getCurrentPageData(data).then(res => {
+        this.count = res.count;
+        this.projectListData = [];
+        this.projectListData = res.data;
+      });
     }
+    
   }
 };
 </script>
@@ -306,5 +337,4 @@ export default {
   overflow: hidden;
   flex: 1;
 }
-
 </style>

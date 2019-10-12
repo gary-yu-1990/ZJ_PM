@@ -2,7 +2,7 @@
   <div class="contains">
     <div class="toolbar">
       <span>项目信息</span>
-      <el-select v-model="Projectvalue" placeholder="请选择">
+      <el-select v-model="Projectvalue" @change="ProjectChange" placeholder="请选择">
         <el-option
           v-for="item in project_options"
           :key="item.ProjectCode"
@@ -29,7 +29,7 @@
         ></el-option>
       </el-select> -->
       <el-button type="primary"  @click="handleTaskSearch">任务查询</el-button>
-      <el-button type="primary">新增任务</el-button>
+      <el-button type="primary"  @click="HandAddRootTask">新增任务</el-button>
       <el-button type="primary">生成计划</el-button>
       <el-button type="primary">任务发布</el-button>
     </div>
@@ -55,7 +55,7 @@
           <el-table-column prop="CreateTime" label="创建时间"></el-table-column> -->
           <el-table-column label="操作" width="300">
             <template slot-scope="scope">
-              <el-button size="mini" @click="handleTask(scope.$index, scope.row)">新增子任务</el-button>
+              <el-button size="mini" @click="HandAddChildTask(scope.$index, scope.row)">新增子任务</el-button>
               <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
               <el-button size="mini" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
             </template>
@@ -70,13 +70,68 @@
         <el-tab-pane label="活动详情">活动详情</el-tab-pane>
       </el-tabs>
     </div>
+    
+    <el-dialog title="新增任务" :visible.sync="isDialogShow" :close-on-click-modal="false" width="50%">
+      <el-form ref="form" :model="formData" label-width="80px">
+        <el-row>
+          <el-col :span=11>
+            <el-form-item label="任务名称">
+              <el-input v-model="formData.WBSName"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span=11>
+            <el-form-item label="任务备注">
+              <el-input v-model="formData.WBSRemark"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span=11>
+            <el-form-item label="工期">
+              <el-input v-model="formData.WorkingTime"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span=11>
+            <el-form-item label="任务状态">
+              <el-input v-model="formData.WBSStatus"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span=11>
+            <el-form-item prop="WBSExpectStart" label="开始时间">
+              <el-date-picker
+                type="date"
+                placeholder="选择日期"
+                v-model="formData.WBSExpectStart"
+                style="width: 100%;"
+              ></el-date-picker>
+            </el-form-item>
+          </el-col>
+          <el-col :span=11>
+            <el-form-item prop="WBSExpectFinish" label="结束时间">
+              <el-date-picker
+                type="date"
+                placeholder="选择日期"
+                v-model="formData.WBSExpectFinish"
+                style="width: 100%;"
+              ></el-date-picker>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-form-item style="margin-left: 240px;">
+          <el-button type="primary" @click="submitForm()">保存</el-button>
+        </el-form-item>
+      </el-form>
+    </el-dialog>
+
   </div>
 </template>
 <script>
 import loacalDataJson from "@/store/data.json";
 import treegantt from "@/components/tree-gantt/tree-gantt.vue";
 import {SearchProjects} from "@/api/ProjectInfoApi";
-import {GetWBSData} from "@/api/WBSApi";
+import {GetWBSData,NewProjectTask,UpdateProjectTask,DeleteTask} from "@/api/WBSApi";
 export default {
   data() {
     return {
@@ -105,9 +160,23 @@ export default {
       taskData:[],
       Projectvalue: "",
       viewvalue: "wbs",
+      isDialogShow: false,
+      handType: "add",
       iswbsviewShow: true,
       isganttviewShow: false,
-      isinternetviewShow: false
+      isinternetviewShow: false,
+      formData: {
+        WBSName: "",
+        WBSRemark: "",
+        WorkingTime: "",
+        WBSStatus: "",
+        WBSExpectFinish: "",
+        WBSExpectStart: "",
+        CreatPerson: "余春来",
+        CreateTime: "",
+        WBS_PID:"",
+        Project_ID:"",
+      }
     };
   },
   components: {
@@ -126,6 +195,41 @@ export default {
       });
   },
   methods: {
+     HandAddRootTask(){
+     this.formData = {
+        WBS_PID:0,
+        Project_ID:this.Projectvalue
+      };
+      this.handType = "add";
+      this.isDialogShow = true;
+    },
+     HandAddChildTask(index,row){
+      this.formData = {
+        WBS_PID:row.WBS_ID,
+        Project_ID:this.Projectvalue
+      };
+      this.handType = "add";
+      this.isDialogShow = true;
+    },
+    handleEdit(index, row) {
+      this.handType = "edit";
+      this.formData = row;
+      this.isDialogShow = true;
+    },
+    handleDelete(index, row) {
+      DeleteTask(row)
+        .then(res => {
+             this.getTaskData();
+        })
+        .catch(err => {
+          this.$alert(`${err.msg}`, "提示", {
+            type: "warning"
+          });
+        });
+    },
+    ProjectChange(){
+       this.getTaskData();
+    },
     ShowChange() {
       if (this.viewvalue === "wbs") {
         this.iswbsviewShow = true;
@@ -166,7 +270,44 @@ export default {
     },
     handleTaskSearch(){
         this.getTaskData();
-    }
+    },
+    submitForm() {
+      //判断是新增还是编辑更新
+      if (this.handType === "add") {
+        NewProjectTask(this.formData)
+          .then(res => {
+                 this.$message({
+                   message:'保存成功',
+                   duration:3000,
+                   });
+            this.isDialogShow = false;
+            this.getTaskData();
+          })
+          .catch(err => {
+            this.$alert(`${err.msg}`, "提示", {
+              type: "warning",
+              confirmButtonText: "好的"
+            });
+          });
+      }
+      if (this.handType === "edit") {
+        UpdateProjectTask(this.formData)
+          .then(res => {
+            this.$alert(`更新成功`, "提示", {
+              type: "warning",
+            });
+            this.isDialogShow = false;
+            this.getTaskData();
+          })
+          .catch(err => {
+            this.$alert(`${err.msg}`, "提示", {
+              type: "warning",
+              confirmButtonText: "好的"
+            });
+          });
+      }
+    },
+
   }
 };
 </script>

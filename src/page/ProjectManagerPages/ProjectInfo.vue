@@ -81,31 +81,31 @@
     <el-dialog title="新建项目" :visible.sync="isAddShow" :close-on-click-modal="false" width="50%">
       <el-form ref="form" :model="form" label-width="80px">
         <el-row>
-          <el-col span="11">
+          <el-col :span="11">
             <el-form-item label="项目编号">
               <el-input v-model="form.ProjectCode"></el-input>
             </el-form-item>
           </el-col>
-          <el-col span="11">
+          <el-col :span="11">
             <el-form-item label="项目名称">
               <el-input v-model="form.ProjectName"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
-          <el-col span="11">
+          <el-col :span="11">
             <el-form-item label="所属部门">
               <el-input v-model="form.EPS_ID"></el-input>
             </el-form-item>
           </el-col>
-          <el-col span="11">
+          <el-col :span="11">
             <el-form-item label="项目状态">
               <el-input v-model="form.ProjectStatus"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
-          <el-col span="11">
+          <el-col :span="11">
             <el-form-item prop="ProjectPlanStart" label="开始时间">
               <el-date-picker
                 type="date"
@@ -115,7 +115,7 @@
               ></el-date-picker>
             </el-form-item>
           </el-col>
-          <el-col span="11">
+          <el-col :span="11">
             <el-form-item prop="ProjectPlanFinish" label="结束时间">
               <el-date-picker
                 type="date"
@@ -127,19 +127,19 @@
           </el-col>
         </el-row>
         <el-row>
-          <el-col span="11">
+          <el-col :span="11">
             <el-form-item label="创建人">
               <el-input v-model="form.CreatPerson"></el-input>
             </el-form-item>
           </el-col>
-          <el-col span="11">
+          <el-col :span="11">
             <el-form-item label="创建时间">
               <el-input v-model="form.CreateTime"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
-          <el-col span="11">
+          <el-col :span="11">
             <el-form-item label="项目说明" prop="ProjectNote">
               <el-input type="textarea" v-model="form.ProjectNote"></el-input>
             </el-form-item>
@@ -249,8 +249,7 @@ export default {
           .then(res => {
                  this.$message({
                    message:'保存成功',
-                   duration:1000,
-                   type: 'success'
+                   duration:3000,
                    });
             this.isAddShow = false;
            this.getPagesData();

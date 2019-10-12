@@ -43,7 +43,9 @@
         >
           <el-table-column type="selection" width="55"></el-table-column>
           <el-table-column prop="UserID" label="用户编码" width="120"></el-table-column>
-          <el-table-column prop="UserName" label="用户名" width="150"></el-table-column>
+          <el-table-column prop="UserName" label="用户姓名" width="150"></el-table-column>
+          <el-table-column prop="Cid" label="帐户名" width="120"></el-table-column>
+          <el-table-column prop="PassWord" label="密码" width="150"></el-table-column>
           <el-table-column prop="EmployeeCode" label="工号" width="150"></el-table-column>
           <el-table-column prop="UserSex" label="性别" width="150"></el-table-column>
           <el-table-column label="操作">
@@ -69,7 +71,7 @@
       </div>
     </div>
 
-    <el-dialog title="新建项目" :visible.sync="isAddShow" :close-on-click-modal="false" width="50%">
+    <el-dialog title="新建账户" :visible.sync="isAddShow" :close-on-click-modal="false" width="50%">
       <el-form ref="form" :model="form" label-width="80px">
         <el-row>
           <el-col span="11">
@@ -82,6 +84,22 @@
           <el-col span="11">
             <el-form-item label="用户名称">
               <el-input v-model="form.UserName"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+
+        <el-row>
+          <el-col span="11">
+            <el-form-item label="帐户名">
+              <el-input v-model="form.Cid"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+
+        <el-row>
+          <el-col span="11">
+            <el-form-item label="密码">
+              <el-input v-model="form.Password"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -116,6 +134,9 @@ import {
   SearchUsers,
   UpdateUser
 } from "@/api/UsersInfoApi";
+import Cookies from "js-cookie";
+import { mapMutations, mapActions } from "vuex";
+import { mapState } from "vuex";
 export default {
   data() {
     return {
@@ -126,6 +147,8 @@ export default {
       form: {
         UserID: "",
         UserName: "",
+        Cid: "",
+        PassWord: "",
         EmployeeCode: "",
         UserSex: "女"
       }

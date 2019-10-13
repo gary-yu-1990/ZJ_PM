@@ -19,7 +19,7 @@ import RoleSet from '@/page/SystemSetPages/RoleSet'
 // 任务管理
 import TaskManager from '@/page/TaskManager'
 // 项目管理
-import ProjectManager from '@/page/ProjectManager'
+
 import ProjectInfo from '@/page/ProjectManagerPages/ProjectInfo'
 import ProjectTask from '@/page/ProjectManagerPages/ProjectTask'
 

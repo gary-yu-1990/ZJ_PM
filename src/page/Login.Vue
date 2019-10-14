@@ -13,7 +13,7 @@
         <div class="info">
           <p>账号:</p>
           <el-input style="width:300px;" placeholder="请输入账号" v-model="cid">
-            <img slot="prefix" src="../assets/img/cid.png" width="22" margin-left="10px" alt />
+            <img slot="prefix" src="../assets/img/cid.png" width="22" alt />
           </el-input>
         </div>
         <div class="info">
@@ -26,16 +26,13 @@
       </div>
     </div>
     <div class="loginTitle">
-      <p>-佛山知匠科技有限公司-</p>
+     <p>-佛山知匠科技有限公司-</p>
     </div>
   </div>
 </template>
 
 
     <script>
-</script>
-<script>
-/*
 import Cookies from "js-cookie";
 import { mapMutations, mapActions } from "vuex";
 import { mapState } from "vuex";
@@ -63,127 +60,15 @@ export default {
     }
   }
 };
-*/
-
-import Cookies from "js-cookie";
-import { UserLogin } from "@/api/UsersInfoApi";
-//import { RedirectMain } from "@/api/orderListASP";
-import { mapMutations, mapActions } from "vuex";
-import { mapState } from "vuex";
-
-export default {
-  name: "Login",
-  data() {
-    return {
-      cid: "", //用户账号
-      password: "" //用户密码
-    };
-  },
-  methods: {
-    ...mapMutations("navTabs", ["emptyTabList"]),
-    loginSubmit() {
-      if (this.cid === "") {
-        this.$alert("请输入用户账号", "提示", {
-          type: "warning",
-          confirmButtonText: "确定"
-        });
-        return;
-      }
-      if (this.password === "") {
-        this.$alert("请输入密码", "提示", {
-          type: "warning",
-          confirmButtonText: "确定"
-        });
-        return;
-      }
-      if (this.cid == "admin" && this.password == "123") {
-        this.$router.push({
-          path: "/Main"
-        });
-      } else {
-        let date = new Date();
-        //账号首位转大写?转大写干嘛？
-        // let cidArr = this.cid.split("");
-        // cidArr[0] = cidArr[0].toUpperCase();
-        // let cid = cidArr.join("");
-        let obj = {
-          Cid: cid,
-          PassWord: this.password
-          //year: date.getFullYear()
-        };
-        Cookies.remove("cid");
-        //Cookies.remove("customerType");
-        UserLogin(obj)
-          .then(res => {
-            //方法执行完毕，传回数据之后，执行以下代码
-            if (res.data.stopped == 1) {
-              this.$alert("账号被禁用，无法登录", "提示", {
-                type: "warning",
-                confirmButtonText: "好的"
-              });
-              return;
-            }
-            Cookies.set("cid", cid);
-            sessionStorage.setItem("_userId", cid);
-
-            if (
-              res.data.Cid !== this.cid &&
-              res.data.PassWord !== this.password
-            ) {
-              this.$alert("账户或密码不正确", "提示", {
-                type: "warning",
-                confirmButtonText: "好的"
-              });
-            } else {
-              this.emptyTabList();
-
-              this.$router.push({
-                path: "/main"
-              });
-            }
-            //let companyId;
-            // Cookies.set("userInfo", res.data);
-            // Cookies.set("isManager", res.data.isManager);
-            // Cookies.set("realName", res.data.realName);
-            // companyId = res.data.companyId === null ? "null" : res.data.companyId;
-            // Cookies.set("companyId", companyId);
-            // Cookies.set("customerMainId", res.data.customerMainId);
-            // // Cookies.set("identity", res.data.type);
-            // if (res.customerType === "") {
-            //   if (res.data.type === "USER") {
-            //     Cookies.set("customerType", "110");
-            //   }
-            // } else {
-            //   Cookies.set("customerType", res.customerType);
-            // }
-            // this.emptyTabList();
-
-            // this.$router.push({
-            //   path: "/main"
-            // });
-            //this.$router.go(0);//刷新页面
-          })
-          .catch(err => {
-            this.$alert(`${err.msg}`, "提示", {
-              type: "warning",
-              confirmButtonText: "好的"
-            });
-          });
-      }
-    }
-  },
-  created() {}
-};
 </script>
 
-
-
 <style scoped>
+
 .info {
   text-align: center;
   font-size: 1em;
-
-  margin: 0px !important;
+  
+  margin: 0px ! important;
   padding: 0;
 }
 .submit {
@@ -200,6 +85,7 @@ export default {
   cursor: pointer;
 }
 .loginBody {
+ 
   width: 100%;
   height: 100%;
   background: url("../assets/img/loginBg.png");
@@ -211,10 +97,10 @@ export default {
   bottom: 3.5%;
   right: 2%;
 }
-.loginTitle p {
-  size: 20;
-  color: #fff;
-}
+ .loginTitle p {
+   size: 20;
+   color: #fff;
+  }
 .loginMain {
   position: fixed;
   top: 50%;
@@ -269,7 +155,7 @@ export default {
 }
 .submit {
   user-select: none;
-  margin: 3.2rem, 3rem, 3rem, 1rem;
+  margin: 3.2rem,3rem,3rem,1rem;
   width: 300px;
   height: 40px;
   line-height: 40px;
@@ -283,3 +169,4 @@ export default {
 </style>
 
 
+</style>

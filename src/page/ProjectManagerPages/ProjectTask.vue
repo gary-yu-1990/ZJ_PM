@@ -193,6 +193,9 @@ export default {
           type: "warning"
         });
       });
+
+      this.Projectvalue = this.$route.query.ProjectCode;
+      this.getTaskData();
   },
   methods: {
      HandAddRootTask(){

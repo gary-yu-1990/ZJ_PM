@@ -1,67 +1,64 @@
 <template>
   <div class="wrapper">
     <div class="headerWrapper">
-      <el-container class="main-container">
-        <el-header style="height:62px">
-          <ul class="logo">
-            <li>
-              <div class="imgbox">
-                <img src="../assets/zjlogo.png" style="height:100%" />
-              </div>
-            </li>
-            <li>
-              <span class>知匠项目管理系统</span>
-            </li>
-          </ul>
-          <ul class="nav">
-            <el-menu
-              router
-              :default-active="activeIndex"
-              class="el-menu-demo"
-              mode="horizontal"
-            >
-              <el-submenu index="1">
+      <el-header style="height:62px">
+        <el-container class="main-container">
+          <div style="width:100%;height:100%">
+            <ul class="logo" @click="()=>{this.$router.push(config.HOME_PAGE)}">
+              <li>
+                <div class="imgbox">
+                  <img src="../assets/zjlogo.png" style="height:100%" />
+                </div>
+              </li>
+              <li>
+                <span class>知匠项目管理系统</span>
+              </li>
+            </ul>
+            <ul class="nav">
+              <el-menu router :default-active="activeIndex" class="el-menu-demo" mode="horizontal">
+                <!-- <el-submenu index="1">
                 <template slot="title">项目管理</template>
                 <el-menu-item index="/ProjectManagerPages/ProjectInfo">项目信息</el-menu-item>
                 <el-menu-item index="/ProjectManagerPages/ProjectTask">项目任务</el-menu-item>
-              </el-submenu>
-              <el-submenu index="2">
-                <template slot="title">任务管理</template>
-                <el-menu-item index="/TaskManager">进度汇报</el-menu-item>
-              </el-submenu>
-              <el-menu-item index="/BasicData" >基础信息</el-menu-item>
-              <el-menu-item index="/SystemSet" >系统设置</el-menu-item>
-              <el-menu-item index="/developSet" >开发工具</el-menu-item>
-            </el-menu>
-          </ul>
-          <ul class="info">
-            <li>
-              <span class="exitbutton" @click="logout">
-                <el-button type="text">退出</el-button>
-              </span>
-            </li>
-            <li>
-              <el-avatar icon="el-icon-user-solid" style="vertical-align:middle;"></el-avatar>
-            </li>
-          </ul>
-        </el-header>
-      </el-container>
+                </el-submenu>-->
+                <el-menu-item index="/ProjectManagerPages/ProjectInfo">项目管理</el-menu-item>
+                <el-menu-item index="/BasicData">基础信息</el-menu-item>
+                <el-menu-item index="/SystemSet">系统设置</el-menu-item>
+                <el-menu-item index="/developSet">开发工具</el-menu-item>
+              </el-menu>
+            </ul>
+            <ul class="info">
+              <li>
+                <span class="exitbutton" @click="logout">
+                  <el-button type="text">退出</el-button>
+                </span>
+              </li>
+              <li>
+                <el-avatar icon="el-icon-user-solid" style="vertical-align:middle;"></el-avatar>
+              </li>
+            </ul>
+          </div>
+        </el-container>
+      </el-header>
     </div>
     <div class="mainWrapper">
-      <el-container class="main-container">
-        <keep-alive>
-          <router-view />
-        </keep-alive>
-      </el-container>
+        <router-view/>
     </div>
   </div>
 </template>
 <script>
+import config from "../config/config";
 export default {
   data() {
     return {
-      activeIndex:"1"
+      activeIndex: "1",
+      config: config
     };
+  },
+  created() {
+    this.$router.push({
+      path: "/ProjectManagerPages/ProjectInfo"
+    });
   },
   name: "logout",
   methods: {
@@ -83,35 +80,35 @@ export default {
   text-align: center;
 }
 
-.el-header li {
+.el-container li {
   line-height: 60px;
   float: left;
   list-style-type: none;
 }
-.el-header ul {
+.el-container ul {
   display: inline-block;
   padding-inline-start: 0px;
 }
 
-.el-header ul:nth-child(1) {
+.el-container ul:nth-child(1) {
   /* background-color: rgb(231, 160, 160); */
   font-size: 20px;
   margin: 0 10px;
 }
-.el-header ul:nth-child(2) {
+.el-container ul:nth-child(2) {
   /* background-color: rgb(231, 160, 160); */
   font-size: 20px;
   margin: 0 10px;
 }
-.el-header ul:nth-child(3) {
+.el-container ul:nth-child(3) {
   /* background-color: rgb(231, 160, 160); */
   font-size: 20px;
   margin: 0 10px;
 }
-.el-header .logo {
+.el-container .logo {
   float: left;
 }
-.el-header .info {
+.el-container .info {
   float: right;
 }
 .nav li {
@@ -119,6 +116,11 @@ export default {
   padding-right: 10px;
 }
 .nav li:hover {
+  cursor: pointer;
+  /* background: #86b450; */
+}
+
+.logo:hover {
   cursor: pointer;
   /* background: #86b450; */
 }

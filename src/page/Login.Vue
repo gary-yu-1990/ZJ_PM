@@ -5,24 +5,52 @@
     <div class="loginMain">
       <!-- 登录框头部--图标 -->
       <div class="mainLogoWrap">
-        <img class="mainLogo" width="100%" src="../assets/zjlogo.png" alt />
+        <img
+          class="mainLogo"
+          width="100%"
+          src="../assets/zjlogo.png"
+          alt
+        />
       </div>
       <div class="mainInfo">
         <h1>知匠项目管理系统</h1>
         <div class="loginBar"></div>
         <div class="info">
           <p>账号:</p>
-          <el-input style="width:300px;" placeholder="请输入账号" v-model="cid">
-            <img slot="prefix" src="../assets/img/cid.png" width="22" margin-left="10px" alt />
+          <el-input
+            style="width:300px;"
+            placeholder="请输入账号"
+            v-model="Cid"
+          >
+            <img
+              slot="prefix"
+              src="../assets/img/cid.png"
+              width="22"
+              margin-left="10px"
+              alt
+            />
           </el-input>
         </div>
         <div class="info">
           <p>密码:</p>
-          <el-input type="password" style="width:300px;" placeholder="请输入密码" v-model="password">
-            <img slot="prefix" src="../assets/img/password.png" width="22" alt />
+          <el-input
+            type="PassWord"
+            style="width:300px;"
+            placeholder="请输入密码"
+            v-model="PassWord"
+          >
+            <img
+              slot="prefix"
+              src="../assets/img/password.png"
+              width="22"
+              alt
+            />
           </el-input>
         </div>
-        <div class="submit" @click="loginSubmit">登录</div>
+        <div
+          class="submit"
+          @click="loginSubmit"
+        >登录</div>
       </div>
     </div>
     <div class="loginTitle">
@@ -72,49 +100,53 @@ import { mapMutations, mapActions } from "vuex";
 import { mapState } from "vuex";
 
 export default {
-  name: "Login",
-  data() {
+  name: "UserLogin",
+  data () {
     return {
-      cid: "", //用户账号
-      password: "" //用户密码
+      Cid: "", //用户账号
+      PassWord: "" //用户密码
     };
   },
   methods: {
     ...mapMutations("navTabs", ["emptyTabList"]),
-    loginSubmit() {
-      if (this.cid === "") {
+    loginSubmit () {
+      if (this.Cid === "") {
         this.$alert("请输入用户账号", "提示", {
           type: "warning",
           confirmButtonText: "确定"
         });
         return;
       }
-      if (this.password === "") {
+      if (this.PassWord === "") {
         this.$alert("请输入密码", "提示", {
           type: "warning",
           confirmButtonText: "确定"
         });
         return;
       }
-      if (this.cid == "admin" && this.password == "123") {
+      if (this.Cid == "admin" && this.PassWord == "123") {
         this.$router.push({
           path: "/Main"
         });
       } else {
-        let date = new Date();
-        //账号首位转大写?转大写干嘛？
-        // let cidArr = this.cid.split("");
-        // cidArr[0] = cidArr[0].toUpperCase();
-        // let cid = cidArr.join("");
+
+        // let date = new Date();
+        // //账号首位转大写?转大写干嘛？
+        // // let cidArr = this.cid.split("");
+        // // cidArr[0] = cidArr[0].toUpperCase();
+        // // let cid = cidArr.join("");
         let obj = {
-          Cid: cid,
-          PassWord: this.password
+          Cid: this.Cid,
+          PassWord: this.PassWord
           //year: date.getFullYear()
         };
-        Cookies.remove("cid");
-        //Cookies.remove("customerType");
-        UserLogin(obj)
+        // Cookies.remove("cid");
+        // //Cookies.remove("customerType");
+        // UserLogin(this.Cid)
+          UserLogin(obj)
           .then(res => {
+            // console.console.log(res.data.PassWord);
+
             //方法执行完毕，传回数据之后，执行以下代码
             if (res.data.stopped == 1) {
               this.$alert("账号被禁用，无法登录", "提示", {
@@ -123,39 +155,29 @@ export default {
               });
               return;
             }
-            Cookies.set("cid", cid);
-            sessionStorage.setItem("_userId", cid);
-
-            if (
-              res.data.Cid !== this.cid &&
-              res.data.PassWord !== this.password
-            ) {
-              this.$alert("账户或密码不正确", "提示", {
-                type: "warning",
-                confirmButtonText: "好的"
-              });
-            } else {
-              this.emptyTabList();
-
+            //     Cookies.set("cid", cid);
+            //     sessionStorage.setItem("_userId", cid);
+           
+              // this.emptyTabList();
               this.$router.push({
-                path: "/main"
+                path: "/Main"
               });
-            }
-            //let companyId;
-            // Cookies.set("userInfo", res.data);
-            // Cookies.set("isManager", res.data.isManager);
-            // Cookies.set("realName", res.data.realName);
-            // companyId = res.data.companyId === null ? "null" : res.data.companyId;
-            // Cookies.set("companyId", companyId);
-            // Cookies.set("customerMainId", res.data.customerMainId);
-            // // Cookies.set("identity", res.data.type);
-            // if (res.customerType === "") {
-            //   if (res.data.type === "USER") {
-            //     Cookies.set("customerType", "110");
-            //   }
-            // } else {
-            //   Cookies.set("customerType", res.customerType);
-            // }
+         
+            //     //let companyId;
+            //     // Cookies.set("userInfo", res.data);
+            //     // Cookies.set("isManager", res.data.isManager);
+            //     // Cookies.set("realName", res.data.realName);
+            //     // companyId = res.data.companyId === null ? "null" : res.data.companyId;
+            //     // Cookies.set("companyId", companyId);
+            //     // Cookies.set("customerMainId", res.data.customerMainId);
+            //     // // Cookies.set("identity", res.data.type);
+            //     // if (res.customerType === "") {
+            //     //   if (res.data.type === "USER") {
+            //     //     Cookies.set("customerType", "110");
+            //     //   }
+            //     // } else {
+            //     //   Cookies.set("customerType", res.customerType);
+            //     // }
             // this.emptyTabList();
 
             // this.$router.push({
@@ -172,7 +194,7 @@ export default {
       }
     }
   },
-  created() {}
+  created () { }
 };
 </script>
 

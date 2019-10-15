@@ -42,12 +42,12 @@
           @selection-change="handleSelectionChange"
         >
           <el-table-column type="selection" width="55"></el-table-column>
-          <el-table-column prop="UserID" label="用户编码" width="120"></el-table-column>
+          <el-table-column prop="UserID" label="用户编码" width="100"></el-table-column>
           <el-table-column prop="UserName" label="用户姓名" width="150"></el-table-column>
-          <el-table-column prop="Cid" label="帐户名" width="120"></el-table-column>
-          <el-table-column prop="PassWord" label="密码" width="150"></el-table-column>
-          <el-table-column prop="EmployeeCode" label="工号" width="150"></el-table-column>
-          <el-table-column prop="UserSex" label="性别" width="150"></el-table-column>
+          <el-table-column prop="Cid" label="帐户名" width="100"></el-table-column>
+          <el-table-column prop="PassWord" label="密码" width="120"></el-table-column>
+          <el-table-column prop="EmployeeCode" label="工号" width="110"></el-table-column>
+          <el-table-column prop="UserSex" label="性别" width="60"></el-table-column>
           <el-table-column label="操作">
             <template slot-scope="scope">
               <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>

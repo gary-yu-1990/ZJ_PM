@@ -1,5 +1,4 @@
 <template>
-
     <div class="pagePanel">
       <div class="filterPanel">
         <el-date-picker
@@ -27,6 +26,7 @@
           ></el-option>
         </el-select>
       </div>
+
       <div class="buttonPanel">
         <el-button size="medium" @click="Add" type="primary">新建</el-button>
         <el-button size="medium" @click="Delete" type="primary">批量删除</el-button>
@@ -59,6 +59,7 @@
                 >删除</el-button>
               </template>
             </el-table-column>
+
 
             <!-- <el-table-column label="日期" width="120">
             <template slot-scope="scope">{{ scope.row.date }}</template>
@@ -143,8 +144,9 @@ import Cookies from "js-cookie";
 import { mapMutations, mapActions } from "vuex";
 import { mapState } from "vuex";
 export default {
-  data() {
+  data () {
     return {
+      dialogVisible: false,
       userListData: [],
       multipleSelection: [],
       isAddShow: false,
@@ -161,7 +163,7 @@ export default {
   },
 
   methods: {
-    SearchUsersMethod() {
+    SearchUsersMethod () {
       SearchUsers()
         .then(res => {
           this.userListData = res.data;
@@ -172,18 +174,19 @@ export default {
           });
         });
     },
-    handleSelectionChange(val) {
+    handleSelectionChange (val) {
       this.multipleSelection = val;
     },
-    Add() {
+    Add () {
       this.form = {};
       this.handType = "add";
       this.isAddShow = true;
+      this.dialogVisible = true;
     },
-    Search() {
+    Search () {
       this.SearchUsersMethod();
     },
-    Delete() {
+    Delete () {
       DeleteLists(this.multipleSelection)
         .then(res => {
           this.SearchUsersMethod();
@@ -194,12 +197,12 @@ export default {
           });
         });
     },
-    handleEdit(index, row) {
+    handleEdit (index, row) {
       this.handType = "edit";
       this.form = row;
       this.isAddShow = true;
     },
-    handleDelete(index, row) {
+    handleDelete (index, row) {
       var deleteArry = [];
       deleteArry.push(row);
       DeleteLists(deleteArry)
@@ -212,7 +215,7 @@ export default {
           });
         });
     },
-    submitForm() {
+    submitForm () {
       //判断是新增还是编辑更新
       if (this.handType === "add") {
         NewUsers(this.form)
@@ -248,12 +251,9 @@ export default {
             });
           });
       }
-    },
-    resetForm(formName) {
-      this.$refs[formName].resetFields();
     }
   }
-};
+}
 </script>
 
 <style scoped >

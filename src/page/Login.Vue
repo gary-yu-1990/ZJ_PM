@@ -5,24 +5,43 @@
     <div class="loginMain">
       <!-- 登录框头部--图标 -->
       <div class="mainLogoWrap">
-        <img class="mainLogo" width="100%" src="../assets/zjlogo.png" alt />
+        <img
+          class="mainLogo"
+          width="100%"
+          src="../assets/zjlogo.png"
+          alt
+        />
       </div>
       <div class="mainInfo">
         <h1>知匠项目管理系统</h1>
         <div class="loginBar"></div>
         <div class="info">
           <p>账号:</p>
+
           <el-input style="width:300px;" placeholder="请输入账号" v-model="cid">
             <img slot="prefix" src="../assets/img/cid.png" width="22" alt />
           </el-input>
         </div>
         <div class="info">
           <p>密码:</p>
-          <el-input type="password" style="width:300px;" placeholder="请输入密码" v-model="password">
-            <img slot="prefix" src="../assets/img/password.png" width="22" alt />
+          <el-input
+            type="PassWord"
+            style="width:300px;"
+            placeholder="请输入密码"
+            v-model="PassWord"
+          >
+            <img
+              slot="prefix"
+              src="../assets/img/password.png"
+              width="22"
+              alt
+            />
           </el-input>
         </div>
-        <div class="submit" @click="loginSubmit">登录</div>
+        <div
+          class="submit"
+          @click="loginSubmit"
+        >登录</div>
       </div>
     </div>
     <div class="loginTitle">

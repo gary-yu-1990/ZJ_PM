@@ -1,5 +1,5 @@
 <template>
-   <el-container class="main-container">
+       <el-container>
         <el-aside style="overflow:hidden;width:200px">
         <el-menu router :default-active="activeIndex">
         <el-menu-item index="/BaseDataPages/TemplateClass/TemplateClassPage">

@@ -47,7 +47,7 @@
 }
 
 
-/* >=1280的设备 */
+/*>=1280的设备*/
 
 @media (max-width: 1100px) {
     .main-container {
@@ -58,7 +58,7 @@
 }
 
 
-/* >=1100的设备 */
+/*>=1100的设备*/
 
 @media (max-width: 1024px) {
     .main-container {
@@ -66,17 +66,4 @@
         margin: 0 auto;
         height: 100%;
     }
-}
-
-
-/* .main-container {
-    width: 100%;
-    padding-left: 5px;
-    padding-right: 5px;
-    height: 100%;
-} */
-
-.el-table td,
-.el-table th {
-    padding: 5px 0;
 }

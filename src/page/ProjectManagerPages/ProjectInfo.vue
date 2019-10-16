@@ -55,7 +55,7 @@
             tooltip-effect="dark"
             style="width: 100%;"
             @selection-change="handleSelectionChange"
-            @row-click="handRowClick"
+            @row-dblclick="handRowdDblClick"
           >
             <el-table-column type="selection" width="55"></el-table-column>
 
@@ -223,7 +223,7 @@ export default {
     handleSelectionChange(val) {
       this.multipleSelection = val;
     },
-    handRowClick(row,column,event){
+    handRowdDblClick(row,column,event){
       this.$router.push({
         path: "/ProjectManagerPages/ProjectDash",
         query: {ProjectCode:row.ProjectCode}

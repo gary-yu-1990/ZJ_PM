@@ -8,8 +8,13 @@
       style="width:100%;height:40px"
     >
       <el-container class="main-container">
-        <el-menu-item index="/ProjectManagerPages/ProjectTask">任务</el-menu-item>
-        <el-menu-item index="/ProjectManagerPages/ProjectTask">统计</el-menu-item>
+        <el-menu-item index="/ProjectManagerPages/ProjectWBS">任务与进度计划</el-menu-item>
+        <el-menu-item index="">统计</el-menu-item>
+        <el-menu-item index="">风险管理</el-menu-item>
+        <el-menu-item index="">沟通计划</el-menu-item>
+        <el-menu-item index="">会议纪要</el-menu-item>
+        <el-menu-item index="">变更管理</el-menu-item>
+        <el-menu-item index="">总结</el-menu-item>
       </el-container>
     </el-menu>
     <el-container class="main-container" >
@@ -27,7 +32,7 @@ export default {
   },
   created() {
     this.$router.push({
-      path: "/ProjectManagerPages/ProjectTask",
+      path: "/ProjectManagerPages/ProjectWBS",
       query: {ProjectCode:this.$route.query.ProjectCode}
     });
   },

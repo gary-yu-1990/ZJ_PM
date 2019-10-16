@@ -75,3 +75,8 @@
     padding-right: 5px;
     height: 100%;
 } */
+
+.el-table td,
+.el-table th {
+    padding: 5px 0;
+}

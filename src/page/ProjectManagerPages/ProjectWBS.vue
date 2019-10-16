@@ -43,16 +43,17 @@
           default-expand-all
           height="100%"
           :tree-props="{children: 'children', hasChildren: 'hasChildren'}"
+          @row-dblclick="handRowDblClick"
         >
-          <el-table-column prop="WBSName" label="任务名称" sortable width="180"></el-table-column>
-          <el-table-column prop="WBSStatus" label="任务状态" ></el-table-column>
+          <el-table-column prop="WBSName" label="任务名称" width="300"></el-table-column>
           <el-table-column prop="WBSRemark" label="任务说明"></el-table-column>
-          <el-table-column prop="WorkingTime" label="工期"></el-table-column>
-          <el-table-column prop="WBSExpectStart" label="计划开始时间"></el-table-column>
-          <el-table-column prop="WBSExpectFinish" label="计划结束时间"></el-table-column>
+          <el-table-column prop="WorkingTime" label="工期(天)"  width="80"></el-table-column>
           <el-table-column prop="OBS_ID" label="负责人"></el-table-column>
-          <!-- <el-table-column prop="CreatePerson" label="创建人"></el-table-column>
-          <el-table-column prop="CreateTime" label="创建时间"></el-table-column> -->
+          <el-table-column prop="WBSStatus" label="任务状态"  width="120"></el-table-column>
+          <el-table-column prop="WBSExpectStart" label="计划开始时间"  :formatter="dateFormat" ></el-table-column>
+          <el-table-column prop="WBSExpectFinish" label="计划结束时间" :formatter="dateFormat" ></el-table-column>
+          <el-table-column prop="CreatePerson" label="创建人"></el-table-column>
+          <!-- <el-table-column prop="CreateTime" label="创建时间"></el-table-column> -->
           <el-table-column label="操作" width="300">
             <template slot-scope="scope">
               <el-button size="mini" @click="HandAddChildTask(scope.$index, scope.row)">新增子任务</el-button>
@@ -198,6 +199,15 @@ export default {
       this.getTaskData();
   },
   methods: {
+     handRowDblClick(row,column,event){
+       this.formData = {
+        WBS_PID:row.WBS_ID,
+        Project_ID:this.Projectvalue
+      };
+      this.handType = "add";
+      this.isDialogShow = true;
+     },
+
      HandAddRootTask(){
      this.formData = {
         WBS_PID:0,

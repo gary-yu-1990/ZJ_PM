@@ -1,130 +1,135 @@
 <template>
-  <div class="pagePanel">
-    <div class="filterPanel">
-      <el-date-picker
-        type="date"
-        format="yyyy-MM-dd"
-        value-format="yyyy-MM-dd"
-        placeholder="日期区间"
-        v-model="beginTime"
-        style="width:14%;"
-      ></el-date-picker>--
-      <el-date-picker
-        type="date"
-        format="yyyy-MM-dd"
-        value-format="yyyy-MM-dd"
-        placeholder="日期区间"
-        v-model="finishTime"
-        style="width:14%;"
-      ></el-date-picker>
-      <el-select v-model="status" placeholder="全部状态">
-        <el-option
-          v-for="item in options"
-          :key="item.label"
-          :label="item.label"
-          :value="item.value"
-        ></el-option>
-      </el-select>
-    </div>
-    <div class="buttonPanel">
-      <el-button size="medium" @click="Add" type="primary">新建</el-button>
-      <el-button size="medium" @click="Delete" type="primary">批量删除</el-button>
-      <el-button size="medium" type="success" @click="Search">查询</el-button>
-    </div>
-    <div class="contentPanel">
-      <div class="content">
-        <el-table
-          ref="multipleTable"
-          :data="userListData"
-          height="100%"
-          tooltip-effect="dark"
-          style="width: 100%;"
-          @selection-change="handleSelectionChange"
-        >
-          <el-table-column type="selection" width="55"></el-table-column>
-          <el-table-column prop="UserID" label="用户编码" width="120"></el-table-column>
-          <el-table-column prop="UserName" label="用户姓名" width="150"></el-table-column>
-          <el-table-column prop="Cid" label="帐户名" width="120"></el-table-column>
-          <el-table-column prop="PassWord" label="密码" width="150"></el-table-column>
-          <el-table-column prop="EmployeeCode" label="工号" width="150"></el-table-column>
-          <el-table-column prop="UserSex" label="性别" width="150"></el-table-column>
-          <el-table-column label="操作">
-            <template slot-scope="scope">
-              <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-              <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
-            </template>
-          </el-table-column>
 
-          <!-- <el-table-column label="日期" width="120">
+    <div class="pagePanel">
+      <div class="filterPanel">
+        <el-date-picker
+          type="date"
+          format="yyyy-MM-dd"
+          value-format="yyyy-MM-dd"
+          placeholder="日期区间"
+          v-model="beginTime"
+          style="width:14%;"
+        ></el-date-picker>--
+        <el-date-picker
+          type="date"
+          format="yyyy-MM-dd"
+          value-format="yyyy-MM-dd"
+          placeholder="日期区间"
+          v-model="finishTime"
+          style="width:14%;"
+        ></el-date-picker>
+        <el-select v-model="status" placeholder="全部状态">
+          <el-option
+            v-for="item in options"
+            :key="item.label"
+            :label="item.label"
+            :value="item.value"
+          ></el-option>
+        </el-select>
+      </div>
+      <div class="buttonPanel">
+        <el-button size="medium" @click="Add" type="primary">新建</el-button>
+        <el-button size="medium" @click="Delete" type="primary">批量删除</el-button>
+        <el-button size="medium" type="success" @click="Search">查询</el-button>
+      </div>
+      <div class="contentPanel">
+        <div class="content">
+          <el-table
+            ref="multipleTable"
+            :data="userListData"
+            height="100%"
+            tooltip-effect="dark"
+            style="width: 100%;"
+            @selection-change="handleSelectionChange"
+          >
+            <el-table-column type="selection" width="55"></el-table-column>
+            <el-table-column prop="UserID" label="用户编码" width="120"></el-table-column>
+            <el-table-column prop="UserName" label="用户姓名" width="150"></el-table-column>
+            <el-table-column prop="Cid" label="帐户名" width="120"></el-table-column>
+            <el-table-column prop="PassWord" label="密码" width="150"></el-table-column>
+            <el-table-column prop="EmployeeCode" label="工号" width="150"></el-table-column>
+            <el-table-column prop="UserSex" label="性别" width="150"></el-table-column>
+            <el-table-column label="操作">
+              <template slot-scope="scope">
+                <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+                <el-button
+                  size="mini"
+                  type="danger"
+                  @click="handleDelete(scope.$index, scope.row)"
+                >删除</el-button>
+              </template>
+            </el-table-column>
+
+            <!-- <el-table-column label="日期" width="120">
             <template slot-scope="scope">{{ scope.row.date }}</template>
-          </el-table-column>-->
-        </el-table>
+            </el-table-column>-->
+          </el-table>
+        </div>
+        <div class="tbar" style="margin:0 25%;">
+          <el-pagination
+            @current-change="handleCurrentChange"
+            :current-page.sync="currentPage"
+            :page-size="limit"
+            layout="prev, pager, next, jumper"
+            :total="count"
+          ></el-pagination>
+        </div>
       </div>
-      <div class="tbar" style="margin:0 25%;">
-        <el-pagination
-          @current-change="handleCurrentChange"
-          :current-page.sync="currentPage"
-          :page-size="limit"
-          layout="prev, pager, next, jumper"
-          :total="count"
-        ></el-pagination>
-      </div>
+
+      <el-dialog title="新建账户" :visible.sync="isAddShow" :close-on-click-modal="false" width="50%">
+        <el-form ref="form" :model="form" label-width="80px">
+          <el-row>
+            <el-col span="11">
+              <el-form-item label="用户编号">
+                <el-input v-model="form.UserID"></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-col span="11">
+              <el-form-item label="用户名称">
+                <el-input v-model="form.UserName"></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+
+          <el-row>
+            <el-col span="11">
+              <el-form-item label="帐户名">
+                <el-input v-model="form.Cid"></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+
+          <el-row>
+            <el-col span="11">
+              <el-form-item label="密码">
+                <el-input v-model="form.Password"></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-col span="11">
+              <el-form-item label="工号">
+                <el-input v-model="form.EmployeeCode"></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-col span="11">
+              <el-form-item label="性别">
+                <el-input v-model="form.UserSex"></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+
+          <el-form-item style="margin-left: 240px;">
+            <el-button type="primary" @click="submitForm()">保存</el-button>
+            <el-button @click="resetForm('ruleForm')">重置</el-button>
+          </el-form-item>
+        </el-form>
+      </el-dialog>
     </div>
-
-    <el-dialog title="新建账户" :visible.sync="isAddShow" :close-on-click-modal="false" width="50%">
-      <el-form ref="form" :model="form" label-width="80px">
-        <el-row>
-          <el-col span="11">
-            <el-form-item label="用户编号">
-              <el-input v-model="form.UserID"></el-input>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col span="11">
-            <el-form-item label="用户名称">
-              <el-input v-model="form.UserName"></el-input>
-            </el-form-item>
-          </el-col>
-        </el-row>
-
-        <el-row>
-          <el-col span="11">
-            <el-form-item label="帐户名">
-              <el-input v-model="form.Cid"></el-input>
-            </el-form-item>
-          </el-col>
-        </el-row>
-
-        <el-row>
-          <el-col span="11">
-            <el-form-item label="密码">
-              <el-input v-model="form.Password"></el-input>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col span="11">
-            <el-form-item label="工号">
-              <el-input v-model="form.EmployeeCode"></el-input>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col span="11">
-            <el-form-item label="性别">
-              <el-input v-model="form.UserSex"></el-input>
-            </el-form-item>
-          </el-col>
-        </el-row>
-
-        <el-form-item style="margin-left: 240px;">
-          <el-button type="primary" @click="submitForm()">保存</el-button>
-          <el-button @click="resetForm('ruleForm')">重置</el-button>
-        </el-form-item>
-      </el-form>
-    </el-dialog>
-  </div>
 </template>
 
 <script>

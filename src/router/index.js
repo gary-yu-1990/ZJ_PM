@@ -21,7 +21,7 @@ import TaskManager from '@/page/TaskManager'
 // 项目管理
 
 import ProjectInfo from '@/page/ProjectManagerPages/ProjectInfo'
-import ProjectTask from '@/page/ProjectManagerPages/ProjectTask'
+import ProjectWBS from '@/page/ProjectManagerPages/ProjectWBS'
 import ProjectDash from '@/page/ProjectManagerPages/ProjectDash'
 
 // 开发工具
@@ -75,9 +75,9 @@ export default new Router({
         keepAlive: true
       },
       children: [{
-        path: '/ProjectManagerPages/ProjectTask',
-        name: 'ProjectTask',
-        component: ProjectTask,
+        path: '/ProjectManagerPages/ProjectWBS',
+        name: 'ProjectWBS',
+        component: ProjectWBS,
         meta: {
           keepAlive: true
         }

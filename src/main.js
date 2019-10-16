@@ -8,6 +8,9 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import 'font-awesome/css/font-awesome.css'
 import './assets/css/base.css'
+import '@/utils/filter' // global filter//添加全部的过滤器
+import method from './utils/method'
+import store from './store/index'
 
 // Vue.prototype.$api = api
 // Vue.prototype.$axios = Axios
@@ -17,6 +20,8 @@ import './assets/css/base.css'
 // Vue.prototype.$put = put
 
 Vue.use(ElementUI)
+Vue.use(method) // 注册全局方法
+Vue.use(store)
 
 Vue.config.productionTip = false
 
@@ -24,6 +29,7 @@ Vue.config.productionTip = false
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>'
 })

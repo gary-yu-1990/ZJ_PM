@@ -12,13 +12,13 @@
         <div class="loginBar"></div>
         <div class="info">
           <p>账号:</p>
-          <el-input style="width:300px;" placeholder="请输入账号" v-model="cid">
+          <el-input style="width:300px;" placeholder="请输入账号" v-model="Cid">
             <img slot="prefix" src="../assets/img/cid.png" width="22" margin-left="10px" alt />
           </el-input>
         </div>
         <div class="info">
           <p>密码:</p>
-          <el-input type="password" style="width:300px;" placeholder="请输入密码" v-model="password">
+          <el-input type="password" style="width:300px;" placeholder="请输入密码" v-model="PassWord">
             <img slot="prefix" src="../assets/img/password.png" width="22" alt />
           </el-input>
         </div>
@@ -32,8 +32,7 @@
 </template>
 
 
-    <script>
-</script>
+    
 <script>
 /*
 import Cookies from "js-cookie";
@@ -68,50 +67,50 @@ export default {
 import Cookies from "js-cookie";
 import { UserLogin } from "@/api/UsersInfoApi";
 //import { RedirectMain } from "@/api/orderListASP";
-import { mapMutations, mapActions } from "vuex";
-import { mapState } from "vuex";
+//import { mapMutations, mapActions } from "vuex";
+//import { mapState } from "vuex";
 
 export default {
-  name: "Login",
+  name: "UserLogin",
   data() {
     return {
-      cid: "", //用户账号
-      password: "" //用户密码
+      Cid: "", //用户账号
+      PassWord: "" //用户密码
     };
   },
   methods: {
-    ...mapMutations("navTabs", ["emptyTabList"]),
+    //...mapMutations("navTabs", ["emptyTabList"]),
     loginSubmit() {
-      if (this.cid === "") {
+      if (this.Cid === "") {
         this.$alert("请输入用户账号", "提示", {
           type: "warning",
           confirmButtonText: "确定"
         });
         return;
       }
-      if (this.password === "") {
+      if (this.PassWord === "") {
         this.$alert("请输入密码", "提示", {
           type: "warning",
           confirmButtonText: "确定"
         });
         return;
       }
-      if (this.cid == "admin" && this.password == "123") {
+      if (this.Cid == "admin" && this.PassWord == "123") {
         this.$router.push({
           path: "/Main"
         });
       } else {
-        let date = new Date();
+        // let date = new Date();
         //账号首位转大写?转大写干嘛？
         // let cidArr = this.cid.split("");
         // cidArr[0] = cidArr[0].toUpperCase();
         // let cid = cidArr.join("");
         let obj = {
-          Cid: cid,
-          PassWord: this.password
+          Cid: this.Cid,
+          PassWord: this.PassWord
           //year: date.getFullYear()
         };
-        Cookies.remove("cid");
+        Cookies.remove("Cid");
         //Cookies.remove("customerType");
         UserLogin(obj)
           .then(res => {
@@ -123,24 +122,24 @@ export default {
               });
               return;
             }
-            Cookies.set("cid", cid);
-            sessionStorage.setItem("_userId", cid);
+            //Cookies.set("Cid", Cid);
+            //sessionStorage.setItem("Cid", Cid);
 
-            if (
-              res.data.Cid !== this.cid &&
-              res.data.PassWord !== this.password
-            ) {
-              this.$alert("账户或密码不正确", "提示", {
-                type: "warning",
-                confirmButtonText: "好的"
-              });
-            } else {
+            // if (
+            //   //res.data.Cid !== this.cid &&
+            //   res.data.PassWord !== this.PassWord
+            // ) {
+            //   this.$alert("账户或密码不正确", "提示", {
+            //     type: "warning",
+            //     confirmButtonText: "好的"
+            //   });
+            // } else {
               this.emptyTabList();
 
               this.$router.push({
-                path: "/main"
+                path: "/Main"
               });
-            }
+            // }
             //let companyId;
             // Cookies.set("userInfo", res.data);
             // Cookies.set("isManager", res.data.isManager);

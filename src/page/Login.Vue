@@ -55,7 +55,7 @@
 import Cookies from "js-cookie";
 import { mapMutations, mapActions } from "vuex";
 import { mapState } from "vuex";
-
+ 
 export default {
   name: "Login",
   data() {

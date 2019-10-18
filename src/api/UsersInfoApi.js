@@ -3,7 +3,7 @@
 import {get, post, patch, put } from './http'
 
 export function UserLogin (data, config = {}) {
-  return post('/PM_Users/Login', data, config).then((res) => {
+  return post('/PM_Users/GetUserInfo', data, config).then((res) => {
     return Promise.resolve(res)
   }).catch((err) => {
     return Promise.reject(err)

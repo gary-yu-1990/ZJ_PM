@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 // eslint-disable-next-line standard/object-curly-even-spacing
-import {get, post, patch, put } from './http'
+import { post } from './http'
 
 export function SearchProjects (data, config = {}) {
   return post('/PM_Projects/GetProjects', data, config).then((res) => {
@@ -35,7 +35,7 @@ export function UpdateProject (data, config = {}) {
 }
 
 export function getCurrentPageData (data, config = {}) {
-  return get('/PM_Projects/getCurrentPageData', data, config).then((res) => {
+  return post('/PM_Projects/getCurrentPageData', data, config).then((res) => {
     return Promise.resolve(res)
   }).catch((err) => {
     return Promise.reject(err)

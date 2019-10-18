@@ -56,9 +56,10 @@
           <!-- <el-table-column prop="CreateTime" label="创建时间"></el-table-column> -->
           <el-table-column label="操作" width="300">
             <template slot-scope="scope">
-              <el-button size="mini" @click="HandAddChildTask(scope.$index, scope.row)">新增子任务</el-button>
-              <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-              <el-button size="mini" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+              <el-button icon="el-icon-plus" circle @click="HandAddChildTask(scope.$index, scope.row)"></el-button>
+              <el-button icon="el-icon-setting" circle  @click="handleEdit(scope.$index, scope.row)"></el-button>
+              <el-button icon="el-icon-minus" circle  @click="handleDelete(scope.$index, scope.row)"></el-button>
+              <el-button icon="el-icon-s-promotion" circle  @click="handleRelease(scope.$index, scope.row)"></el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -197,6 +198,8 @@ export default {
 
       this.Projectvalue = this.$route.query.ProjectCode;
       this.getTaskData();
+
+
   },
   methods: {
      handRowDblClick(row,column,event){
@@ -283,6 +286,9 @@ export default {
     },
     handleTaskSearch(){
         this.getTaskData();
+              this.$store.dispatch('GET_USERS').then(() => {
+                    });
+                    this.$store.state
     },
     submitForm() {
       //判断是新增还是编辑更新

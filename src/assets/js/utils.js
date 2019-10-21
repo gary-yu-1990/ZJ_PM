@@ -2,104 +2,28 @@
 /* eslint-disable indent */
 /* eslint-disable no-extend-native */
 /* eslint-disable camelcase */
-import { notice } from './notice'
 import config from '../../config/config'
-import { getStore } from './storage'
+// import { getStore } from './storage'
 
-const PROD_URL = config.PROD_URL
+const Dev_URL = config.Dev_URL
 const crossDomain = config.crossDomain
-
-/**
- * 判断客户端返回状态
- * @param res
- * @param show_msg
- * @returns {boolean}
- */
-export const checkResponse = (res, show_msg = false) => {
-        const code = res.code
-        const msg = res.msg
-        if (code !== 200) {
-            if (show_msg) {
-                notice(msg)
-            }
-            return false
-        } else {
-            return true
-        }
-    }
-    /**
-     * 创建路由对象
-     * @returns {boolean}
-     * @param data
-     */
-export const createRoute = (data) => {
-    let path = data.url
-    if (data.params) {
-        path += '/' + data.params
-    }
-    let filePath = data.url
-    if (data.file_path) {
-        filePath = data.file_path
-    }
-    return {
-        name: data.id,
-        path: path,
-        component: resolve => require(['@/views/' + filePath], resolve),
-        meta: { model: data.pid, info: data }
-    }
-}
-
-export const getBase64 = (img, callback) => {
-    const reader = new FileReader()
-    reader.addEventListener('load', () => callback(reader.result))
-    reader.readAsDataURL(img)
-}
-
-/**
- * 操作确认
- * @param options
- * @param callback
- */
-export const showWarConfirm = (options = {}, callback = function () {}) => {
-    Modal.confirm({
-        title: options.title || '操作提示',
-        content: '<p>' + options.content + '</p>',
-        loading: true,
-        onOk: () => {
-            callback()
-        }
-    })
-}
 
 /**
  * 获取完整的api请求地址
  */
 export const getFullUrl = (api) => {
-    return PROD_URL + '/' + api
+    return Dev_URL + '/' + api
 }
 
 export const getApiUrl = (api) => {
     if (crossDomain) {
-        return PROD_URL + '/' + api // 开启跨域直接返回
+        return Dev_URL + api // 开启跨域直接返回
     }
     if (process.env.NODE_ENV === 'production') {
-        return PROD_URL + '/' + api
+        return Dev_URL + '/' + api
     } else {
         return '/api/' + api
     }
-}
-
-/**
- * 获取上传文件地址
- * @param api
- * @returns {string}
- */
-export const getUploadUrl = (api) => {
-    let baseUrl = ''
-        // if (process.env.NODE_ENV === 'production') {
-        //     baseUrl = PROD_URL
-        // }
-    return baseUrl + getApiUrl(api)
 }
 
 export const format_date = (data, show = true) => {

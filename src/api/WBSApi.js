@@ -1,35 +1,19 @@
 /* eslint-disable no-unused-vars */
 // eslint-disable-next-line standard/object-curly-even-spacing
-import {get, post, patch, put } from './http'
+import $http from '@/assets/js/http'
 
-export function GetWBSData (data, config = {}) {
-  return post('/PM_WBS/GetWBSData', data, config).then((res) => {
-    return Promise.resolve(res)
-  }).catch((err) => {
-    return Promise.reject(err)
-  })
+export function GetWBSData (data) {
+  return $http.post('/PM_WBS/GetWBSData', data)
 }
 
-export function NewProjectTask (data, config = {}) {
-  return post('/PM_WBS/NewProjectTask', data, config).then((res) => {
-    return Promise.resolve(res)
-  }).catch((err) => {
-    return Promise.reject(err)
-  })
+export function NewProjectTask (data) {
+  return $http.post('/PM_WBS/NewProjectTask', data)
 }
 
 export function DeleteTask (data, config = {}) {
-  return post('/PM_WBS/DeleteTask', data, config).then((res) => {
-    return Promise.resolve(res)
-  }).catch((err) => {
-    return Promise.reject(err)
-  })
+  return $http.post('/PM_WBS/DeleteTask', data)
 }
 
-export function UpdateProjectTask (data, config = {}) {
-  return post('/PM_WBS/UpdateProjectTask', data, config).then((res) => {
-    return Promise.resolve(res)
-  }).catch((err) => {
-    return Promise.reject(err)
-  })
+export function UpdateProjectTask (data) {
+  return $http.post('/PM_WBS/UpdateProjectTask', data)
 }

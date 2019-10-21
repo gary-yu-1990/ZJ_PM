@@ -1,43 +1,23 @@
 /* eslint-disable no-unused-vars */
 // eslint-disable-next-line standard/object-curly-even-spacing
-import {get, post, patch, put } from './http'
+import $http from '@/assets/js/http'
 
-export function UserLogin (data, config = {}) {
-  return post('/PM_Users/Login', data, config).then((res) => {
-    return Promise.resolve(res)
-  }).catch((err) => {
-    return Promise.reject(err)
-  })
+export function UserLogin (data) {
+  return $http.post('/PM_Users/Login', data)
 }
 
-export function SearchUsers (data, config = {}) {
-  return post('/PM_Users/GetUsers', data, config).then((res) => {
-    return Promise.resolve(res)
-  }).catch((err) => {
-    return Promise.reject(err)
-  })
+export function SearchUsers (data) {
+  return $http.post('/PM_Users/GetUsers', data)
 }
 
-export function NewUsers (data, config = {}) {
-  return post('/PM_Users/InsertNewUsers', data, config).then((res) => {
-    return Promise.resolve(res)
-  }).catch((err) => {
-    return Promise.reject(err)
-  })
+export function NewUsers (data) {
+  return $http.post('/PM_Users/InsertNewUsers', data)
 }
 
-export function DeleteLists (data, config = {}) {
-  return post('/PM_Users/DeleteUsers', data, config).then((res) => {
-    return Promise.resolve(res)
-  }).catch((err) => {
-    return Promise.reject(err)
-  })
+export function DeleteLists (data) {
+  return $http.post('/PM_Users/DeleteUsers', data)
 }
 
-export function UpdateUser (data, config = {}) {
-  return post('/PM_Users/UpdateUser', data, config).then((res) => {
-    return Promise.resolve(res)
-  }).catch((err) => {
-    return Promise.reject(err)
-  })
+export function UpdateUser (data) {
+  return $http.post('/PM_Users/UpdateUser', data)
 }

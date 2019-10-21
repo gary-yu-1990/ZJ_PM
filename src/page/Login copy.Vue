@@ -5,24 +5,52 @@
     <div class="loginMain">
       <!-- 登录框头部--图标 -->
       <div class="mainLogoWrap">
-        <img class="mainLogo" width="100%" src="../assets/zjlogo.png" alt />
+        <img
+          class="mainLogo"
+          width="100%"
+          src="../assets/zjlogo.png"
+          alt
+        />
       </div>
       <div class="mainInfo">
         <h1>知匠项目管理系统</h1>
         <div class="loginBar"></div>
         <div class="info">
           <p>账号:</p>
-          <el-input style="width:300px;" placeholder="请输入账号" v-model="cid">
-            <img slot="prefix" src="../assets/img/cid.png" width="22" margin-left="10px" alt />
+          <el-input
+            style="width:300px;"
+            placeholder="请输入账号"
+            v-model="cid"
+          >
+            <img
+              slot="prefix"
+              src="../assets/img/cid.png"
+              width="22"
+              margin-left="10px"
+              alt
+            />
           </el-input>
         </div>
         <div class="info">
           <p>密码:</p>
-          <el-input type="password" style="width:300px;" placeholder="请输入密码" v-model="password">
-            <img slot="prefix" src="../assets/img/password.png" width="22" alt />
+          <el-input
+            type="password"
+            style="width:300px;"
+            placeholder="请输入密码"
+            v-model="password"
+          >
+            <img
+              slot="prefix"
+              src="../assets/img/password.png"
+              width="22"
+              alt
+            />
           </el-input>
         </div>
-        <div class="submit" @click="loginSubmit">登录</div>
+        <div
+          class="submit"
+          @click="loginSubmit"
+        >登录</div>
       </div>
     </div>
     <div class="loginTitle">
@@ -32,11 +60,10 @@
 </template>
 
 
-    <script>
-</script>
-<script>
-/*
-import Cookies from "js-cookie";
+
+<script> 
+/*  
+import Co  o kies f rom "js-cookie";
 import { mapMutations, mapActions } from "vuex";
 import { mapState } from "vuex";
 
@@ -58,7 +85,7 @@ export default {
       } else {
         this.$router.push({
           path: "/Main"
-        }); //利用路由跳转页面，path为你定义的路由配置中要跳转页面的path
+                   }); //利用路由跳转页面，path为你定义的路由配置中要跳转页面的path
       }
     }
   }
@@ -66,8 +93,7 @@ export default {
 */
 
 import Cookies from "js-cookie";
-import { UserLogin } from "@/api/UsersInfoApi";
-//import { RedirectMain } from "@/api/orderListASP";
+import { UserLogin } from "@/api/UsersInfoApi" ; 
 import { mapMutations, mapActions } from "vuex";
 import { mapState } from "vuex";
 
@@ -80,7 +106,7 @@ export default {
     };
   },
   methods: {
-    ...mapMutations("navTabs", ["emptyTabList"]),
+    //...mapMutations("navTabs", ["emptyTabList"]),
     loginSubmit() {
       if (this.cid === "") {
         this.$alert("请输入用户账号", "提示", {
@@ -100,19 +126,12 @@ export default {
         this.$router.push({
           path: "/Main"
         });
-      } else {
-        let date = new Date();
-        //账号首位转大写?转大写干嘛？
-        // let cidArr = this.cid.split("");
-        // cidArr[0] = cidArr[0].toUpperCase();
-        // let cid = cidArr.join("");
+      }else {
         let obj = {
-          Cid: cid,
+          Cid: this.cid,
           PassWord: this.password
-          //year: date.getFullYear()
         };
-        Cookies.remove("cid");
-        //Cookies.remove("customerType");
+       
         UserLogin(obj)
           .then(res => {
             //方法执行完毕，传回数据之后，执行以下代码
@@ -123,56 +142,22 @@ export default {
               });
               return;
             }
-            Cookies.set("cid", cid);
-            sessionStorage.setItem("_userId", cid);
-
-            if (
-              res.data.Cid !== this.cid &&
-              res.data.PassWord !== this.password
-            ) {
-              this.$alert("账户或密码不正确", "提示", {
-                type: "warning",
-                confirmButtonText: "好的"
-              });
-            } else {
-              this.emptyTabList();
-
+              //this.emptyTabList();
               this.$router.push({
-                path: "/main"
+                path: "/Main"
               });
-            }
-            //let companyId;
-            // Cookies.set("userInfo", res.data);
-            // Cookies.set("isManager", res.data.isManager);
-            // Cookies.set("realName", res.data.realName);
-            // companyId = res.data.companyId === null ? "null" : res.data.companyId;
-            // Cookies.set("companyId", companyId);
-            // Cookies.set("customerMainId", res.data.customerMainId);
-            // // Cookies.set("identity", res.data.type);
-            // if (res.customerType === "") {
-            //   if (res.data.type === "USER") {
-            //     Cookies.set("customerType", "110");
-            //   }
-            // } else {
-            //   Cookies.set("customerType", res.customerType);
-            // }
-            // this.emptyTabList();
-
-            // this.$router.push({
-            //   path: "/main"
-            // });
-            //this.$router.go(0);//刷新页面
-          })
-          .catch(err => {
-            this.$alert(`${err.msg}`, "提示", {
-              type: "warning",
-              confirmButtonText: "好的"
+           //ths.$router.go( 0 );//刷新页面  
+            }) 
+            . catch(err => {
+            this.$alert( `${err.msg}` ,"提示",  { 
+                      type :  "warning",
+                    confirmButtonText: "好的"
+                  });
             });
-          });
       }
-    }
+     } 
   },
-  created() {}
+  created () {} 
 };
 </script>
 

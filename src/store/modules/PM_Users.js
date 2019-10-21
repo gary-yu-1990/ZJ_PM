@@ -5,6 +5,7 @@ const PM_Users = {
   state: {
     Users: []
   },
+  getters: {},
   mutations: {
     SET_USERS (state, data) {
       state.Users = data

@@ -24,14 +24,31 @@
                 <el-menu-item index="/ProjectManagerPages/ProjectInfo">项目管理</el-menu-item>
                 <el-menu-item index="/BasicData">基础信息</el-menu-item>
                 <el-menu-item index="/SystemSet">系统设置</el-menu-item>
-                <el-menu-item index="/developSet">开发工具</el-menu-item>
               </el-menu>
             </ul>
             <ul class="info">
               <li>
-                <span class="exitbutton" @click="logout">
-                  <el-button type="text">退出</el-button>
-                </span>
+                <el-select v-model="Projectvalue" @change="ProjectChange" placeholder="              请选择项目">
+                  <el-option
+                    v-for="item in project_options"
+                    :key="item.ProjectCode"
+                    :label="item.ProjectName"
+                    :value="item.ProjectCode"
+                  ></el-option>
+                </el-select>
+              </li>
+              <li>
+                <el-dropdown>
+                  <span class="el-dropdown-link">
+                    个人中心
+                    <i class="el-icon-arrow-down el-icon--right"></i>
+                  </span>
+                  <el-dropdown-menu slot="dropdown">
+                    <el-dropdown-item>个人资料</el-dropdown-item>
+                    <el-dropdown-item @click.native="logout">退出</el-dropdown-item>
+                    <el-dropdown-item @click.native="developtoolClik">开发工具</el-dropdown-item>
+                  </el-dropdown-menu>
+                </el-dropdown>
               </li>
               <li>
                 <el-avatar icon="el-icon-user-solid" style="vertical-align:middle;"></el-avatar>
@@ -42,15 +59,18 @@
       </el-header>
     </div>
     <div class="mainWrapper">
-        <router-view/>
+      <router-view />
     </div>
   </div>
 </template>
 <script>
+import { SearchProjects } from "@/api/ProjectInfoApi";
 import config from "../config/config";
 export default {
   data() {
     return {
+      Projectvalue:'',
+      project_options: [],
       activeIndex: "1",
       config: config
     };
@@ -61,12 +81,26 @@ export default {
     });
   },
   name: "logout",
+  mounted() {
+    //查找项目信息
+    SearchProjects().then(res => {
+      this.project_options = res.data;
+    });
+  },
   methods: {
     logout() {
       this.$router.push({
         path: "/"
       }); //利用路由跳转页面，path为你定义的路由配置中要跳转页面的path
-    }
+    },
+    developtoolClik(){
+         this.$router.push({
+      path: "/developSet"
+    });
+    },
+     ProjectChange(){
+       this.getTaskData();
+    },
   }
 };
 </script>
@@ -165,4 +199,5 @@ export default {
   margin: 0;
 }
 </style>
+
 

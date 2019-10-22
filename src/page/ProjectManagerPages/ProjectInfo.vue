@@ -219,9 +219,9 @@ export default {
       this.multipleSelection = val;
     },
     handRowdDblClick(row,column,event){
+      this.$store.dispatch("SET_ProjectID",row.ProjectCode);
       this.$router.push({
         path: "/ProjectManagerPages/ProjectDash",
-        query: {ProjectCode:row.ProjectCode}
       }); 
     },
     Add() {

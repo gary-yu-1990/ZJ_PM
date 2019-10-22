@@ -65,6 +65,7 @@ $http.interceptors.response.use(
           } else if (resdata.code == DECODE.CODE_OK) { // 成功
             return Promise.resolve(resdata)
           } else { // 其他返回失败
+            notice(resdata.msg, 'error')
             console.log(resdata.msg)
             return Promise.reject(resdata)
           }
@@ -87,11 +88,11 @@ $http.interceptors.response.use(
   },
   error => {
     if (error.response != undefined) {
-      notice('网络错误', 'error', 'MessageBox')
+      notice('请联系管理员', 'error')
       const response = error.response.data
       console.log(response)
     } else {
-      notice('网络错误', 'error', 'MessageBox')
+      notice('网络错误', 'error')
       console.log(error.message)
     }
   }

@@ -96,6 +96,7 @@ import Cookies from "js-cookie";
 import { UserLogin } from "@/api/UsersInfoApi" ; 
 import { mapMutations, mapActions } from "vuex";
 import { mapState } from "vuex";
+import { notice } from '@/assets/js/notice'
 
 export default {
   name: "Login",
@@ -109,17 +110,11 @@ export default {
     //...mapMutations("navTabs", ["emptyTabList"]),
     loginSubmit() {
       if (this.cid === "") {
-        this.$alert("请输入用户账号", "提示", {
-          type: "warning",
-          confirmButtonText: "确定"
-        });
+        notice("请输入用户名！","warning")
         return;
       }
       if (this.password === "") {
-        this.$alert("请输入密码", "提示", {
-          type: "warning",
-          confirmButtonText: "确定"
-        });
+       notice("请输入密码！","warning")
         return;
       }
       if (this.cid == "admin" && this.password == "123") {
@@ -131,29 +126,18 @@ export default {
           Cid: this.cid,
           PassWord: this.password
         };
-       
         UserLogin(obj)
           .then(res => {
             //方法执行完毕，传回数据之后，执行以下代码
             if (res.data.stopped == 1) {
-              this.$alert("账号被禁用，无法登录", "提示", {
-                type: "warning",
-                confirmButtonText: "好的"
-              });
+              notice("账户被禁用无法登陆","warning")
               return;
             }
-              //this.emptyTabList();
-              this.$router.push({
+            this.$store.dispatch("SET_LOGGED", res.data);
+            this.$router.push({
                 path: "/Main"
               });
-           //ths.$router.go( 0 );//刷新页面  
-            }) 
-            . catch(err => {
-            this.$alert( `${err.msg}` ,"提示",  { 
-                      type :  "warning",
-                    confirmButtonText: "好的"
-                  });
-            });
+          }) 
       }
      } 
   },

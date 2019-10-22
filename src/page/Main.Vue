@@ -4,7 +4,7 @@
       <el-header style="height:62px">
         <el-container class="main-container">
           <div style="width:100%;height:100%">
-            <ul class="logo" @click="()=>{this.$router.push(config.HOME_PAGE)}">
+            <ul class="logo" @click="logoClick">
               <li>
                 <div class="imgbox">
                   <img src="../assets/zjlogo.png" style="height:100%" />
@@ -28,7 +28,11 @@
             </ul>
             <ul class="info">
               <li>
-                <el-select v-model="Projectvalue" @change="ProjectChange" placeholder="              请选择项目">
+                <el-select
+                  v-model="Projectvalue"
+                  @change="ProjectChange"
+                  placeholder="              请选择项目"
+                >
                   <el-option
                     v-for="item in project_options"
                     :key="item.ProjectCode"
@@ -66,12 +70,13 @@
 <script>
 import { SearchProjects } from "@/api/ProjectInfoApi";
 import config from "../config/config";
+import { mapState } from 'vuex';
+import EventUtil from '@/assets/js/EventUtil.js';
 export default {
   data() {
     return {
-      Projectvalue:'',
       project_options: [],
-      activeIndex: "1",
+      activeIndex: "/ProjectManagerPages/ProjectInfo",
       config: config
     };
   },
@@ -87,7 +92,17 @@ export default {
       this.project_options = res.data;
     });
   },
+   computed: {
+      Projectvalue: {
+        get: function () { return this.$store.state.ProjectID } ,
+        set: function (val) { this.$store.dispatch("SET_ProjectID",val); }
+    }
+    },
   methods: {
+    logoClick(){
+      this.$store.dispatch("SET_ProjectID","");
+      this.$router.push(config.HOME_PAGE)
+    },
     logout() {
       this.$router.push({
         path: "/"
@@ -95,11 +110,11 @@ export default {
     },
     developtoolClik(){
          this.$router.push({
-      path: "/developSet"
+         path: "/developSet"
     });
     },
-     ProjectChange(){
-       this.getTaskData();
+     ProjectChange(value){
+      EventUtil.$emit('getWBSData')
     },
   }
 };

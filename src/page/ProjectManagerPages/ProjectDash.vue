@@ -27,14 +27,12 @@
 export default {
   data() {
     return {
-      activeIndex: "1",
-      config: config
+      activeIndex: "/ProjectManagerPages/ProjectWBS",
     };
   },
   created() {
     this.$router.push({
       path: "/ProjectManagerPages/ProjectWBS",
-      query: {ProjectCode:this.$route.query.ProjectCode}
     });
   },
   name: "logout",

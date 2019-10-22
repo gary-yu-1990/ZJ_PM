@@ -1,19 +1,25 @@
 import { Message, Notification, MessageBox } from 'element-ui'
 
-export const notice = (content, type = 'warning', noticetype = 'message') => {
+export const notice = (content, type = 'info') => {
   let options = {
     message: content,
     type: type,
-    duration: 3000,
+    duration: 2000,
     showClose: true
   }
-  if (noticetype === 'message') {
-    Message(options)
-  }
-  if (noticetype === 'Notification') {
-    Notification(options)
-  }
-  if (noticetype === 'MessageBox') {
-    MessageBox(options)
+  switch (type) {
+    case 'success':
+      Message(options)
+      break
+    case 'info':
+      Notification(options)
+      break
+    case 'warning':
+      Message.warning(content, options)
+      break
+    case 'error':
+      options.showConfirmButton = true
+      MessageBox.alert(content, '错误', options)
+      break
   }
 }

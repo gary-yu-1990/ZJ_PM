@@ -1,6 +1,3 @@
-import { getStore } from '../assets/js/storage'
-
-const userInfo = getStore('userInfo', true)
 export default {
   ProjectID: '',
   userInfo: {},

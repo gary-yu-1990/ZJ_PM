@@ -1,15 +1,6 @@
 <template>
   <div class="contains">
     <div class="toolbar">
-      <span>项目信息</span>
-      <el-select v-model="Projectvalue" @change="ProjectChange" placeholder="请选择">
-        <el-option
-          v-for="item in project_options"
-          :key="item.ProjectCode"
-          :label="item.ProjectName"
-          :value="item.ProjectCode"
-        ></el-option>
-      </el-select>
       <span>查看方式</span>
       <el-select v-model="viewvalue" @change="ShowChange" placeholder="请选择">
         <el-option
@@ -134,10 +125,12 @@ import loacalDataJson from "@/store/data.json";
 import treegantt from "@/components/tree-gantt/tree-gantt.vue";
 import {SearchProjects} from "@/api/ProjectInfoApi";
 import {GetWBSData,NewProjectTask,UpdateProjectTask,DeleteTask} from "@/api/WBSApi";
+import { notice } from '@/assets/js/notice'
+import { mapState } from 'vuex';
+import EventUtil from '@/assets/js/EventUtil.js';
 export default {
   data() {
     return {
-      project_options: [],
       viewoptions: [
         {
           value: "wbs",
@@ -160,7 +153,6 @@ export default {
           label: "网络图"
         }],
       taskData:[],
-      Projectvalue: "",
       viewvalue: "wbs",
       isDialogShow: false,
       handType: "add",
@@ -186,21 +178,18 @@ export default {
   },
   mounted() {
     //查找项目信息
-    SearchProjects()
-      .then(res => {
-        this.project_options = res.data;
-      })
-      .catch(err => {
-        this.$alert(`${err.msg}`, "提示", {
-          type: "warning"
-        });
-      });
-
-      this.Projectvalue = this.$route.query.ProjectCode;
       this.getTaskData();
-
+         // 监听此事件
+      EventUtil.$on('getWBSData',()=>{
+         this.getTaskData();
+        })
 
   },
+     computed: {
+        ...mapState({
+          Projectvalue: state => state.ProjectID,
+        })
+    },
   methods: {
      handRowDblClick(row,column,event){
        this.formData = {
@@ -236,6 +225,8 @@ export default {
       DeleteTask(row)
         .then(res => {
              this.getTaskData();
+             notice("删除成功!","success")
+             
         })
         .catch(err => {
           this.$alert(`${err.msg}`, "提示", {

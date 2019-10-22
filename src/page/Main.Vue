@@ -114,7 +114,14 @@ export default {
     });
     },
      ProjectChange(value){
-      EventUtil.$emit('getWBSData')
+       this.$router.push({
+         path: "/ProjectManagerPages/ProjectWBS"
+    });
+      if(this.$route.path=="/ProjectManagerPages/ProjectWBS")
+      {
+         EventUtil.$emit('getWBSData')
+      }
+     
     },
   }
 };

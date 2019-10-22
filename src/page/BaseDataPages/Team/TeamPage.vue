@@ -244,7 +244,4 @@ export default {
 .el-table__body-wrapper{
     height: 100%;
 }
-
-
-
 </style>

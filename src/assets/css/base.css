@@ -80,3 +80,12 @@
 .el-table th {
     padding: 5px 0;
 }
+
+.el-button.is-circle {
+    border-radius: 50%;
+    padding: 5px;
+}
+
+.wrapper .info .el-input__inner {
+    border: 0px solid #DCDFE6;
+}

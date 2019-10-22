@@ -213,11 +213,6 @@ export default {
       SearchProjects()
         .then(res => {
           this.projectListData = res.data;
-        })
-        .catch(err => {
-          this.$alert(`${err.msg}`, "提示", {
-            type: "warning"
-          });
         });
     },
     handleSelectionChange(val) {

@@ -1,14 +1,21 @@
 <template>
   <div class="contains">
     <div class="toolbar">
-      <el-button type="primary"  @click="handleOBSSearch">组织结构查询</el-button>
-      <el-button type="primary"  @click="HandAddRootOBS">新增组织结构</el-button>
+      <el-button
+        type="primary"
+        @click="handleOBSSearch"
+      >组织结构查询</el-button>
+      <el-button
+        type="primary"
+        @click="HandAddRootOBS"
+      >新增组织结构</el-button>
     </div>
-    <div class="WbsTaskView" style="height:500px;">
-      <el-card class="box-card" v-if="iswbsviewShow">
+    
+    <!-- <div><button>1</button></div> -->
+    <div class="wbsTaskView" >
         <el-table
           :data="obsData"
-          style="width: 100%;margin-bottom: 0px;"
+          style="width:100%;margin-bottom:0px;"
           row-key="id"
           border
           default-expand-all
@@ -16,31 +23,71 @@
           :tree-props="{children: 'children', hasChildren: 'hasChildren'}"
           @row-dblclick="handRowDblClick"
         >
-          <el-table-column prop="OBSName" label="组织名称" width="200"></el-table-column>
-          <el-table-column prop="OBS_ID" label="负责人"></el-table-column>
-          <el-table-column prop="WBSStatus" label="状态"  width="120"></el-table-column>
-          <el-table-column prop="OBSRemark" label="备注"></el-table-column>
-          <el-table-column prop="CreatePerson" label="创建人"></el-table-column>
+          <el-table-column
+            prop="OBSName"
+            label="组织名称"
+            width="200"
+          ></el-table-column>
+          <el-table-column
+            prop="OBS_ID"
+            label="负责人"
+          ></el-table-column>
+          <el-table-column
+            prop="WBSStatus"
+            label="状态"
+            width="120"
+          ></el-table-column>
+          <el-table-column
+            prop="OBSRemark"
+            label="备注"
+          ></el-table-column>
+          <el-table-column
+            prop="CreatePerson"
+            label="创建人"
+          ></el-table-column>
           <!-- <el-table-column prop="CreateTime" label="创建时间"></el-table-column> -->
-          <el-table-column label="操作" width="300">
-            <template slot-scope="scope"> 
-              <el-button icon="el-icon-plus" circle @click="HandAddChildTask(scope.$index, scope.row)"></el-button>
-              <el-button icon="el-icon-setting" circle  @click="handleEdit(scope.$index, scope.row)"></el-button>
-              <el-button icon="el-icon-minus" circle  @click="handleDelete(scope.$index, scope.row)"></el-button>
-              <el-button icon="el-icon-s-promotion" circle  @click="handleRelease(scope.$index, scope.row)"></el-button>
+          <el-table-column
+            label="操作"
+            width="300"
+          >
+            <template slot-scope="scope">
+              <el-button
+                icon="el-icon-plus"
+                circle
+                @click="HandAddChildTask(scope.$index, scope.row)"
+              ></el-button>
+              <el-button
+                icon="el-icon-setting"
+                circle
+                @click="handleEdit(scope.$index, scope.row)"
+              ></el-button>
+              <el-button
+                icon="el-icon-minus"
+                circle
+                @click="handleDelete(scope.$index, scope.row)"
+              ></el-button>
+              <el-button
+                icon="el-icon-s-promotion"
+                circle
+                @click="handleRelease(scope.$index, scope.row)"
+              ></el-button>
             </template>
           </el-table-column>
         </el-table>
-      </el-card>
-    </div>
-    <div class="taskDetailInfo">
-      <el-tabs type="border-card" style="height:100%;">
-        <el-tab-pane label="活动详情">活动详情</el-tab-pane>
-      </el-tabs>
     </div>
     
-    <el-dialog title="新增组织结构" :visible.sync="isDialogShow" :close-on-click-modal="false" width="50%">
-      <el-form ref="form" :model="formData" label-width="80px">
+
+    <el-dialog
+      title="新增组织结构"
+      :visible.sync="isDialogShow"
+      :close-on-click-modal="false"
+      width="50%"
+    >
+      <el-form
+        ref="form"
+        :model="formData"
+        label-width="80px"
+      >
         <el-row>
           <el-col :span=11>
             <el-form-item label="组织名称">
@@ -64,14 +111,17 @@
               <el-input v-model="formData.OBSRemark"></el-input>
             </el-form-item>
           </el-col>
-           <el-col :span=11>
+          <el-col :span=11>
             <el-form-item label="创建人">
               <el-input v-model="formData.CreatePerson"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-form-item style="margin-left: 240px;">
-          <el-button type="primary" @click="submitForm()">保存</el-button>
+          <el-button
+            type="primary"
+            @click="submitForm()"
+          >保存</el-button>
         </el-form-item>
       </el-form>
     </el-dialog>
@@ -81,12 +131,12 @@
 <script>
 import loacalDataJson from "@/store/data.json";
 // import treegantt from "@/components/tree-gantt/tree-gantt.vue";
-import {SearchProjects} from "@/api/ProjectInfoApi";
-import {GetWBSData,NewProjectTask,UpdateProjectTask,DeleteTask} from "@/api/WBSApi";
+
+import { GetOBSData, NewOBS, UpdateOBS, DeleteOBS } from "@/api/OBSApi";
 export default {
-  data() {
+  data () {
     return {
-      obsData:[],
+      obsData: [],
       isDialogShow: false,
       handType: "add",
       formData: {
@@ -94,7 +144,7 @@ export default {
         OBSName: "",
         OBSRemark: "",
         CreatePerson: "",
-        OBSStatue:""     
+        OBSStatue: ""
       }
     };
   },
@@ -103,25 +153,25 @@ export default {
   // },
 
   methods: {
-     handRowDblClick(row,column,event){
-       this.formData = {
-        OBS_PID:row.OBS_ID
+    handRowDblClick(row, column, event){
+      this.formData = {
+        OBS_PID: row.OBS_ID
         //OBSCode:this.Projectvalue
       };
       this.handType = "add";
       this.isDialogShow = true;
-     },
+    },
 
-     HandAddRootOBS(){
-     this.formData = {
-        OBS_PID:0
+    HandAddRootOBS() {
+      this.formData = {
+        OBS_PID: 0
       };
       this.handType = "add";
       this.isDialogShow = true;
     },
-     HandAddChildOBS(index,row){
+    HandAddChildOBS(index, row) {
       this.formData = {
-        WBS_PID:row.WBS_ID
+        WBS_PID: row.WBS_ID
       };
       this.handType = "add";
       this.isDialogShow = true;
@@ -134,7 +184,7 @@ export default {
     handleDelete(index, row) {
       DeleteOBS(row)
         .then(res => {
-             this.GetOBSData();
+          this.GetOBSData();
         })
         .catch(err => {
           this.$alert(`${err.msg}`, "提示", {
@@ -142,36 +192,36 @@ export default {
           });
         });
     },
-    ProjectChange(){
-       this.GetOBSData();
+    ProjectChange() {
+      this.GetOBSData();
     },
-    GetOBSData(){
-        this.then(res => {
-             this.OBSData=res.data;
-        })
+    GetOBSData() {
+      this.then(res => {
+        this.OBSData = res.data;
+      })
         .catch(err => {
           this.$alert(`${err.msg}`, "提示", {
             type: "warning"
           });
         });
     },
-    handleOBSSearch(){
-        this.getOBSData();
-              this.$store.dispatch('GET_USERS').then(() => {
-                    });
-                    this.$store.state
+    handleOBSSearch() {
+      this.GetOBSData()
+      // this.$store.dispatch('GET_USERS').then(() => {
+      // });
+      // this.$store.state
     },
     submitForm() {
       //判断是新增还是编辑更新
       if (this.handType === "add") {
         NewOBS(this.formData)
           .then(res => {
-                 this.$message({
-                   message:'保存成功',
-                   duration:3000,
-                   });
+            this.$message({
+              message: '保存成功',
+              duration: 3000,
+            });
             this.isDialogShow = false;
-            this.getOBSData();
+            this.GetOBSData();
           })
           .catch(err => {
             this.$alert(`${err.msg}`, "提示", {
@@ -187,7 +237,7 @@ export default {
               type: "warning",
             });
             this.isDialogShow = false;
-            this.getOBSData();
+            this.GetOBSData();
           })
           .catch(err => {
             this.$alert(`${err.msg}`, "提示", {
@@ -201,12 +251,11 @@ export default {
   }
 };
 </script>
-
 <style>
 .contains {
   margin: 5px 0;
   width: 100%;
-  height: 100%;
+  /* height: 100%; */
   display: flex;
   flex-direction: column;
 }
@@ -245,3 +294,4 @@ export default {
     height: 100%;
 }
 </style>
+

@@ -1,15 +1,7 @@
 <template>
   <div class="contains">
     <div class="toolbar">
-      <span>查看方式</span>
-      <el-select v-model="viewvalue" @change="ShowChange" placeholder="请选择">
-        <el-option
-          v-for="item in viewoptions"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value"
-        ></el-option>
-      </el-select>
+
       <!-- <span>计划规则</span>
       <el-select v-model="reluevalue" placeholder="请选择">
         <el-option
@@ -19,10 +11,18 @@
           :value="item.value"
         ></el-option>
       </el-select> -->
-      <el-button type="primary"  @click="handleTaskSearch">任务查询</el-button>
-      <el-button type="primary"  @click="HandAddRootTask">新增任务</el-button>
-      <el-button type="primary">生成计划</el-button>
-      <el-button type="primary">任务发布</el-button>
+      <el-button type="primary" size="small" @click="handleTaskSearch">任务查询</el-button>
+      <el-button type="primary" size="small" @click="HandAddRootTask">新增任务</el-button>
+      <el-button type="primary" size="small">生成计划</el-button>
+      <el-button type="primary" size="small">任务发布</el-button>
+      <el-select v-model="viewvalue" @change="ShowChange" placeholder="请选择" style="float:right" size="small">
+        <el-option
+          v-for="item in viewoptions"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value"
+        ></el-option>
+      </el-select>
     </div>
     <div class="WbsTaskView" style="height:500px;">
       <el-card class="box-card" v-if="iswbsviewShow">

@@ -171,7 +171,7 @@ export default {
 .loginBody {
   width: 100%;
   height: 100%;
-  background: url("../assets/img/loginBg.png");
+  background: url("../assets/img/back.png");
   background-size: cover;
 }
 .loginTitle {

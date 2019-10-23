@@ -26,10 +26,11 @@ Vue.use(store)
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
-new Vue({
-  el: '#app',
-  router,
-  store,
-  components: { App },
-  template: '<App/>'
+//在index定义了全局的实例
+vm = new Vue({
+    el: '#app',
+    router,
+    store,
+    components: { App },
+    template: '<App/>'
 })

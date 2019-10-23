@@ -49,8 +49,8 @@
                   </span>
                   <el-dropdown-menu slot="dropdown">
                     <el-dropdown-item>个人资料</el-dropdown-item>
-                    <el-dropdown-item @click.native="logout">退出</el-dropdown-item>
                     <el-dropdown-item @click.native="developtoolClik">开发工具</el-dropdown-item>
+                    <el-dropdown-item @click.native="logout">退出</el-dropdown-item>
                   </el-dropdown-menu>
                 </el-dropdown>
               </li>

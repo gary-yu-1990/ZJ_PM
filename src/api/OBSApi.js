@@ -1,6 +1,6 @@
 import $http from '@/assets/js/http'
 
-export function GetOBSData (data) {
+export function GetOBSDataI (data) {
   return $http.post('/PM_OBS/GetOBSData', data)
 }
 
@@ -14,4 +14,16 @@ export function DeleteOBS (data, config = {}) {
 
 export function UpdateOBS (data) {
   return $http.post('/PM_OBS/UpdateOBS', data)
+}
+
+export function GetOBSMemberI (data) {
+  return $http.post('/PM_OBS/GetOBSMember', data)
+}
+
+export function SaveOBSMemberI (data) {
+  return $http.post('/PM_OBS/SaveOBSMember', data)
+}
+
+export function DeleteOBSMemerI (data) {
+  return $http.post('/PM_OBS/DeleteOBSMemer', data)
 }

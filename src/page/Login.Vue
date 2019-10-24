@@ -134,6 +134,8 @@ export default {
               return;
             }
             this.$store.dispatch("SET_LOGGED", res.data);
+            this.$store.dispatch("GET_Depts");
+            this.$store.dispatch("GET_Persons");
             this.$router.push({
                 path: "/Main"
               });

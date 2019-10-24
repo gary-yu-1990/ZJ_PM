@@ -24,20 +24,6 @@
             <template slot="title">
               <li style="color:blue; margin-right: 2px;  display: block;  font-size: 20px">分组</li>
             </template>
-
-            <!-- <div style="margin-left: 20px;  display: block ">
-            <el-button size="mini" type="primary" icon="el-icon-plus" style="left:20px">创建</el-button>
-            <el-button size="mini" type="primary" icon="el-icon-plus" style="left:20px">排序</el-button>
-          </div>
-          <el-menu-item index="/TeamPages/TeamInfo">
-            <i class="el-icon-s-flag"></i>ERP软件开发
-          </el-menu-item>
-          <el-menu-item index="/TeamPages/TeamInfo">
-            <i class="el-icon-s-flag"></i>APS排产队
-          </el-menu-item>
-          <el-menu-item index="/TeamPages/TeamInfo">
-            <i class="el-icon-s-flag"></i>财务组
-            </el-menu-item>-->
           </el-menu-item-group>
         </el-menu>
       </el-aside>

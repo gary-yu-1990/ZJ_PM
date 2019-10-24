@@ -6,19 +6,23 @@ import mutations from './mutations'
 import getters from './getters'
 import actions from './actions'
 import PM_Users from './modules/PM_Users'
+import Depts from './modules/Depts'
+import Persons from './modules/Persons'
 import createPersistedState from 'vuex-persistedstate'
 
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
-  modules: {
-    PM_Users
-  },
-  state,
-  getters,
-  mutations,
-  actions,
-  plugins: [createPersistedState()]
+    modules: {
+        PM_Users,
+        Depts,
+        Persons
+    },
+    state,
+    getters,
+    mutations,
+    actions,
+    plugins: [createPersistedState()]
 })
 export default store
 

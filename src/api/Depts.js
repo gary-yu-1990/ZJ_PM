@@ -6,6 +6,10 @@ export function GetDeptsI(data) {
     return $http.post('/Depts/GetDepts', data)
 }
 
+export function GetDeptsForStoreI(data) {
+    return $http.post('/Depts/GetDeptsForStore', data)
+}
+
 export function addDeptI(data) {
     return $http.post('/Depts/InsertNewDept', data)
 }

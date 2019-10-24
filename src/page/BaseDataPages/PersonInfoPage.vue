@@ -2,191 +2,188 @@
   <div class="pagePanel">
     <div class="buttonPanel">
       <el-button size="medium" @click="Add" type="primary">新建</el-button>
-      <el-button size="medium" @click="Search" type="success">查询</el-button>
-      <el-button size="medium"  @click="Delete" type="warning">删除</el-button>
+      <el-button size="medium"  type="primary">导入</el-button>
     </div>
-
     <div class="contentPanel">
-      <div class="content">
-        <el-table
-          ref="multipleTable"
-          :data="PersonsListData"
-          height="100%"
-          tooltip-effect="dark"
-          style="width: 100%;"
-          @selection-change="handleSelectionChange"
-          @
-        >
-          <el-table-column type="selection" width="55"></el-table-column>
-          <el-table-column prop="PERSON_NO" label="人员编号" width="120"></el-table-column>
-          <el-table-column prop="NAME" label="姓名" width="120"></el-table-column>         
-          <el-table-column prop="SEX" label="性别" width="120"></el-table-column>
-          <el-table-column prop="DEPT_NO" label="部门" width="120"></el-table-column>
-         
-           <el-table-column label="操作">
-            <template slot-scope="scope">
-              <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-              <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
-            </template>
-          </el-table-column>
-         
-        </el-table>
-      </div>
-      <div class="tbar" style="margin:0 25%;">
-        <el-pagination
-          @current-change="handleCurrentChange"
-          :current-page.sync="currentPage"
-          :page-size="limit"
-          layout="prev, pager, next, jumper"
-          :total="count"
-        ></el-pagination>
-      </div>
-      
+      <el-table
+        ref="Table"
+        :data="PersonsListData"
+        height="100%"
+        tooltip-effect="dark"
+        style="width: 100%;"
+      >
+        <el-table-column prop="PERSON_NO" label="员工编号" width="100"></el-table-column>
+        <el-table-column prop="NAME" label="员工姓名" width="100"></el-table-column>
+        <el-table-column prop="SEX" label="性别" width="60">
+          <template slot-scope="scope">
+            <span>{{ scope.row.SEX | sex_filter }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column prop="DEPT_NO" label="部门">
+             <template slot-scope="scope">
+          <span>{{ scope.row.DEPT_NO | DEPT_filter }}</span>
+        </template>
+        </el-table-column>
+        <el-table-column prop="MAJOR" label="专业" width="150"></el-table-column>
+        <el-table-column prop="MAJOR_ClASS" label="专业类型"  width="100">
+          <template slot-scope="scope">
+            <span>{{ scope.row.MAJOR_ClASS | MAJOR_ClASS_filter }}</span>
+          </template>
+        </el-table-column>
+         <el-table-column prop="Note" label="备注"></el-table-column>
+        <el-table-column label="操作">
+          <template slot-scope="scope">
+            <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+            <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
     </div>
-  <el-dialog title="添加人员" :visible.sync="isAddShow" :close-on-click-modal="false" width="50%">
-      <el-form ref="form" :model="form" label-width="80px">
-        <el-row>
-          <el-col span="11">
-            <el-form-item label="人员编号">
-              <el-input v-model="form.PERSON_NO"></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col span="11">
-            <el-form-item label="姓名">
-              <el-input v-model="form.NAME"></el-input>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col span="11">
-            <el-form-item label="性别">
-              <el-input v-model="form.SEX"></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col span="11">
-            <el-form-item label="部门">
-              <el-input v-model="form.DEPT_NO"></el-input>
-            </el-form-item>
-          </el-col>
-        </el-row>        
-        <el-form-item style="margin-left: 240px;">
+    <el-dialog title="添加人员" :visible.sync="isDialogShow" :close-on-click-modal="false" width="20%">
+      <el-form ref="form" :model="formData" label-width="80px">
+        <el-form-item label="员工编号">
+          <el-input v-model="formData.PERSON_NO"></el-input>
+        </el-form-item>
+        <el-form-item label="员工姓名">
+          <el-input v-model="formData.NAME"></el-input>
+        </el-form-item>
+        <el-form-item label="性别">
+          <el-radio-group v-model="formData.SEX">
+            <el-radio label="men">男</el-radio>
+            <el-radio label="women">女</el-radio>
+          </el-radio-group>
+        </el-form-item>
+        <el-form-item label="人员部门" >
+          <el-select v-model="formData.DEPT_NO" placeholder="请选择" style="width:100%">
+            <el-option
+              v-for="item in DEPT_OPTION"
+              :key="item.DEPT_NO"
+              :label="item.DEPT_NAME"
+              :value="item.DEPT_NO"
+              :disabled="item.disabled"
+           
+            ></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="员工状态">
+          <el-select v-model="formData.STATUS" placeholder="请选择" style="width:100%">
+            <el-option
+              v-for="item in STATUSOptions"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+              :disabled="item.disabled"
+            ></el-option>
+          </el-select>
+        </el-form-item>
+           <el-form-item label="专业">
+          <el-input v-model="formData.MAJOR"></el-input>
+        </el-form-item>
+          <el-form-item label="专业类别">
+            <el-select v-model="formData.MAJOR_ClASS" placeholder="请选择" style="width:100%">
+            <el-option
+              v-for="item in MAJOR_ClASSOptions"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+              :disabled="item.disabled"
+            ></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="备注">
+          <el-input v-model="formData.Note"></el-input>
+        </el-form-item>
+        <el-form-item >
           <el-button type="primary" @click="submitForm()">保存</el-button>
-          <el-button @click="resetForm('ruleForm')">重置</el-button>
+          <el-button @click="resetForm('form')">重置</el-button>
         </el-form-item>
       </el-form>
     </el-dialog>
-
-
   </div>
 </template>
 
 <script>
-import { NewPersons, DeleteLists, SearchPersons,UpdatePersons } from "@/api/PersonInfoApi";
+import {
+  NewPersons,
+  DeletePerson,
+  SearchPersons,
+  UpdatePersons
+} from "@/api/PersonInfoApi";
+import { mapState } from 'vuex';
+import { notice } from "@/assets/js/notice";
+const BeforEditData = {};
 export default {
   data() {
     return {
       PersonsListData: [],
-      multipleSelection: [],
-      isAddShow: false,
+      isDialogShow: false,
       handType: "add",
-      form: {
+      formData: {
         PERSON_NO: "",
         NAME: "",
         SEX: "",
-        DEPT_NO: ""
-             
+        DEPT_NO: "",
+        Note: "",
+        STATUS: "",
+        MAJOR: "",
+        MAJOR_ClASS: ""
       }
     };
   },
-
+   computed: {
+        ...mapState({
+          DEPT_OPTION: state => state.Depts.DeptsInfo,
+          MAJOR_ClASSOptions: state => state.MAJOR_ClASSOptions,
+          STATUSOptions: state => state.STATUSOptions
+          
+        })
+    },
+  mounted() {
+    this.SearchPersonsMethod();
+  },
   methods: {
     SearchPersonsMethod() {
       SearchPersons()
         .then(res => {
           this.PersonsListData = res.data;
         })
-        .catch(err => {
-          this.$alert(`${err.msg}`, "提示", {
-            type: "warning"
-          });
-        });
-    },
-    handleSelectionChange(val) {
-      this.multipleSelection = val;
     },
     Add() {
-      this.form = {};
+      this.formData = {};
       this.handType = "add";
-      this.isAddShow = true;
-    },
-    Search() {
-      this.SearchPersonsMethod();
-    },
-    Delete() {
-      DeleteLists(this.multipleSelection)
-        .then(res => {
-          this.SearchPersonsMethod();
-        })
-        .catch(err => {
-          this.$alert(`${err.msg}`, "提示", {
-            type: "warning"
-          });
-        });
-    },
-    handleEdit(index, row) {
-      this.handType = "edit"
-      this.form = row;
-      this.isAddShow = true;
+      this.isDialogShow = true;
     },
     handleDelete(index, row) {
-      var deleteArry = [];
-      deleteArry.push(row);
-      DeleteLists(deleteArry)
+      DeletePerson(row)
         .then(res => {
+          notice("删除成功");
           this.SearchPersonsMethod();
         })
-        .catch(err => {
-          this.$alert(`${err.msg}`, "提示", {
-            type: "warning"
-          });
-        });
+    },
+    handleEdit(index, row) {
+      this.BeforEditData=Object.assign({}, row)
+      this.handType = "edit";
+      this.formData = row;
+      this.isDialogShow = true;
     },
     submitForm() {
       //判断是新增还是编辑更新
       if (this.handType === "add") {
-        NewPersons(this.form)
+        NewPersons(this.formData)
           .then(res => {
-            this.$alert(`保存成功`, "提示", {
-              type: "warning",
-              confirmButtonText: "好的"
-            });
-            this.isAddShow = false;
+            notice("保存成功");
+            this.isDialogShow = false;
             this.SearchPersonsMethod();
           })
-          .catch(err => {
-            this.$alert(`${err.msg}`, "提示", {
-              type: "warning",
-              confirmButtonText: "好的"
-            });
-          });
       }
-      if(this.handType === "edit")
-      {
-        UpdatePersons(this.form)
+      if (this.handType === "edit") {
+        this.formData.UpdateColumns=this.array_diff(this.BeforEditData,this.formData)
+        UpdatePersons(this.formData)
           .then(res => {
-            this.$alert(`更新成功`, "提示", {
-              type: "warning",
-              confirmButtonText: "好的"
-            });
-            this.isAddShow = false;
+            notice("更新成功");
+            this.isDialogShow = false;
             this.SearchPersonsMethod();
           })
-          .catch(err => {
-            this.$alert(`${err.msg}`, "提示", {
-              type: "warning",
-              confirmButtonText: "好的"
-            });
-          });
       }
     },
     resetForm(formName) {
@@ -226,5 +223,4 @@ export default {
   overflow: auto;
   flex: 1;
 }
-
 </style>

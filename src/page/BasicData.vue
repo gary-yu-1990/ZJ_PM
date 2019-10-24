@@ -47,7 +47,7 @@ export default {
   },
   created() {
     this.$router.push({
-      path: "/BaseDataPages/TemplateClass/TemplateClassPage"
+      path: "/BaseDataPages/PersonInfoPage"
     });
   }
 };

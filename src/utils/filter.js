@@ -15,18 +15,69 @@ Vue.filter('datatrans', function(value) {
 })
 
 Vue.filter('person_filter', function(value) {
-    var userinfos = vm.$store.state.PM_Users.Users;
-    var data = userinfos.filter(p => p.UserID == value)
-    if (data.length > 0) {
-        return data["0"].UserName
+    var data = vm.$store.state.Persons.PersonsInfo;
+    var dataresult = data.filter(p => p.PERSON_NO == value)
+    if (dataresult.length > 0) {
+        return dataresult["0"].NAME
     } else {
         return value
     }
+})
 
+
+Vue.filter('user_filter', function(value) {
+    var data = vm.$store.state.PM_Users.Users;
+    var dataresult = data.filter(p => p.UserID == value)
+    if (dataresult.length > 0) {
+        return dataresult["0"].NAME
+    } else {
+        return value
+    }
 })
 
 Vue.filter('ProjectStatus_filter', function(value) {
     var data = vm.$store.state.ProjectStatusOptions
+    var dataresult = data.filter(p => p.value == value)
+    if (dataresult.length > 0) {
+        return dataresult["0"].label
+    } else {
+        return value
+    }
+})
+
+Vue.filter('MAJOR_ClASS_filter', function(value) {
+    var data = vm.$store.state.MAJOR_ClASSOptions
+    var dataresult = data.filter(p => p.value == value)
+    if (dataresult.length > 0) {
+        return dataresult["0"].label
+    } else {
+        return value
+    }
+})
+
+Vue.filter('sex_filter', function(value) {
+    var data = vm.$store.state.sexOptions
+    var dataresult = data.filter(p => p.value == value)
+    if (dataresult.length > 0) {
+        return dataresult["0"].label
+    } else {
+        return value
+    }
+})
+
+
+Vue.filter('DEPT_filter', function(value) {
+    var data = vm.$store.state.Depts.DeptsInfo;
+    var dataresult = data.filter(p => p.DEPT_NO == value)
+    if (dataresult.length > 0) {
+        return dataresult["0"].DEPT_NAME
+    } else {
+        return value
+    }
+})
+
+Vue.filter('UserStatus_filter', function(value) {
+    var data = vm.$store.state.UserStatusOptions;
     var dataresult = data.filter(p => p.value == value)
     if (dataresult.length > 0) {
         return dataresult["0"].label

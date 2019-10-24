@@ -30,4 +30,35 @@ export default {
             value: "finish"
         },
     ],
+    MAJOR_ClASSOptions: [{
+            label: "学硕",
+            value: "xs"
+        },
+        {
+            label: "专硕",
+            value: "zs"
+        },
+    ], //专业类型
+
+    sexOptions: [{
+        label: "男",
+        value: "men"
+    }, {
+        label: "女",
+        value: "women"
+    }],
+    STATUSOptions: [{
+        label: "在职",
+        value: "zz"
+    }, {
+        label: "离职",
+        value: "lz"
+    }],
+    UserStatusOptions: [{
+        label: "禁用",
+        value: "jy"
+    }, {
+        label: "启用",
+        value: "qy"
+    }]
 }

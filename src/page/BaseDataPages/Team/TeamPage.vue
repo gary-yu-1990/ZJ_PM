@@ -12,7 +12,7 @@
     </div>
     
     <!-- <div><button>1</button></div> -->
-    <div class="wbsTaskView" >
+    <div class="WbsTaskView" >
         <el-table
           :data="obsData"
           style="width:100%;margin-bottom:0px;"
@@ -90,6 +90,18 @@
       >
         <el-row>
           <el-col :span=11>
+            <el-form-item label="组织编码">
+              <el-input v-model="formData.OBSCode"></el-input>
+            </el-form-item>
+          </el-col>
+            <el-col :span=11>
+            <el-form-item label="父节点">
+              <el-input v-model="formData.OBS_PID"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span=11>
             <el-form-item label="组织名称">
               <el-input v-model="formData.OBSName"></el-input>
             </el-form-item>
@@ -140,7 +152,9 @@ export default {
       isDialogShow: false,
       handType: "add",
       formData: {
+        OBSCode:"",
         OBS_ID: "",
+        OBS_PID: "",
         OBSName: "",
         OBSRemark: "",
         CreatePerson: "",
@@ -184,7 +198,7 @@ export default {
     handleDelete(index, row) {
       DeleteOBS(row)
         .then(res => {
-          this.GetOBSData();
+          this.GetObsData();
         })
         .catch(err => {
           this.$alert(`${err.msg}`, "提示", {
@@ -193,11 +207,12 @@ export default {
         });
     },
     ProjectChange() {
-      this.GetOBSData();
+      this.GetObsData();
     },
-    GetOBSData() {
-      this.then(res => {
-        this.OBSData = res.data;
+    GetObsData() {
+      GetOBSData()
+      .then(res => {
+        this.obsData = res.data;
       })
         .catch(err => {
           this.$alert(`${err.msg}`, "提示", {
@@ -206,7 +221,7 @@ export default {
         });
     },
     handleOBSSearch() {
-      this.GetOBSData()
+      this.GetObsData()
       // this.$store.dispatch('GET_USERS').then(() => {
       // });
       // this.$store.state
@@ -221,7 +236,7 @@ export default {
               duration: 3000,
             });
             this.isDialogShow = false;
-            this.GetOBSData();
+            this.GetObsData();
           })
           .catch(err => {
             this.$alert(`${err.msg}`, "提示", {
@@ -237,7 +252,7 @@ export default {
               type: "warning",
             });
             this.isDialogShow = false;
-            this.GetOBSData();
+            this.GetObsData();
           })
           .catch(err => {
             this.$alert(`${err.msg}`, "提示", {
@@ -255,7 +270,7 @@ export default {
 .contains {
   margin: 5px 0;
   width: 100%;
-  /* height: 100%; */
+  height: 100%;
   display: flex;
   flex-direction: column;
 }

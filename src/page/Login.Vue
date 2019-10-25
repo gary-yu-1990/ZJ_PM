@@ -133,9 +133,10 @@ export default {
               notice("账户被禁用无法登陆","warning")
               return;
             }
+            this.$store.dispatch("Init_Store");
             this.$store.dispatch("SET_LOGGED", res.data);
-            this.$store.dispatch("GET_Depts");
-            this.$store.dispatch("GET_Persons");
+            // this.$store.dispatch("GET_Depts");
+            // this.$store.dispatch("GET_Persons");
             this.$router.push({
                 path: "/Main"
               });

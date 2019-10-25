@@ -13,16 +13,16 @@ import createPersistedState from 'vuex-persistedstate'
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
-    modules: {
-        PM_Users,
-        Depts,
-        Persons
-    },
-    state,
-    getters,
-    mutations,
-    actions,
-    plugins: [createPersistedState()]
+  modules: {
+    PM_Users,
+    Depts,
+    Persons
+  },
+  state,
+  getters,
+  mutations,
+  actions,
+  plugins: [createPersistedState()]
 })
 export default store
 

@@ -1,8 +1,8 @@
 <template>
   <div class="pagePanel">
     <div class="buttonPanel">
-      <el-button size="medium" @click="Add" type="primary">新建</el-button>
-      <el-button size="medium"  type="primary">导入</el-button>
+      <el-button size="mini" @click="Add" type="primary">新建</el-button>
+      <el-button size="mini"  type="primary">导入</el-button>
     </div>
     <div class="contentPanel">
       <el-table

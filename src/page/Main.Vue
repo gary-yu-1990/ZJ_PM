@@ -104,9 +104,11 @@ export default {
       this.$router.push(config.HOME_PAGE)
     },
     logout() {
+      this.$store.dispatch("Clear_Store");
       this.$router.push({
         path: "/"
       }); //利用路由跳转页面，path为你定义的路由配置中要跳转页面的path
+         
     },
     developtoolClik(){
          this.$router.push({
@@ -119,7 +121,7 @@ export default {
     });
       if(this.$route.path=="/ProjectManagerPages/ProjectWBS")
       {
-         EventUtil.$emit('getWBSData')
+         EventUtil.$emit('getWBSData');
       }
      
     },

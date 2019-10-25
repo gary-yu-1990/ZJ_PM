@@ -27,7 +27,7 @@
               <el-button size="mini" @click="HandAddChildOBS(scope.$index, scope.row)">新增子节点</el-button>
               <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
               <el-button size="mini" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
-              <el-button size="mini" @click="handleUserDeal(scope.$index, scope.row)">人员维护</el-button>
+              <el-button size="mini" @click="handleUserDeal(scope.$index, scope.row)" v-if="scope.row.OBS_Type!='person'">人员维护</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -80,8 +80,8 @@
             ></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="组织名称">
-          <el-input v-model="formData.OBSName" v-bind:readonly="OBSNamedisabled"></el-input>
+        <el-form-item  label="组织名称">
+          <el-input v-model="formData.OBSName"  :disabled="OBSNamedisabled"></el-input>
         </el-form-item>
         <el-form-item label="备注">
           <el-input v-model="formData.OBSRemark"></el-input>
@@ -92,7 +92,7 @@
       </el-form>
     </el-dialog>
 
-    <!-- 部分选择窗口 -->
+    <!-- 部分门选择窗口 -->
     <el-dialog
       title="企业组织结构"
       :visible.sync="isDeptDialogShow"
@@ -128,12 +128,12 @@
       title="人员信息"
       :visible.sync="isUserDialogShow"
       :close-on-click-modal="false"
-      width="40%"
+      v-bind:width="userDialogWith"
     >
-      <div class="UserWindow" height="100%">
-        <div class="DataPanel">
+      <div class="UserWindow" height="100%"  style="width: 100%;">
+        <div class="DataPanel"  style="width: 100%;">
           <el-table
-            ref="Table"
+            ref="userTable"
             :data="userListData"
             height="100%"
             tooltip-effect="dark"
@@ -157,7 +157,7 @@
             </el-table-column>
             <!-- <el-table-column prop="UserPhone" label="手机号" width="150"></el-table-column> -->
             <!-- <el-table-column prop="UserEmail" label="用户邮箱" width="200"></el-table-column>  -->
-            <el-table-column label="操作">
+            <el-table-column v-if="isSingleSelect" label="操作">
               <template slot-scope="scope">
                 <el-button size="mini" @click="handleUserSelect(scope.$index, scope.row)">选择</el-button>
               </template>
@@ -173,6 +173,7 @@
         <el-button
           size="mini"
           type="primary"
+          v-if="!isSingleSelect"
           @click="SaveSelectUesrs"
           style="display: inline-block;"
         >保存选项</el-button>
@@ -194,6 +195,7 @@ import { SearchUsers } from "@/api/UsersInfoApi";
 import { mapState } from "vuex";
 import { notice } from "@/assets/js/notice";
 import { GetDeptsI } from "@/api/Depts";
+import Vue from 'vue'
 const BeforEditData = {};
 export default {
   data() {
@@ -207,6 +209,7 @@ export default {
       isUserDialogShow: false,
       isDialogShow: false,
       isDeptDialogShow: false,
+      isSingleSelect:false,
       handType: "add",
       currentObsRow: "", //当前选择的OBS行
       formData: {
@@ -224,7 +227,16 @@ export default {
   computed: {
     ...mapState({
       OBS_TypeOptions: state => state.OBS_TypeOptions
-    })
+    }),
+    userDialogWith:function () {
+        if(this.isSingleSelect)
+        {
+          return '35%';
+        }
+        else{
+          return '25%';
+        }
+    }
   },
   mounted() {
     GetDeptsI().then(res => {
@@ -255,10 +267,32 @@ export default {
       });
     },
     handleSelectionChange(val) {
-      this.multipleSelection = val;
+      if(this.isSingleSelect)
+      {
+           if(val.length>0){
+               this.$refs.userTable.clearSelection();
+               this.$refs.userTable.toggleRowSelection(val.pop())
+           }
+           else
+           {
+              this.multipleSelection = val.pop();
+           }
+      }
+      else
+      {
+         this.multipleSelection = val;
+      }
     },
     handleUserDeal(index, row) {
       this.currentObsRow = row;
+      if(row.OBS_Type=="person"||row.OBS_Type=="role")
+      {
+        this.isSingleSelect=true;
+      }
+      else
+      {
+        this.isSingleSelect=false;
+      }
       this.isUserDialogShow = true;
     },
 
@@ -268,20 +302,39 @@ export default {
         this.OBSNamedisabled = true;
       }
       if (newValue == "group") {
-        this.OBSNamedisabled = false;
+          this.$nextTick(function () {
+              this.OBSNamedisabled = false;
+        })
+       
         this.formData.OBSName = "";
       }
       if (newValue == "role") {
         notice("此功能待完善", "warning");
         this.OBSNamedisabled = true;
       }
-      // this.formData.OBS_Type=newValue
+      if (newValue == "person") {
+        this.OBSNamedisabled = true;
+        this.isSingleSelect=true;
+        this.isUserDialogShow = true; //打开人员选择框！
+        this.$nextTick(function () {
+              this.$refs.userTable.clearSelection();
+        })
+  
+      }
     },
 
     handleDeptSelect(index, row) {
       this.formData.OBSName = row.DEPT_NAME;
       this.formData.OBSCode = row.DEPT_NO;
       this.isDeptDialogShow = false;
+    },
+
+    handleUserSelect(index, row) {
+      //根据编码找到人名
+      var name= Vue.filter("person_filter")(row.EmployeeCode)
+      this.formData.OBSName = name;
+      this.formData.OBSCode = row.UserID;
+      this.isUserDialogShow = false;
     },
 
     handOBSRowClick(row, column, event) {

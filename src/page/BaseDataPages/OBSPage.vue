@@ -11,7 +11,7 @@
       >新增组织结构</el-button>
     </div>
     
-    <!-- <div><button>1</button></div> -->
+   
     <div class="WbsTaskView" >
         <el-table
           :data="obsData"

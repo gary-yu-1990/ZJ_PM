@@ -430,9 +430,14 @@ export default {
   -moz-box-sizing: border-box; /* Firefox */
   -webkit-box-sizing: border-box; /* Safari */
   overflow: hidden;
+  
 
   /* background-color: #E9EEF3 */
 }
+selector::-webkit-scrollbar{
+width:0;
+}
+
 .OBSPanel {
   height: 100%;
   flex: 1;

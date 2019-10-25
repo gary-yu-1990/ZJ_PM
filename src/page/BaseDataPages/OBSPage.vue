@@ -63,7 +63,7 @@
       :close-on-click-modal="false"
       width="20%"
     >
-      <el-form ref="form" :model="formData" label-width="80px">
+      <el-form ref="form11" :model="formData" label-width="80px">
         <el-form-item label="组织类型">
           <el-select
             v-model="formData.OBS_Type"
@@ -81,10 +81,10 @@
           </el-select>
         </el-form-item>
         <el-form-item  label="组织名称">
-          <el-input v-model="formData.OBSName"  :disabled="OBSNamedisabled"></el-input>
+          <el-input v-model="formData.OBSName"></el-input>
         </el-form-item>
         <el-form-item label="备注">
-          <el-input v-model="formData.OBSRemark"></el-input>
+          <el-input v-model="formData.OBSRemark" ></el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="submitForm()">保存</el-button>
@@ -234,9 +234,9 @@ export default {
           return '35%';
         }
         else{
-          return '25%';
+          return '30%';
         }
-    }
+    },
   },
   mounted() {
     GetDeptsI().then(res => {
@@ -302,10 +302,7 @@ export default {
         this.OBSNamedisabled = true;
       }
       if (newValue == "group") {
-          this.$nextTick(function () {
-              this.OBSNamedisabled = false;
-        })
-       
+        this.OBSNamedisabled = false;
         this.formData.OBSName = "";
       }
       if (newValue == "role") {

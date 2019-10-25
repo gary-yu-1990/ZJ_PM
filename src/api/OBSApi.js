@@ -8,7 +8,7 @@ export function NewOBS (data) {
   return $http.post('/PM_OBS/NewOBS', data)
 }
 
-export function DeleteOBS (data, config = {}) {
+export function DeleteOBS (data) {
   return $http.post('/PM_OBS/DeleteOBS', data)
 }
 

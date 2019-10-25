@@ -239,6 +239,7 @@ export default {
     SaveSelectUesrs() {
       let data = {
         oBS_ID: this.currentObsRow.OBS_ID,
+        keyOBS_ID: this.currentObsRow.KeyOBS_ID,
         users: this.multipleSelection,
         creater: this.$store.state.userInfo["0"].UserID
       };
@@ -302,7 +303,8 @@ export default {
     },
     HandAddChildOBS(index, row) {
       this.formData = {
-        OBS_PID: row.OBS_ID
+        OBS_PID: row.OBS_ID,
+        KeyOBS_ID:row.KeyOBS_ID
       };
       this.handType = "add";
       this.isDialogShow = true;

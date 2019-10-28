@@ -22,6 +22,7 @@
                 <el-menu-item index="/ProjectManagerPages/ProjectTask">项目任务</el-menu-item>
                 </el-submenu>-->
                 <el-menu-item index="/ProjectManagerPages/ProjectInfo">项目管理</el-menu-item>
+                <el-menu-item index="">项目监控</el-menu-item>
                 <el-menu-item index="/BasicData">基础信息</el-menu-item>
                 <!-- <el-menu-item index="/SystemSet">系统设置</el-menu-item> -->
               </el-menu>

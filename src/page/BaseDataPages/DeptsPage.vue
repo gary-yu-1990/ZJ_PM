@@ -20,7 +20,7 @@
           <el-table-column prop="DEPT_NOTE" label="说明"></el-table-column>
           <el-table-column prop="CREATER" label="创建人" width="80">
                 <template slot-scope="scope">
-                  <span>{{ scope.row.CREATER | person_filter }}</span>
+                  <span>{{ scope.row.CREATER | user_filter }}</span>
                 </template>
           </el-table-column>
           <el-table-column prop="CREATE_TIME" label="创建时间"  :formatter="dateFormat"></el-table-column>

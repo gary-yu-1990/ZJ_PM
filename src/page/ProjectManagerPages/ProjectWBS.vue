@@ -1,7 +1,6 @@
 <template>
   <div class="contains">
     <div class="toolbar">
-
       <!-- <span>计划规则</span>
       <el-select v-model="reluevalue" placeholder="请选择">
         <el-option
@@ -10,12 +9,18 @@
           :label="item.label"
           :value="item.value"
         ></el-option>
-      </el-select> -->
-      <el-button type="primary" size="small" @click="handleTaskSearch">任务查询</el-button>
-      <el-button type="primary" size="small" @click="HandAddRootTask">新增任务</el-button>
-      <el-button type="primary" size="small">生成计划</el-button>
-      <el-button type="primary" size="small">任务发布</el-button>
-      <el-select v-model="viewvalue" @change="ShowChange" placeholder="请选择" style="float:right" size="small">
+      </el-select>-->
+      <el-button type="primary" size="mini" @click="HandAddRootTask">新增任务</el-button>
+      <el-button type="primary" size="mini" @click="handleTaskSearch">查询</el-button>
+      <el-button type="primary" size="mini">生成计划</el-button>
+      <el-button type="primary" size="mini">任务发布</el-button>
+      <el-select
+        v-model="viewvalue"
+        @change="ShowChange"
+        placeholder="请选择"
+        style="float:right"
+        size="mini"
+      >
         <el-option
           v-for="item in viewoptions"
           :key="item.value"
@@ -37,20 +42,20 @@
           @row-dblclick="handRowDblClick"
         >
           <el-table-column prop="WBSName" label="任务名称" width="300"></el-table-column>
-          <el-table-column prop="WBSRemark" label="任务说明"></el-table-column>
-          <el-table-column prop="WorkingTime" label="工期(天)"  width="80"></el-table-column>
-          <el-table-column prop="OBS_ID" label="负责人"></el-table-column>
-          <el-table-column prop="WBSStatus" label="任务状态"  width="120"></el-table-column>
-          <el-table-column prop="WBSExpectStart" label="计划开始时间"  :formatter="dateFormat" ></el-table-column>
-          <el-table-column prop="WBSExpectFinish" label="计划结束时间" :formatter="dateFormat" ></el-table-column>
-          <el-table-column prop="CreatePerson" label="创建人"></el-table-column>
+          <el-table-column prop="WBSRemark" label="任务说明" width="200"></el-table-column>
+          <el-table-column prop="WorkingTime" label="工期(天)" width="80"></el-table-column>
+          <el-table-column prop="WBSExecutor" label="执行者" width="100"></el-table-column>
+          <el-table-column prop="WBSStatus" label="任务状态" width="120"></el-table-column>
+          <el-table-column prop="WBSExpectStart" label="计划开始时间" :formatter="dateFormat"></el-table-column>
+          <el-table-column prop="WBSExpectFinish" label="计划结束时间" :formatter="dateFormat"></el-table-column>
+          <!-- <el-table-column prop="CreatePerson" label="创建人"></el-table-column> -->
           <!-- <el-table-column prop="CreateTime" label="创建时间"></el-table-column> -->
-          <el-table-column label="操作" width="300">
+          <el-table-column label="操作" width="350">
             <template slot-scope="scope">
-              <el-button icon="el-icon-plus" circle @click="HandAddChildTask(scope.$index, scope.row)"></el-button>
-              <el-button icon="el-icon-setting" circle  @click="handleEdit(scope.$index, scope.row)"></el-button>
-              <el-button icon="el-icon-minus" circle  @click="handleDelete(scope.$index, scope.row)"></el-button>
-              <el-button icon="el-icon-s-promotion" circle  @click="handleRelease(scope.$index, scope.row)"></el-button>
+              <el-button size="mini" @click="HandAddChildTask(scope.$index, scope.row)">新增子节点</el-button>
+              <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+              <el-button size="mini" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+              <el-button size="mini" @click="handleRelease(scope.$index, scope.row)">投放</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -63,36 +68,33 @@
         <el-tab-pane label="活动详情">活动详情</el-tab-pane>
       </el-tabs>
     </div>
-    
+
     <el-dialog title="新增任务" :visible.sync="isDialogShow" :close-on-click-modal="false" width="50%">
-      <el-form ref="form" :model="formData" label-width="80px">
-        <el-row>
-          <el-col :span=11>
-            <el-form-item label="任务名称">
-              <el-input v-model="formData.WBSName"></el-input>
+      <el-form ref="form" :model="formData" label-width="120px">
+        <el-form-item label="任务名称" width="100%">
+          <el-input v-model="formData.WBSName"></el-input>
+        </el-form-item>
+        <el-form-item label="任务备注" width="100%">
+          <el-input v-model="formData.WBSRemark"></el-input>
+        </el-form-item>
+        <el-form-item label="任务状态" width="50%">
+              <el-input v-model="formData.WBSStatus"></el-input>
+        </el-form-item>
+        <el-row width="100%">
+          <el-col :span="11">
+            <el-form-item label="执行者">
+              <el-input v-model="formData.WBSExecutor"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span=11>
-            <el-form-item label="任务备注">
-              <el-input v-model="formData.WBSRemark"></el-input>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span=11>
+          <el-col :span="11">
             <el-form-item label="工期">
               <el-input v-model="formData.WorkingTime"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span=11>
-            <el-form-item label="任务状态">
-              <el-input v-model="formData.WBSStatus"></el-input>
-            </el-form-item>
-          </el-col>
         </el-row>
-        <el-row>
-          <el-col :span=11>
-            <el-form-item prop="WBSExpectStart" label="开始时间">
+        <el-row >
+          <el-col :span="11">
+            <el-form-item prop="WBSExpectStart" label="计划开始时间">
               <el-date-picker
                 type="date"
                 placeholder="选择日期"
@@ -101,8 +103,8 @@
               ></el-date-picker>
             </el-form-item>
           </el-col>
-          <el-col :span=11>
-            <el-form-item prop="WBSExpectFinish" label="结束时间">
+          <el-col :span="11">
+            <el-form-item prop="WBSExpectFinish" label="计划结束时间">
               <el-date-picker
                 type="date"
                 placeholder="选择日期"
@@ -117,17 +119,21 @@
         </el-form-item>
       </el-form>
     </el-dialog>
-
   </div>
 </template>
 <script>
 import loacalDataJson from "@/store/data.json";
 import treegantt from "@/components/tree-gantt/tree-gantt.vue";
-import {SearchProjects} from "@/api/ProjectInfoApi";
-import {GetWBSData,NewProjectTask,UpdateProjectTask,DeleteTask} from "@/api/WBSApi";
-import { notice } from '@/assets/js/notice'
-import { mapState } from 'vuex';
-import EventUtil from '@/assets/js/EventUtil.js';
+import { SearchProjects } from "@/api/ProjectInfoApi";
+import {
+  GetWBSData,
+  NewProjectTask,
+  UpdateProjectTask,
+  DeleteTask
+} from "@/api/WBSApi";
+import { notice } from "@/assets/js/notice";
+import { mapState } from "vuex";
+import EventUtil from "@/assets/js/EventUtil.js";
 export default {
   data() {
     return {
@@ -151,8 +157,9 @@ export default {
         {
           value: "Internet",
           label: "网络图"
-        }],
-      taskData:[],
+        }
+      ],
+      taskData: [],
       viewvalue: "wbs",
       isDialogShow: false,
       handType: "add",
@@ -168,8 +175,8 @@ export default {
         WBSExpectStart: "",
         CreatPerson: "余春来",
         CreateTime: "",
-        WBS_PID:"",
-        Project_ID:"",
+        WBS_PID: "",
+        Project_ID: ""
       }
     };
   },
@@ -178,40 +185,39 @@ export default {
   },
   mounted() {
     //查找项目信息
+    this.getTaskData();
+    // 监听此事件
+    EventUtil.$on("getWBSData", () => {
       this.getTaskData();
-         // 监听此事件
-      EventUtil.$on('getWBSData',()=>{
-         this.getTaskData();
-        })
-
+    });
   },
-     computed: {
-        ...mapState({
-          Projectvalue: state => state.ProjectID,
-        })
-    },
+  computed: {
+    ...mapState({
+      Projectvalue: state => state.ProjectID
+    })
+  },
   methods: {
-     handRowDblClick(row,column,event){
-       this.formData = {
-        WBS_PID:row.WBS_ID,
-        Project_ID:this.Projectvalue
-      };
-      this.handType = "add";
-      this.isDialogShow = true;
-     },
-
-     HandAddRootTask(){
-     this.formData = {
-        WBS_PID:0,
-        Project_ID:this.Projectvalue
+    handRowDblClick(row, column, event) {
+      this.formData = {
+        WBS_PID: row.WBS_ID,
+        Project_ID: this.Projectvalue
       };
       this.handType = "add";
       this.isDialogShow = true;
     },
-     HandAddChildTask(index,row){
+
+    HandAddRootTask() {
       this.formData = {
-        WBS_PID:row.WBS_ID,
-        Project_ID:this.Projectvalue
+        WBS_PID: 0,
+        Project_ID: this.Projectvalue
+      };
+      this.handType = "add";
+      this.isDialogShow = true;
+    },
+    HandAddChildTask(index, row) {
+      this.formData = {
+        WBS_PID: row.WBS_ID,
+        Project_ID: this.Projectvalue
       };
       this.handType = "add";
       this.isDialogShow = true;
@@ -222,20 +228,13 @@ export default {
       this.isDialogShow = true;
     },
     handleDelete(index, row) {
-      DeleteTask(row)
-        .then(res => {
-             this.getTaskData();
-             notice("删除成功!","success")
-             
-        })
-        .catch(err => {
-          this.$alert(`${err.msg}`, "提示", {
-            type: "warning"
-          });
-        });
+      DeleteTask(row).then(res => {
+        this.getTaskData();
+        notice("删除成功!", "success");
+      });
     },
-    ProjectChange(){
-       this.getTaskData();
+    ProjectChange() {
+      this.getTaskData();
     },
     ShowChange() {
       if (this.viewvalue === "wbs") {
@@ -264,60 +263,33 @@ export default {
         this.isinternetviewShow = true;
       }
     },
-    getTaskData(){
-        GetWBSData({ projectname: this.Projectvalue })
-        .then(res => {
-             this.taskData=res.data;
-        })
-        .catch(err => {
-          this.$alert(`${err.msg}`, "提示", {
-            type: "warning"
-          });
-        });
+    getTaskData() {
+      GetWBSData({ projectname: this.Projectvalue }).then(res => {
+        this.taskData = res.data;
+      });
     },
-    handleTaskSearch(){
-        this.getTaskData();
-              this.$store.dispatch('GET_USERS').then(() => {
-                    });
-                    this.$store.state
+    handleTaskSearch() {
+      this.getTaskData();
+      this.$store.dispatch("GET_USERS").then(() => {});
+      this.$store.state;
     },
     submitForm() {
       //判断是新增还是编辑更新
       if (this.handType === "add") {
-        NewProjectTask(this.formData)
-          .then(res => {
-                 this.$message({
-                   message:'保存成功',
-                   duration:3000,
-                   });
-            this.isDialogShow = false;
-            this.getTaskData();
-          })
-          .catch(err => {
-            this.$alert(`${err.msg}`, "提示", {
-              type: "warning",
-              confirmButtonText: "好的"
-            });
-          });
+        NewProjectTask(this.formData).then(res => {
+          notice("保存成功");
+          this.isDialogShow = false;
+          this.getTaskData();
+        });
       }
       if (this.handType === "edit") {
-        UpdateProjectTask(this.formData)
-          .then(res => {
-            this.$alert(`更新成功`, "提示", {
-              type: "warning",
-            });
-            this.isDialogShow = false;
-            this.getTaskData();
-          })
-          .catch(err => {
-            this.$alert(`${err.msg}`, "提示", {
-              type: "warning",
-              confirmButtonText: "好的"
-            });
-          });
+        UpdateProjectTask(this.formData).then(res => {
+          notice("更新成功");
+          this.isDialogShow = false;
+          this.getTaskData();
+        });
       }
-    },
-
+    }
   }
 };
 </script>
@@ -356,15 +328,12 @@ export default {
   overflow: auto;
 }
 
-.el-table{
+.el-table {
   height: 100%;
   margin-bottom: 0px;
   overflow: auto;
 }
-.el-table__body-wrapper{
-    height: 100%;
+.el-table__body-wrapper {
+  height: 100%;
 }
-
-
-
 </style>

@@ -17,3 +17,7 @@ export function DeleteTask (data, config = {}) {
 export function UpdateProjectTask (data) {
   return $http.post('/PM_WBS/UpdateProjectTask', data)
 }
+
+export function ReleaseWBSI (data) {
+  return $http.post('/PM_WBS/ReleaseWBS', data)
+}

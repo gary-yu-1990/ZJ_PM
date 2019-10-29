@@ -93,3 +93,33 @@ Vue.filter('OBS_Type_filter', function (value) {
     return value
   }
 })
+
+Vue.filter('WBSStatus_filter', function (value) {
+  var data = vm.$store.state.WBSStatusOptions
+  var dataresult = data.filter(p => p.value == value)
+  if (dataresult.length > 0) {
+    return dataresult['0'].label
+  } else {
+    return value
+  }
+})
+
+Vue.filter('OBS_filter', function (value) {
+  var data = vm.$store.state.OBS.OBSInfo
+  var dataresult = data.filter(p => p.OBS_ID == value)
+  if (dataresult.length > 0) {
+    return dataresult['0'].OBSName
+  } else {
+    return value
+  }
+})
+
+Vue.filter('TaskStatus_filter', function (value) {
+  var data = vm.$store.state.TaskStatusOptions
+  var dataresult = data.filter(p => p.value == value)
+  if (dataresult.length > 0) {
+    return dataresult['0'].label
+  } else {
+    return value
+  }
+})

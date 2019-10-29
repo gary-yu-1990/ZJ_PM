@@ -4,6 +4,9 @@ export function GetOBSDataI (data) {
   return $http.post('/PM_OBS/GetOBSData', data)
 }
 
+export function GetOBSForStoreI (data) {
+  return $http.post('/PM_OBS/GetOBSForStore', data)
+}
 export function NewOBS (data) {
   return $http.post('/PM_OBS/NewOBS', data)
 }

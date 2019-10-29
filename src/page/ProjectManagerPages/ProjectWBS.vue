@@ -13,7 +13,7 @@
       <el-button type="primary" size="mini" @click="HandAddRootTask">新增任务</el-button>
       <el-button type="primary" size="mini" @click="handleTaskSearch">查询</el-button>
       <el-button type="primary" size="mini">生成计划</el-button>
-      <el-button type="primary" size="mini">任务发布</el-button>
+      <el-button type="primary" size="mini">任务投放</el-button>
       <el-select
         v-model="viewvalue"
         @change="ShowChange"
@@ -44,8 +44,16 @@
           <el-table-column prop="WBSName" label="任务名称" width="300"></el-table-column>
           <el-table-column prop="WBSRemark" label="任务说明" width="200"></el-table-column>
           <el-table-column prop="WorkingTime" label="工期(天)" width="80"></el-table-column>
-          <el-table-column prop="WBSExecutor" label="执行者" width="100"></el-table-column>
-          <el-table-column prop="WBSStatus" label="任务状态" width="120"></el-table-column>
+          <el-table-column prop="WBSExecutor" label="执行者" width="100">
+               <template slot-scope="scope">
+                <span>{{ scope.row.WBSExecutor | OBS_filter }}</span>
+              </template>
+          </el-table-column>
+          <el-table-column prop="WBSStatus" label="任务状态" width="120">
+             <template slot-scope="scope">
+                <span>{{ scope.row.WBSStatus | WBSStatus_filter }}</span>
+              </template>
+          </el-table-column>
           <el-table-column prop="WBSExpectStart" label="计划开始时间" :formatter="dateFormat"></el-table-column>
           <el-table-column prop="WBSExpectFinish" label="计划结束时间" :formatter="dateFormat"></el-table-column>
           <!-- <el-table-column prop="CreatePerson" label="创建人"></el-table-column> -->
@@ -69,55 +77,92 @@
       </el-tabs>
     </div>
 
-    <el-dialog title="新增任务" :visible.sync="isDialogShow" :close-on-click-modal="false" width="50%">
-      <el-form ref="form" :model="formData" label-width="120px">
+    <el-dialog title="新增任务" :visible.sync="isDialogShow" :close-on-click-modal="false" width="30%">
+      <el-form ref="form" :model="formData" label-width="100px">
         <el-form-item label="任务名称" width="100%">
           <el-input v-model="formData.WBSName"></el-input>
         </el-form-item>
         <el-form-item label="任务备注" width="100%">
           <el-input v-model="formData.WBSRemark"></el-input>
         </el-form-item>
-        <el-form-item label="任务状态" width="50%">
-              <el-input v-model="formData.WBSStatus"></el-input>
+        <el-form-item label="任务状态">
+          <el-select v-model="formData.WBSStatus" placeholder="请选择" style="width:100%">
+            <el-option
+              v-for="item in WBSStatusOptions"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+              :disabled="item.disabled"
+            ></el-option>
+          </el-select>
         </el-form-item>
-        <el-row width="100%">
+        <el-form-item label="执行者">
+          <el-select v-model="formData.WBSExecutor"  disabled placeholder="请选择" style="width:83%">>
+            <el-option
+              v-for="item in OBSInfoOption"
+              :key="item.OBS_ID"
+              :label="item.OBSName"
+              :value="item.OBS_ID"
+            >
+            </el-option>
+          </el-select> 
+          <el-button icon="el-icon-search" @click="WBSExecutorClick"></el-button>
+        </el-form-item>
+        <el-form-item label="工期（天）">
+          <el-input v-model="formData.WorkingTime"></el-input>
+        </el-form-item>
+        <el-form-item label="时间">
           <el-col :span="11">
-            <el-form-item label="执行者">
-              <el-input v-model="formData.WBSExecutor"></el-input>
-            </el-form-item>
+            <el-date-picker
+              type="date"
+              placeholder="计划开始日期"
+              v-model="formData.WBSExpectStart"
+              style="width: 100%;"
+            ></el-date-picker>
           </el-col>
+          <el-col class="line" :span="2">-</el-col>
           <el-col :span="11">
-            <el-form-item label="工期">
-              <el-input v-model="formData.WorkingTime"></el-input>
-            </el-form-item>
+            <el-date-picker
+              placeholder="计划结束日期"
+              v-model="formData.WBSExpectFinish"
+              style="width: 100%;"
+            ></el-date-picker>
           </el-col>
-        </el-row>
-        <el-row >
-          <el-col :span="11">
-            <el-form-item prop="WBSExpectStart" label="计划开始时间">
-              <el-date-picker
-                type="date"
-                placeholder="选择日期"
-                v-model="formData.WBSExpectStart"
-                style="width: 100%;"
-              ></el-date-picker>
-            </el-form-item>
-          </el-col>
-          <el-col :span="11">
-            <el-form-item prop="WBSExpectFinish" label="计划结束时间">
-              <el-date-picker
-                type="date"
-                placeholder="选择日期"
-                v-model="formData.WBSExpectFinish"
-                style="width: 100%;"
-              ></el-date-picker>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-form-item style="margin-left: 240px;">
+        </el-form-item>
+        <el-form-item>
           <el-button type="primary" @click="submitForm()">保存</el-button>
         </el-form-item>
       </el-form>
+    </el-dialog>
+
+    <el-dialog
+      title="任务名称"
+      :visible.sync="isOBSDialogShow"
+      :close-on-click-modal="false"
+      width="50%"
+    >
+      <el-table
+        :data="obsData"
+        style="width:100%;margin-bottom:0px;"
+        row-key="id"
+        border
+        default-expand-all
+        height="100%"
+        :tree-props="{children: 'children', hasChildren: 'hasChildren'}"
+      >
+        <el-table-column prop="OBSName" label="组织名称" width="300"></el-table-column>
+        <el-table-column prop="OBS_Type" label="组织类型" width="100">
+          <template slot-scope="scope">
+            <span>{{ scope.row.OBS_Type | OBS_Type_filter }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column prop="OBSRemark" label="备注" width="150"></el-table-column>
+        <el-table-column label="操作" width="150">
+          <template slot-scope="scope">
+            <el-button size="mini" @click="HandOBSSelected(scope.$index, scope.row)">选择</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
     </el-dialog>
   </div>
 </template>
@@ -129,11 +174,14 @@ import {
   GetWBSData,
   NewProjectTask,
   UpdateProjectTask,
-  DeleteTask
+  DeleteTask,
+  ReleaseWBSI,
 } from "@/api/WBSApi";
+import { GetOBSDataI } from "@/api/OBSApi";
 import { notice } from "@/assets/js/notice";
 import { mapState } from "vuex";
 import EventUtil from "@/assets/js/EventUtil.js";
+const BeforEditData ={};
 export default {
   data() {
     return {
@@ -159,9 +207,11 @@ export default {
           label: "网络图"
         }
       ],
+      obsData: [],
       taskData: [],
       viewvalue: "wbs",
       isDialogShow: false,
+      isOBSDialogShow: false,
       handType: "add",
       iswbsviewShow: true,
       isganttviewShow: false,
@@ -170,10 +220,11 @@ export default {
         WBSName: "",
         WBSRemark: "",
         WorkingTime: "",
-        WBSStatus: "",
+        WBSExecutor: "",
+        WBSStatus: 'create',
         WBSExpectFinish: "",
         WBSExpectStart: "",
-        CreatPerson: "余春来",
+        CreatPerson: "",
         CreateTime: "",
         WBS_PID: "",
         Project_ID: ""
@@ -190,35 +241,54 @@ export default {
     EventUtil.$on("getWBSData", () => {
       this.getTaskData();
     });
+
+    GetOBSDataI().then(res => {
+      this.obsData = res.data;
+    });
   },
   computed: {
     ...mapState({
-      Projectvalue: state => state.ProjectID
+      Projectvalue: state => state.ProjectID,
+      WBSStatusOptions: state => state.WBSStatusOptions,
+      OBSInfoOption: state => state.OBS.OBSInfo
     })
   },
   methods: {
+    handleRelease(index, row){
+      let data={
+          wBS_ID:row.WBS_ID,
+          releaser:this.$store.state.userInfo["0"].UserID,
+      }
+       ReleaseWBSI(data).then(res => {
+        this.getTaskData();
+        notice("投放成功!", "success");
+      });
+    },
+    HandOBSSelected(index, row) {
+      this.formData.WBSExecutor = row.OBS_ID;
+      this.isOBSDialogShow = false;
+    },
+    WBSExecutorClick() {
+      this.isOBSDialogShow = true;
+    },
     handRowDblClick(row, column, event) {
-      this.formData = {
-        WBS_PID: row.WBS_ID,
-        Project_ID: this.Projectvalue
-      };
-      this.handType = "add";
-      this.isDialogShow = true;
+      // this.formData = {
+      //   WBS_PID: row.WBS_ID,
+      //   Project_ID: this.Projectvalue
+      // };
+      // this.handType = "add";
+      // this.isDialogShow = true;
     },
 
     HandAddRootTask() {
-      this.formData = {
-        WBS_PID: 0,
-        Project_ID: this.Projectvalue
-      };
+      this.formData.WBS_PID=0;
+      this.formData.Project_ID=this.Projectvalue;
       this.handType = "add";
       this.isDialogShow = true;
     },
     HandAddChildTask(index, row) {
-      this.formData = {
-        WBS_PID: row.WBS_ID,
-        Project_ID: this.Projectvalue
-      };
+      this.formData.WBS_PID=row.WBS_ID;
+      this.formData.Project_ID=this.Projectvalue;
       this.handType = "add";
       this.isDialogShow = true;
     },
@@ -226,6 +296,7 @@ export default {
       this.handType = "edit";
       this.formData = row;
       this.isDialogShow = true;
+      this.BeforEditData=Object.assign({}, row)
     },
     handleDelete(index, row) {
       DeleteTask(row).then(res => {
@@ -283,6 +354,7 @@ export default {
         });
       }
       if (this.handType === "edit") {
+        this.formData.UpdateColumns=this.array_diff(this.BeforEditData,this.formData)
         UpdateProjectTask(this.formData).then(res => {
           notice("更新成功");
           this.isDialogShow = false;

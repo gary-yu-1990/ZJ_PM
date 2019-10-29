@@ -16,7 +16,7 @@
           :tree-props="{children: 'children', hasChildren: 'hasChildren'}"
         >
           <el-table-column prop="DEPT_NAME" label="部门名称"></el-table-column>
-          <el-table-column prop="DEPT_NO" label="部门编号" width="100"></el-table-column>
+          <el-table-column prop="DEPT_CODE" label="部门编码" width="100"></el-table-column>
           <el-table-column prop="DEPT_NOTE" label="说明"></el-table-column>
           <el-table-column prop="CREATER" label="创建人" width="80">
                 <template slot-scope="scope">
@@ -42,7 +42,7 @@
     <el-dialog title="新建部门" :visible.sync="isDialogShow" :close-on-click-modal="false" width="20%">
       <el-form ref="form" :model="formData" label-width="80px">
         <el-form-item label="部门编号">
-          <el-input v-model="formData.DEPT_NO"></el-input>
+          <el-input v-model="formData.DEPT_CODE"></el-input>
         </el-form-item>
         <el-form-item label="部门名称">
           <el-input v-model="formData.DEPT_NAME"></el-input>
@@ -76,6 +76,7 @@ export default {
       handType: "add",
       formData: {
         DEPT_NO: "",
+        DEPT_CODE: "",
         DEPT_NAME: "",
         PDEPT_NO: "",
         DEPT_NOTE: "",

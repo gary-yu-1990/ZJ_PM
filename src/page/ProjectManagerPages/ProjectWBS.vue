@@ -41,8 +41,8 @@
           :tree-props="{children: 'children', hasChildren: 'hasChildren'}"
           @row-dblclick="handRowDblClick"
         >
-          <el-table-column prop="WBSName" label="任务名称" width="300"></el-table-column>
-          <el-table-column prop="WBSRemark" label="任务说明" width="200"></el-table-column>
+          <el-table-column prop="WBSName" label="任务名称" width="300" show-overflow-tooltip></el-table-column>
+          <el-table-column prop="WBSRemark" label="任务说明" width="200" show-overflow-tooltip></el-table-column>
           <el-table-column prop="WorkingTime" label="工期(天)" width="80"></el-table-column>
           <el-table-column prop="WBSExecutor" label="执行者" width="100">
                <template slot-scope="scope">
@@ -97,7 +97,7 @@
           </el-select>
         </el-form-item>
         <el-form-item label="执行者">
-          <el-select v-model="formData.WBSExecutor"  disabled placeholder="请选择" style="width:83%">>
+          <el-select v-model="formData.WBSExecutor"  disabled placeholder="请选择" style="width:81%">>
             <el-option
               v-for="item in OBSInfoOption"
               :key="item.OBS_ID"
@@ -281,6 +281,7 @@ export default {
     },
 
     HandAddRootTask() {
+      this.formData={};
       this.formData.WBS_PID=0;
       this.formData.Project_ID=this.Projectvalue;
       this.handType = "add";

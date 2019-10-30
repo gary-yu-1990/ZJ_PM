@@ -11,23 +11,23 @@
           tooltip-effect="dark"
           style="width: 100%;"
         >
-          <el-table-column prop="UserName" label="用户昵称" width="150"></el-table-column>
-          <el-table-column prop="EmployeeCode" label="用户名称" width="150">
+          <el-table-column prop="UserName" label="用户名称" width="150"></el-table-column>
+          <el-table-column prop="EmployeeCode" label="员工名称" width="150">
              <template slot-scope="scope">
                   <span>{{ scope.row.EmployeeCode | person_filter }}</span>
              </template>
           </el-table-column>
           <el-table-column prop="Cid" label="帐户名" width="120"></el-table-column>
-          <el-table-column prop="PassWord" label="密码" width="150"></el-table-column>
+          <el-table-column prop="PassWord" label="密码" width="100"></el-table-column>
           <el-table-column prop="UserStatus" label="用户状态" width="100">
             <template slot-scope="scope">
                   <span>{{ scope.row.UserStatus | UserStatus_filter }}</span>
              </template>
           </el-table-column>
           <el-table-column prop="UserPhone" label="手机号" width="150"></el-table-column>
-          <el-table-column prop="UserEmail" label="用户邮箱" width="200"></el-table-column>
-          <el-table-column prop="UserNote" label="用户备注" width="150"></el-table-column>
-          <el-table-column label="操作">
+          <el-table-column prop="UserEmail" label="用户邮箱" width="180"></el-table-column>
+          <el-table-column prop="UserNote" label="用户备注" width="100"></el-table-column>
+          <el-table-column label="操作" width="150">
             <template slot-scope="scope">
               <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
               <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
@@ -40,9 +40,9 @@
         </el-table>
     </div>
 
-    <el-dialog title="新建账户" :visible.sync="isDialogShow" :close-on-click-modal="false" width="20%">
+    <el-dialog title="新建账户" :visible.sync="isDialogShow" :close-on-click-modal="false" width="30%">
       <el-form ref="form" :model="formData" label-width="90px">
-         <el-form-item label="用户名称">
+         <el-form-item label="员工名称">
            <el-select v-model="formData.EmployeeCode" placeholder="请选择" style="width:100%">
             <el-option
               v-for="item in PersonsInfo_OPTION"
@@ -53,7 +53,7 @@
             ></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="用户昵称">
+        <el-form-item label="用户名称">
           <el-input v-model="formData.UserName"></el-input>
         </el-form-item>
         <el-form-item label="用户账号">

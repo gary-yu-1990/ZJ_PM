@@ -33,7 +33,7 @@
               tooltip-effect="dark"
               style="width: 100%;"
             >
-              <el-table-column prop="TaskName" label="任务名称" ></el-table-column>
+              <el-table-column prop="TaskName" label="任务名称"   width="250" show-overflow-tooltip></el-table-column>
               <el-table-column prop="TaskRemark" label="任务备注" show-overflow-tooltip></el-table-column>
               <el-table-column prop="TaskCeateTime" label="创建时间"  width="120" :formatter="dateFormat" show-overflow-tooltip></el-table-column>
               <el-table-column prop="TaskCeater" label="创建人"  width="80"  show-overflow-tooltip>

@@ -39,7 +39,7 @@
         </el-table-column>
       </el-table>
     </div>
-    <el-dialog title="添加人员" :visible.sync="isDialogShow" :close-on-click-modal="false" width="20%">
+    <el-dialog title="添加人员" :visible.sync="isDialogShow" :close-on-click-modal="false" width="30%">
       <el-form ref="form" :model="formData" label-width="80px">
         <el-form-item label="员工编号">
           <el-input v-model="formData.PERSON_NO"></el-input>

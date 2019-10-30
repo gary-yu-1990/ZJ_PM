@@ -9,6 +9,10 @@ const PM_Users = {
   mutations: {
     SET_USERS (state, data) {
       state.Users = data
+    },
+
+    Clear_USERS (state) {
+      state.Users = []
     }
   },
   actions: {
@@ -16,6 +20,9 @@ const PM_Users = {
       SearchUsers().then(res => {
         commit('SET_USERS', res.data)
       })
+    },
+    Clear_USERS ({ commit }) {
+      commit('Clear_USERS')
     }
   }
 

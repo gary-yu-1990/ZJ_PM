@@ -28,7 +28,7 @@ Vue.filter('user_filter', function (value) {
   var data = vm.$store.state.PM_Users.Users
   var dataresult = data.filter(p => p.UserID == value)
   if (dataresult.length > 0) {
-    return dataresult['0'].NAME
+    return dataresult['0'].UserName
   } else {
     return value
   }

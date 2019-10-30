@@ -9,6 +9,9 @@ const OBS = {
   mutations: {
     SET_OBS (state, data) {
       state.OBSInfo = data
+    },
+    Clear_OBS (state) {
+      state.OBSInfo = []
     }
   },
   actions: {
@@ -16,6 +19,9 @@ const OBS = {
       GetOBSForStoreI().then(res => {
         commit('SET_OBS', res.data)
       })
+    },
+    Clear_OBS ({ commit }) {
+      commit('Clear_OBS')
     }
   }
 

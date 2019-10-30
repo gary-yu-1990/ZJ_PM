@@ -9,7 +9,7 @@
     >
       <el-container class="main-container">
         <el-menu-item index="/ProjectManagerPages/ProjectWBS">工作分解</el-menu-item>
-        <el-menu-item index="/ProjectManagerPages/ProjectTask">项目计划</el-menu-item>
+        <el-menu-item index="">项目计划</el-menu-item>
         <el-menu-item index="">统计</el-menu-item>
         <el-menu-item index="">风险管理</el-menu-item>
         <el-menu-item index="">沟通计划</el-menu-item>

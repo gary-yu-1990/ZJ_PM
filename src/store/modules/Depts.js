@@ -9,6 +9,9 @@ const Depts = {
   mutations: {
     SET_Depts (state, data) {
       state.DeptsInfo = data
+    },
+    Clear_Depts (state) {
+      state.DeptsInfo = []
     }
   },
   actions: {
@@ -16,6 +19,9 @@ const Depts = {
       GetDeptsForStoreI().then(res => {
         commit('SET_Depts', res.data)
       })
+    },
+    Clear_Depts ({ commit }) {
+      commit('Clear_Depts')
     }
   }
 

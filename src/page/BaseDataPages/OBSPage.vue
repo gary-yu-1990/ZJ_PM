@@ -144,9 +144,9 @@
             <el-table-column type="selection" width="55"></el-table-column>
             <el-table-column prop="UserID" label="用户ID" width="150"></el-table-column>
             <!-- <el-table-column prop="UserName" label="用户昵称" width="150"></el-table-column> -->
-            <el-table-column prop="EmployeeCode" label="用户名称" width="150">
+            <el-table-column prop="EmployeeCode" label="员工名称" width="150">
               <template slot-scope="scope">
-                <span>{{ scope.row.EmployeeCode | user_filter }}</span>
+                <span>{{ scope.row.EmployeeCode | person_filter }}</span>
               </template>
             </el-table-column>
             <!-- <el-table-column prop="Cid" label="帐户名" width="120"></el-table-column> -->
@@ -299,11 +299,11 @@ export default {
     OBS_TypeChangClick(newValue) {
       if (newValue == "dept") {
         this.isDeptDialogShow = true;
-        this.OBSNamedisabled = true;
+        // this.OBSNamedisabled = true;
       }
       if (newValue == "group") {
         this.OBSNamedisabled = false;
-        this.formData.OBSName = "";
+        // this.formData.OBSName = "";
       }
       if (newValue == "role") {
         notice("此功能待完善", "warning");

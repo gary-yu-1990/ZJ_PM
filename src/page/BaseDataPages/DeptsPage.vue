@@ -18,7 +18,7 @@
           <el-table-column prop="DEPT_NAME" label="部门名称"></el-table-column>
           <el-table-column prop="DEPT_CODE" label="部门编码" width="100"></el-table-column>
           <el-table-column prop="DEPT_NOTE" label="说明"></el-table-column>
-          <el-table-column prop="CREATER" label="创建人" width="80">
+          <el-table-column prop="CREATER" label="创建人" width="150">
                 <template slot-scope="scope">
                   <span>{{ scope.row.CREATER | user_filter }}</span>
                 </template>

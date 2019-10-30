@@ -9,6 +9,9 @@ const Persons = {
   mutations: {
     SET_Persons (state, data) {
       state.PersonsInfo = data
+    },
+    clear_Persons (state) {
+      state.PersonsInfo = []
     }
   },
   actions: {
@@ -16,6 +19,9 @@ const Persons = {
       GetPersonsForStore().then(res => {
         commit('SET_Persons', res.data)
       })
+    },
+    Clear_Persons ({ commit }) {
+      commit('clear_Persons')
     }
   }
 

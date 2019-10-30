@@ -146,7 +146,7 @@
             <!-- <el-table-column prop="UserName" label="用户昵称" width="150"></el-table-column> -->
             <el-table-column prop="EmployeeCode" label="用户名称" width="150">
               <template slot-scope="scope">
-                <span>{{ scope.row.EmployeeCode | person_filter }}</span>
+                <span>{{ scope.row.EmployeeCode | user_filter }}</span>
               </template>
             </el-table-column>
             <!-- <el-table-column prop="Cid" label="帐户名" width="120"></el-table-column> -->

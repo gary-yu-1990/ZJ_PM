@@ -21,7 +21,9 @@
                 <el-menu-item index="/ProjectManagerPages/ProjectInfo">项目信息</el-menu-item>
                 <el-menu-item index="/ProjectManagerPages/ProjectTask">项目任务</el-menu-item>
                 </el-submenu>-->
+                <!-- <el-menu-item index="/TaskPages/TaskInfo">项目任务</el-menu-item> -->
                 <el-menu-item index="/ProjectManagerPages/ProjectInfo">项目管理</el-menu-item>
+                <el-menu-item index>项目监控</el-menu-item>
                 <el-menu-item index="/BasicData">基础信息</el-menu-item>
                 <!-- <el-menu-item index="/SystemSet">系统设置</el-menu-item> -->
               </el-menu>
@@ -42,9 +44,12 @@
                 </el-select>
               </li>
               <li>
+                <span class="MyTask"  @click="TaskClick">我的任务</span>
+              </li>
+              <li>
                 <el-dropdown>
                   <span class="el-dropdown-link">
-                    个人中心
+                    <el-avatar icon="el-icon-user-solid" style="vertical-align:middle;"></el-avatar>
                     <i class="el-icon-arrow-down el-icon--right"></i>
                   </span>
                   <el-dropdown-menu slot="dropdown">
@@ -54,9 +59,9 @@
                   </el-dropdown-menu>
                 </el-dropdown>
               </li>
-              <li>
+              <!-- <li>
                 <el-avatar icon="el-icon-user-solid" style="vertical-align:middle;"></el-avatar>
-              </li>
+              </li>-->
             </ul>
           </div>
         </el-container>
@@ -70,8 +75,8 @@
 <script>
 import { SearchProjects } from "@/api/ProjectInfoApi";
 import config from "../config/config";
-import { mapState } from 'vuex';
-import EventUtil from '@/assets/js/EventUtil.js';
+import { mapState } from "vuex";
+import EventUtil from "@/assets/js/EventUtil.js";
 export default {
   data() {
     return {
@@ -92,39 +97,45 @@ export default {
       this.project_options = res.data;
     });
   },
-   computed: {
-      Projectvalue: {
-        get: function () { return this.$store.state.ProjectID } ,
-        set: function (val) { this.$store.dispatch("SET_ProjectID",val); }
+  computed: {
+    Projectvalue: {
+      get: function() {
+        return this.$store.state.ProjectID;
+      },
+      set: function(val) {
+        this.$store.dispatch("SET_ProjectID", val);
+      }
     }
-    },
+  },
   methods: {
-    logoClick(){
-      this.$store.dispatch("SET_ProjectID","");
-      this.$router.push(config.HOME_PAGE)
+    TaskClick(){
+      this.$router.push({
+        path: "/TaskPages/TaskInfo"
+      }); 
+    },
+    logoClick() {
+      this.$store.dispatch("SET_ProjectID", "");
+      this.$router.push(config.HOME_PAGE);
     },
     logout() {
       this.$store.dispatch("Clear_Store");
       this.$router.push({
         path: "/"
       }); //利用路由跳转页面，path为你定义的路由配置中要跳转页面的path
-         
     },
-    developtoolClik(){
-         this.$router.push({
-         path: "/developSet"
-    });
+    developtoolClik() {
+      this.$router.push({
+        path: "/developSet"
+      });
     },
-     ProjectChange(value){
-       this.$router.push({
-         path: "/ProjectManagerPages/ProjectWBS"
-    });
-      if(this.$route.path=="/ProjectManagerPages/ProjectWBS")
-      {
-         EventUtil.$emit('getWBSData');
+    ProjectChange(value) {
+      this.$router.push({
+        path: "/ProjectManagerPages/ProjectWBS"
+      });
+      if (this.$route.path == "/ProjectManagerPages/ProjectWBS") {
+        EventUtil.$emit("getWBSData");
       }
-     
-    },
+    }
   }
 };
 </script>
@@ -203,7 +214,6 @@ export default {
 }
 
 .headerWrapper {
-  /* position: fixed;  */
   width: 100%;
   left: 0;
   top: 0;
@@ -221,6 +231,10 @@ export default {
 }
 .el-menu {
   margin: 0;
+}
+
+.MyTask{
+  font-size: 14px;
 }
 </style>
 

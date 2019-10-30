@@ -61,7 +61,7 @@
 
               <el-table-column prop="CreatPerson" label="创建人" width="80" show-overflow-tooltip>
                 <template slot-scope="scope">
-                  <span>{{ scope.row.CreatPerson | person_filter }}</span>
+                  <span>{{ scope.row.CreatPerson | user_filter }}</span>
                 </template>
               </el-table-column>
               <el-table-column

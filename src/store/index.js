@@ -8,6 +8,7 @@ import actions from './actions'
 import PM_Users from './modules/PM_Users'
 import Depts from './modules/Depts'
 import Persons from './modules/Persons'
+import OBS from './modules/OBS'
 import createPersistedState from 'vuex-persistedstate'
 
 Vue.use(Vuex)
@@ -16,7 +17,8 @@ const store = new Vuex.Store({
   modules: {
     PM_Users,
     Depts,
-    Persons
+    Persons,
+    OBS
   },
   state,
   getters,

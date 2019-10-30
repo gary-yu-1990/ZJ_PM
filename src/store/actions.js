@@ -12,5 +12,6 @@ export default {
     commit('Init_Store')
     dispatch('GET_Depts')
     dispatch('GET_Persons')
+    dispatch('GET_OBS')
   }
 }

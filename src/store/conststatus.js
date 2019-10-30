@@ -67,8 +67,36 @@ export const conststatus = {
     value: 'role'
   },
   {
-    label: '人',
+    label: '成员',
     value: 'person'
+  }
+  ],
+  WBSStatusOptions: [{
+    label: '已建立',
+    value: 'create'
+  }, {
+    label: '已投放',
+    value: 'released'
+  },
+  {
+    label: '已完成',
+    value: 'done'
+  }
+  ],
+
+  TaskStatusOptions: [{
+    label: '待获取',
+    value: 'dhc'
+  }, {
+    label: '待确认',
+    value: 'dcr'
+  }, {
+    label: '已确认',
+    value: 'ycr'
+  },
+  {
+    label: '已完成',
+    value: 'done'
   }
   ]
 }

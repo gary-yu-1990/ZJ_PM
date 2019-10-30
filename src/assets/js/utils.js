@@ -6,6 +6,8 @@ import config from '../../config/config'
 // import { getStore } from './storage'
 
 const Dev_URL = config.Dev_URL
+const Due_URL = config.Due_URL
+
 const crossDomain = config.crossDomain
 
 /**
@@ -16,13 +18,10 @@ export const getFullUrl = (api) => {
 }
 
 export const getApiUrl = (api) => {
-    if (crossDomain) {
-        return Dev_URL + api // 开启跨域直接返回
-    }
     if (process.env.NODE_ENV === 'production') {
-        return Dev_URL + '/' + api
+        return Due_URL + api
     } else {
-        return '/api/' + api
+        return Dev_URL + api
     }
 }
 

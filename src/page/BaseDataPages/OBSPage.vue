@@ -213,6 +213,7 @@ export default {
       handType: "add",
       currentObsRow: "", //当前选择的OBS行
       formData: {
+        OBSCode:"",
         OBS_ID: "",
         OBS_Type: "",
         OBS_PID: "",
@@ -378,7 +379,7 @@ export default {
       });
     },
     ProjectChange() {
-      this.GetOBSData();
+      this.GetObsData();
     },
     GetOBSData() {
       GetOBSDataI().then(res => {

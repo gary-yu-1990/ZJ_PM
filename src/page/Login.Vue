@@ -1,5 +1,4 @@
 
-
 <template>
   <div class="loginBody">
     <div class="loginMain">
@@ -31,10 +30,8 @@
   </div>
 </template>
 
-
-
 <script>
-/*  
+/*
 import Co  o kies f rom "js-cookie";
 import { mapMutations, mapActions } from "vuex";
 import { mapState } from "vuex";
@@ -64,56 +61,56 @@ export default {
 };
 */
 
-import Cookies from "js-cookie";
-import { UserLogin } from "@/api/UsersInfoApi";
-import { mapMutations, mapActions } from "vuex";
-import { mapState } from "vuex";
-import { notice } from "@/assets/js/notice";
+import Cookies from 'js-cookie'
+import { UserLogin } from '@/api/UsersInfoApi'
+import { mapMutations, mapActions, mapState } from 'vuex'
+
+import { notice } from '@/assets/js/notice'
 
 export default {
-  name: "Login",
-  data() {
+  name: 'Login',
+  data () {
     return {
-      cid: "", //用户账号
-      password: "" //用户密码
-    };
+      cid: '', // 用户账号
+      password: '' // 用户密码
+    }
   },
   methods: {
-    //...mapMutations("navTabs", ["emptyTabList"]),
-    loginSubmit() {
-      if (this.cid === "") {
-        notice("请输入用户名！", "warning");
-        return;
+    // ...mapMutations("navTabs", ["emptyTabList"]),
+    loginSubmit () {
+      if (this.cid === '') {
+        notice('请输入用户名！', 'warning')
+        return
       }
-      if (this.password === "") {
-        notice("请输入密码！", "warning");
-        return;
+      if (this.password === '') {
+        notice('请输入密码！', 'warning')
+        return
       }
       let obj = {
         Cid: this.cid,
         PassWord: this.password
-      };
+      }
       UserLogin(obj).then(res => {
-        //方法执行完毕，传回数据之后，执行以下代码
+        // 方法执行完毕，传回数据之后，执行以下代码
         if (res.data.stopped == 1) {
-          notice("账户被禁用无法登陆", "warning");
-          return;
+          notice('账户被禁用无法登陆', 'warning')
+          return
         }
-        this.$store.dispatch("Init_Store");
-        this.$store.dispatch("SET_LOGGED", res.data);
+        // Cookies.set('UserName', res.data.UserName)
+        Cookies.set('UserName', this.cid)
+        this.$store.dispatch('Init_Store')
+        this.$store.dispatch('SET_LOGGED', res.data)
         // this.$store.dispatch("GET_Depts");
         // this.$store.dispatch("GET_Persons");
         this.$router.push({
-          path: "/Main"
-        });
-      });
+          path: '/Main'
+        })
+      })
     }
   },
-  created() {}
-};
+  created () {}
+}
 </script>
-
-
 
 <style scoped>
 .info {
@@ -218,5 +215,3 @@ export default {
   cursor: pointer;
 }
 </style>
-
-

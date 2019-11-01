@@ -49,7 +49,9 @@
               <li>
                 <el-dropdown>
                   <span class="el-dropdown-link">
-                    <el-avatar icon="el-icon-user-solid" style="vertical-align:middle;"></el-avatar>
+                    <span style="color:blue">欢迎您，{{UserName}}</span>
+
+                    <!-- <el-avatar icon="el-icon-user-solid" style="vertical-align:middle;"></el-avatar> -->
                     <i class="el-icon-arrow-down el-icon--right"></i>
                   </span>
                   <el-dropdown-menu slot="dropdown">
@@ -73,71 +75,80 @@
   </div>
 </template>
 <script>
-import { SearchProjects } from "@/api/ProjectInfoApi";
-import config from "../config/config";
-import { mapState } from "vuex";
-import EventUtil from "@/assets/js/EventUtil.js";
+
+import Cookies from 'js-cookie'
+import { SearchProjects } from '@/api/ProjectInfoApi'
+import config from '../config/config'
+import { mapState } from 'vuex'
+import EventUtil from '@/assets/js/EventUtil.js'
+import {SearchUsers} from '@/api/UsersInfoApi'
 export default {
-  data() {
+  data () {
     return {
       project_options: [],
-      activeIndex: "/ProjectManagerPages/ProjectInfo",
-      config: config
-    };
+      activeIndex: '/ProjectManagerPages/ProjectInfo',
+      config: config,
+      UserName: Cookies.get('UserName')
+    }
   },
-  created() {
+  created () {
     this.$router.push({
-      path: "/ProjectManagerPages/ProjectInfo"
-    });
+      path: '/ProjectManagerPages/ProjectInfo'
+    })
   },
-  name: "logout",
-  mounted() {
-    //查找项目信息
+  name: 'logout',
+  mounted () {
+    // 查找项目信息
     SearchProjects().then(res => {
-      this.project_options = res.data;
-    });
+      this.project_options = res.data
+    })
   },
   computed: {
     Projectvalue: {
-      get: function() {
-        return this.$store.state.ProjectID;
+      get: function () {
+        return this.$store.state.ProjectID
       },
-      set: function(val) {
-        this.$store.dispatch("SET_ProjectID", val);
+      set: function (val) {
+        this.$store.dispatch('SET_ProjectID', val)
       }
     }
   },
   methods: {
-    TaskClick(){
+    // GetUserName () {
+    //   SearchUsers().then(res => {
+    //     this.UserName = res.data.UserName
+    //   })
+    // },
+    TaskClick () {
       this.$router.push({
-        path: "/TaskPages/TaskInfo"
-      }); 
+        path: '/TaskPages/TaskInfo'
+      })
     },
-    logoClick() {
-      this.$store.dispatch("SET_ProjectID", "");
-      this.$router.push(config.HOME_PAGE);
+    logoClick () {
+      this.$store.dispatch('SET_ProjectID', '')
+      this.$router.push(config.HOME_PAGE)
     },
-    logout() {
-      this.$store.dispatch("Clear_Store");
+    logout () {
+      this.$store.dispatch('Clear_Store')
       this.$router.push({
-        path: "/"
-      }); //利用路由跳转页面，path为你定义的路由配置中要跳转页面的path
+        path: '/'
+      }) // 利用路由跳转页面，path为你定义的路由配置中要跳转页面的path
     },
-    developtoolClik() {
+    developtoolClik () {
       this.$router.push({
-        path: "/developSet"
-      });
+        path: '/developSet'
+      })
     },
-    ProjectChange(value) {
+    ProjectChange (value) {
       this.$router.push({
-        path: "/ProjectManagerPages/ProjectWBS"
-      });
-      if (this.$route.path == "/ProjectManagerPages/ProjectWBS") {
-        EventUtil.$emit("getWBSData");
+        path: '/ProjectManagerPages/ProjectWBS'
+      })
+      if (this.$route.path == '/ProjectManagerPages/ProjectWBS') {
+        EventUtil.$emit('getWBSData')
       }
     }
   }
-};
+}
 </script>
 
 <style scoped >
@@ -237,5 +248,3 @@ export default {
   font-size: 14px;
 }
 </style>
-
-
